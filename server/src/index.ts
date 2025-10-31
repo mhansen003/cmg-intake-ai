@@ -306,9 +306,19 @@ app.post('/api/submit', async (req: Request, res: Response) => {
 
     console.log('Form submission received:', formData);
     console.log('Attachments to include:', filePaths?.length || 0);
+    console.log('File paths received:', JSON.stringify(filePaths, null, 2));
     console.log('Send confirmation email?', formData.sendConfirmation, typeof formData.sendConfirmation);
     console.log('Requestor email:', formData.requestorEmail);
     console.log('Email service available?', !!emailService);
+
+    // Verify files exist before passing to ADO
+    if (filePaths && filePaths.length > 0) {
+      console.log('Verifying file existence:');
+      filePaths.forEach((filePath: string) => {
+        const exists = fs.existsSync(filePath);
+        console.log(`  ${filePath}: ${exists ? '✅ EXISTS' : '❌ NOT FOUND'}`);
+      });
+    }
 
     // Try to create work item in Azure DevOps (if configured)
     let adoWorkItem = null;

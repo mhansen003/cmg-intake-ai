@@ -49,10 +49,13 @@ export class AzureDevOpsService {
       const fileName = path.basename(filePath);
       const fileContent = fs.readFileSync(filePath);
 
-      console.log(`Uploading attachment: ${fileName}`);
+      console.log(`Uploading attachment: ${fileName} (${fileContent.length} bytes)`);
+
+      const uploadUrl = `https://dev.azure.com/${this.config.organization}/_apis/wit/attachments?fileName=${encodeURIComponent(fileName)}&api-version=7.1`;
+      console.log(`Upload URL: ${uploadUrl}`);
 
       const response = await axios.post(
-        `https://dev.azure.com/${this.config.organization}/_apis/wit/attachments?fileName=${encodeURIComponent(fileName)}&api-version=7.1`,
+        uploadUrl,
         fileContent,
         {
           headers: {
@@ -62,10 +65,14 @@ export class AzureDevOpsService {
         }
       );
 
-      console.log(`✅ Attachment uploaded: ${fileName}`);
+      console.log(`✅ Attachment uploaded: ${fileName} -> ${response.data.url}`);
       return response.data.url;
     } catch (error: any) {
       console.error(`❌ Error uploading attachment ${filePath}:`, error.message);
+      if (error.response) {
+        console.error('Response status:', error.response.status);
+        console.error('Response data:', JSON.stringify(error.response.data, null, 2));
+      }
       throw error;
     }
   }
@@ -123,10 +130,21 @@ export class AzureDevOpsService {
       // Upload attachments and add as relations
       if (attachmentPaths && attachmentPaths.length > 0) {
         console.log(`Uploading ${attachmentPaths.length} attachment(s)...`);
+        console.log('Attachment paths:', JSON.stringify(attachmentPaths, null, 2));
 
         for (const filePath of attachmentPaths) {
           try {
+            console.log(`Processing attachment: ${filePath}`);
+
+            // Check if file exists
+            if (!fs.existsSync(filePath)) {
+              console.error(`❌ File not found: ${filePath}`);
+              continue;
+            }
+
+            console.log(`✅ File exists, uploading: ${filePath}`);
             const attachmentUrl = await this.uploadAttachment(filePath);
+            console.log(`✅ Attachment uploaded successfully: ${attachmentUrl}`);
 
             // Add attachment as a relation to the work item
             patchDocument.push({
@@ -140,8 +158,10 @@ export class AzureDevOpsService {
                 }
               }
             });
-          } catch (error) {
-            console.error(`Failed to upload attachment ${filePath}, continuing...`);
+            console.log(`✅ Attachment added to patch document`);
+          } catch (error: any) {
+            console.error(`❌ Failed to upload attachment ${filePath}:`, error.message);
+            console.error('Error stack:', error.stack);
           }
         }
       }
