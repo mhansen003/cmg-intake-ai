@@ -320,6 +320,7 @@ function App() {
         {step === 'redirect-training' && analysisResult && (
           <TrainingRedirect
             reason={analysisResult.requestTypeReason}
+            userRequest={textInput}
             onContinueToForm={handleContinueToForm}
             onGoBack={handleReset}
           />

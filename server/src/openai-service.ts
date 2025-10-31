@@ -4,6 +4,10 @@ import path from 'path';
 import { CMGFormData, FORM_OPTIONS, AnalysisResult } from './types';
 import { identifyScenarioType, getFollowUpQuestions, getDepartmentSuggestions, getRiskLevel } from './mortgage-guidelines';
 
+// Load training catalog
+const trainingCatalogPath = path.join(__dirname, 'data', 'training-catalog.json');
+const trainingCatalog = JSON.parse(fs.readFileSync(trainingCatalogPath, 'utf-8'));
+
 // PDF parser will be loaded lazily only when needed to avoid serverless environment issues
 
 export class OpenAIService {
@@ -360,6 +364,90 @@ ${description}`;
     } catch (error) {
       console.error('Error enhancing description:', error);
       throw new Error('Failed to enhance description');
+    }
+  }
+
+  /**
+   * Recommend training courses based on user's issue description
+   */
+  async recommendTraining(userIssue: string): Promise<any> {
+    const systemPrompt = `You are an AI training recommendation assistant with access to 277 training courses across 21 categories at ThinkITHub.
+
+Your task is to analyze the user's issue and recommend 1-5 most relevant training courses from the training catalog.
+
+TRAINING CATALOG OVERVIEW:
+${JSON.stringify(trainingCatalog.categories.map(cat => ({
+  id: cat.id,
+  name: cat.name,
+  description: cat.description,
+  keywords: cat.keywords,
+  course_count: cat.course_count
+})), null, 2)}
+
+AVAILABLE QUICK ACCESS LINKS:
+${JSON.stringify(trainingCatalog.quick_access, null, 2)}
+
+Instructions:
+1. Analyze the user's issue to understand what they're struggling with
+2. Match keywords from the issue to relevant categories
+3. Select 1-5 most relevant courses that will help solve their specific problem
+4. Prioritize courses that directly address the user's need
+5. Include a mix of specific courses and general resources when appropriate
+6. For ILC (Instructor-Led Courses), note that they are live sessions
+
+Return a JSON response with this structure:
+{
+  "primaryRecommendation": {
+    "title": "course title",
+    "url": "full URL",
+    "description": "2-3 sentence description",
+    "duration": "duration",
+    "reason": "1-2 sentences explaining WHY this course is perfect for their issue"
+  },
+  "additionalRecommendations": [
+    {
+      "title": "course title",
+      "url": "full URL",
+      "description": "2-3 sentence description",
+      "duration": "duration",
+      "reason": "why this helps"
+    }
+  ],
+  "quickAccessLinks": [
+    {
+      "title": "Resource Hub or Catalog",
+      "url": "quick access URL",
+      "description": "what they'll find here"
+    }
+  ],
+  "summary": "A friendly 2-3 sentence summary explaining the recommended learning path"
+}`;
+
+    const userPrompt = `User's Issue: ${userIssue}
+
+Please recommend the most helpful training resources from the ThinkITHub catalog.`;
+
+    try {
+      const response = await this.openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        response_format: { type: 'json_object' },
+        temperature: 0.4
+      });
+
+      const recommendations = JSON.parse(response.choices[0]?.message?.content || '{}');
+
+      console.log('🎓 Training Recommendations Generated:');
+      console.log('   Primary:', recommendations.primaryRecommendation?.title);
+      console.log('   Additional:', recommendations.additionalRecommendations?.length || 0, 'courses');
+
+      return recommendations;
+    } catch (error) {
+      console.error('Error recommending training:', error);
+      throw new Error('Failed to generate training recommendations');
     }
   }
 }

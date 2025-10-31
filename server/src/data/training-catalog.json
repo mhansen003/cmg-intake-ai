@@ -1,0 +1,559 @@
+{
+  "metadata": {
+    "generated": "2025-10-30",
+    "version": "1.0",
+    "base_url": "https://www.thinkithub.com",
+    "total_courses": 277,
+    "total_categories": 21,
+    "purpose": "Training index for intelligent ticket routing system"
+  },
+  "quick_access": {
+    "course_catalog": "https://www.thinkithub.com/#/catalog/",
+    "resource_hub": "https://www.thinkithub.com/#/resources",
+    "micro_learning_videos": "https://www.thinkithub.com/#/resources?tags=c6a3a946-a1cf-4a9c-afae-a66a42ccf84b",
+    "recorded_webinars": "https://www.thinkithub.com/#/resources?tags=2c73e376-da9a-4fbc-9052-c95d128d00ae",
+    "instructor_led_training": "https://www.thinkithub.com/#/catalog/b89ca29e-2366-48e7-8aa9-08491f040bd6"
+  },
+  "categories": [
+    {
+      "id": "information-security",
+      "name": "Information Security",
+      "course_count": 15,
+      "description": "Cybersecurity training, data protection, phishing awareness, password security",
+      "keywords": ["security", "phishing", "password", "mfa", "authentication", "malware", "cybersecurity", "data protection"],
+      "courses": [
+        {
+          "title": "A Guide to Multifactor Authentication",
+          "url": "https://www.thinkithub.com/#/online-courses/36e6676c-4dea-49f9-9a88-ed95624ca6f9",
+          "uuid": "36e6676c-4dea-49f9-9a88-ed95624ca6f9",
+          "description": "Learn how multifactor authentication (MFA) protects your accounts and data. This course explains what MFA is, why it's essential for security, and how to set it up across various platforms to prevent unauthorized access.",
+          "duration": "15 minutes",
+          "tags": ["MFA", "Security", "Authentication"],
+          "use_for": ["MFA setup", "two-factor authentication", "login security", "account protection"]
+        },
+        {
+          "title": "Best Practices for Secure Internet Browsing",
+          "url": "https://www.thinkithub.com/#/online-courses/1123a054-b7b8-475e-a69f-676e09ae36cf",
+          "uuid": "1123a054-b7b8-475e-a69f-676e09ae36cf",
+          "description": "Discover essential security practices for safe internet browsing. This training covers recognizing secure websites, avoiding malicious links, using secure connections (HTTPS), and protecting personal information while online.",
+          "duration": "15 minutes",
+          "tags": ["Internet Security", "Safe Browsing", "Security Best Practices"],
+          "use_for": ["safe browsing", "avoiding malware", "secure web practices", "online safety"]
+        },
+        {
+          "title": "Creating and Managing Strong Passwords",
+          "url": "https://www.thinkithub.com/#/catalog/?search=password",
+          "uuid": null,
+          "description": "Master the art of creating and maintaining secure passwords. Learn best practices for password complexity, why password managers are essential, and how to avoid common password mistakes that compromise security.",
+          "duration": "15 minutes",
+          "tags": ["Password Security", "Account Protection"],
+          "use_for": ["password security", "password requirements", "account protection", "password management"]
+        },
+        {
+          "title": "Dealing With a Security Incident",
+          "url": "https://www.thinkithub.com/#/catalog/?search=security+incident",
+          "uuid": null,
+          "description": "Understand how to respond quickly and effectively to security incidents. This course covers recognizing security breaches, immediate response steps, who to contact, and how to minimize damage from security threats.",
+          "duration": "10 minutes",
+          "tags": ["Incident Response", "Security", "Emergency Procedures"],
+          "use_for": ["data breaches", "security response", "incident reporting", "security emergencies"]
+        },
+        {
+          "title": "Phishing 101",
+          "url": "https://www.thinkithub.com/#/catalog/?search=phishing",
+          "uuid": null,
+          "description": "Learn to identify and avoid phishing attacks that target employee credentials and sensitive data. This training explains common phishing tactics, warning signs to watch for, and how to report suspicious emails.",
+          "duration": "15 minutes",
+          "tags": ["Phishing", "Email Security", "Social Engineering"],
+          "use_for": ["suspicious emails", "phishing attempts", "email security", "social engineering attacks"]
+        },
+        {
+          "title": "Protection Against Malware",
+          "url": "https://www.thinkithub.com/#/catalog/?search=malware",
+          "uuid": null,
+          "description": "Protect your systems from viruses, ransomware, and other malicious software. Learn how malware spreads, signs of infection, prevention strategies, and what to do if you suspect malware on your device.",
+          "duration": "15 minutes",
+          "tags": ["Malware", "Virus Protection", "Ransomware"],
+          "use_for": ["viruses", "ransomware", "malware removal", "antivirus", "system protection"]
+        },
+        {
+          "title": "Safeguarding Against Business Email Compromise",
+          "url": "https://www.thinkithub.com/#/catalog/?search=business+email+compromise",
+          "uuid": null,
+          "description": "Understand business email compromise (BEC) attacks and how to prevent them. Learn to recognize fraudulent requests, verify suspicious communications, and protect company funds and sensitive information from email scams.",
+          "duration": "15 minutes",
+          "tags": ["BEC", "Email Fraud", "Security"],
+          "use_for": ["email fraud", "wire fraud", "CEO fraud", "BEC attacks", "email scams"]
+        }
+      ]
+    },
+    {
+      "id": "time-management",
+      "name": "Time Management",
+      "course_count": 13,
+      "description": "Productivity techniques, scheduling, efficiency, work-life balance",
+      "keywords": ["time management", "productivity", "scheduling", "efficiency", "calendar", "inbox", "organization"],
+      "courses": [
+        {
+          "title": "4 Surprising Symptoms of Poor Time Management",
+          "url": "https://www.thinkithub.com/#/online-courses/a1365f93-0960-4554-8d4f-13a5abdb357a",
+          "uuid": "a1365f93-0960-4554-8d4f-13a5abdb357a",
+          "description": "Discover the subtle signs of poor time management that impact productivity. This course explores chronic lateness, disorganization, broken commitments, and declining performance, providing practical strategies to regain control of your schedule.",
+          "duration": "10 minutes",
+          "tags": ["Time Management", "Productivity", "Soft Skills"],
+          "use_for": ["time management problems", "productivity issues", "schedule management", "organization"]
+        },
+        {
+          "title": "5 Scheduling Tips for Time Management",
+          "url": "https://www.thinkithub.com/#/online-courses/df4a1962-7b0b-4090-9182-8f6a7c209853",
+          "uuid": "df4a1962-7b0b-4090-9182-8f6a7c209853",
+          "description": "Master effective scheduling techniques to maximize your productivity. Learn five proven strategies for organizing your calendar, prioritizing tasks, blocking time effectively, and maintaining focus throughout your workday.",
+          "duration": "15 minutes",
+          "tags": ["Scheduling", "Time Management", "Productivity"],
+          "use_for": ["calendar management", "scheduling", "daily planning", "time blocking"]
+        },
+        {
+          "title": "5 Tips to Take Control of Your Inbox",
+          "url": "https://www.thinkithub.com/#/online-courses/991ff18a-a975-4219-ae60-e004219de74f",
+          "uuid": "991ff18a-a975-4219-ae60-e004219de74f",
+          "description": "Tame email overload with five practical inbox management strategies. Learn to organize messages efficiently, reduce email clutter, respond faster, and prevent your inbox from becoming a source of stress and lost productivity.",
+          "duration": "15 minutes",
+          "tags": ["Email Management", "Productivity", "Organization"],
+          "use_for": ["email management", "inbox organization", "email overload", "email efficiency"]
+        },
+        {
+          "title": "7 Tips for Effective Time Management at Work",
+          "url": "https://www.thinkithub.com/#/online-courses/8ba24f12-02e7-4082-8dbb-f47af9032c6e",
+          "uuid": "8ba24f12-02e7-4082-8dbb-f47af9032c6e",
+          "description": "Transform your workday with seven powerful time management techniques. This course covers prioritization methods, avoiding distractions, batch processing tasks, and creating systems that help you accomplish more in less time.",
+          "duration": "15 minutes",
+          "tags": ["Time Management", "Workplace Productivity", "Efficiency"],
+          "use_for": ["work efficiency", "task management", "workplace productivity", "prioritization"]
+        }
+      ]
+    },
+    {
+      "id": "leadership-management",
+      "name": "Leadership and Management",
+      "course_count": 16,
+      "description": "Team leadership, management skills, supervision, coaching",
+      "keywords": ["leadership", "management", "manager", "supervisor", "team lead", "coaching", "remote work"],
+      "courses": [
+        {
+          "title": "6 Practices to Become a Better Leader",
+          "url": "https://www.thinkithub.com/#/online-courses/0d01dcc6-d8c1-47a7-85f7-06899773d7fe",
+          "uuid": "0d01dcc6-d8c1-47a7-85f7-06899773d7fe",
+          "description": "Develop essential leadership skills with six proven practices. Learn to inspire and motivate teams, communicate vision effectively, make better decisions, build trust, and create a positive workplace culture that drives results.",
+          "duration": "15 minutes",
+          "tags": ["Leadership", "Management", "Professional Development"],
+          "use_for": ["leadership skills", "becoming a better leader", "leadership development", "team leadership"]
+        },
+        {
+          "title": "7 New Manager Mistakes to Avoid",
+          "url": "https://www.thinkithub.com/#/online-courses/2aecbb44-2ee6-4ec0-8aca-cd9ae7eba538",
+          "uuid": "2aecbb44-2ee6-4ec0-8aca-cd9ae7eba538",
+          "description": "Navigate the transition to management successfully by avoiding common pitfalls. This course identifies seven mistakes new managers often make and provides strategies to build credibility, delegate effectively, and lead with confidence from day one.",
+          "duration": "25 minutes",
+          "tags": ["New Managers", "Management", "Leadership"],
+          "use_for": ["new manager training", "management basics", "first-time managers", "manager transition"]
+        },
+        {
+          "title": "Best Practices for Managing Remote Teams",
+          "url": "https://www.thinkithub.com/#/online-courses/1cdc06e3-e071-4e74-92d3-b60feceb1628",
+          "uuid": "1cdc06e3-e071-4e74-92d3-b60feceb1628",
+          "description": "Master the unique challenges of leading distributed teams. Learn communication strategies, tools for remote collaboration, maintaining team culture, measuring productivity, and keeping remote employees engaged and connected.",
+          "duration": "15 minutes",
+          "tags": ["Remote Work", "Team Management", "Virtual Teams"],
+          "use_for": ["remote work", "virtual teams", "distributed workforce", "remote management"]
+        }
+      ]
+    },
+    {
+      "id": "project-management",
+      "name": "Project Management",
+      "course_count": 17,
+      "description": "Project planning, execution, scope management, PM best practices",
+      "keywords": ["project", "scope", "planning", "execution", "deliverables", "stakeholders"],
+      "courses": [
+        {
+          "title": "5 Project Management Mistakes to Avoid",
+          "url": "https://www.thinkithub.com/#/online-courses/d082ff95-339a-49a9-ae6e-be79478ee983",
+          "uuid": "d082ff95-339a-49a9-ae6e-be79478ee983",
+          "description": "Learn from common project management failures and how to prevent them. This course covers poor planning, inadequate risk management, communication breakdowns, scope creep, and resource misalignment to help you deliver successful projects.",
+          "duration": "25 minutes",
+          "tags": ["Project Management", "Best Practices", "Risk Management"],
+          "use_for": ["project failures", "PM best practices", "project planning", "avoiding mistakes"]
+        },
+        {
+          "title": "Addressing Scope Creep",
+          "url": "https://www.thinkithub.com/#/online-courses/eb55cb84-7435-423a-a937-4390d9e02019",
+          "uuid": "eb55cb84-7435-423a-a937-4390d9e02019",
+          "description": "Prevent projects from spiraling out of control with effective scope management. Learn to identify scope creep early, set clear boundaries, manage stakeholder expectations, and keep projects on track and within budget.",
+          "duration": "25 minutes",
+          "tags": ["Scope Management", "Project Management", "Change Control"],
+          "use_for": ["scope management", "project boundaries", "requirement changes", "scope control"]
+        }
+      ]
+    },
+    {
+      "id": "mortgage-fundamentals",
+      "name": "Mortgage Fundamentals",
+      "course_count": 54,
+      "description": "Lending basics, underwriting, processing, loan guidelines",
+      "keywords": ["mortgage", "loan", "underwriting", "processing", "income", "credit", "appraisal", "closing", "FHA", "conventional"],
+      "courses": [
+        {
+          "title": "Analyzing Income for the Self-Employed Borrower",
+          "url": "https://www.thinkithub.com/#/online-courses/25a5e01e-8f29-4145-8e80-fd1752b60220",
+          "uuid": "25a5e01e-8f29-4145-8e80-fd1752b60220",
+          "description": "Master the complexities of calculating income for self-employed borrowers. This comprehensive course covers tax return analysis, acceptable documentation, business income calculation, and how to determine qualifying income for mortgage approval.",
+          "duration": "1 hour",
+          "tags": ["Income Analysis", "Self-Employed", "Underwriting"],
+          "use_for": ["self-employed income", "tax returns", "business income calculations", "1040 analysis"]
+        },
+        {
+          "title": "AUS Findings",
+          "url": "https://www.thinkithub.com/#/online-courses/70609d0f-bce6-4946-b8cb-e5104d9a29fe",
+          "uuid": "70609d0f-bce6-4946-b8cb-e5104d9a29fe",
+          "description": "Understand Automated Underwriting System (AUS) results and how to work with them. Learn to interpret Desktop Underwriter (DU) and Loan Prospector (LP) findings, address conditions, and determine the best path forward for loan approval.",
+          "duration": "1 hour",
+          "tags": ["AUS", "Desktop Underwriter", "Loan Prospector"],
+          "use_for": ["DU findings", "LP results", "underwriting conditions", "AUS", "approve/eligible"]
+        },
+        {
+          "title": "All About E-Consent",
+          "url": "https://www.thinkithub.com/#/online-courses/67d1d45e-1a53-48f5-847c-668e91c58fa3",
+          "uuid": "67d1d45e-1a53-48f5-847c-668e91c58fa3",
+          "description": "Learn electronic consent requirements for mortgage documents. This course explains e-signature regulations, compliance requirements, proper disclosure procedures, and how to obtain valid electronic consent from borrowers.",
+          "duration": "20 minutes",
+          "tags": ["E-Consent", "Compliance", "Electronic Signatures"],
+          "use_for": ["electronic signatures", "e-consent", "digital documents", "e-sign"]
+        },
+        {
+          "title": "Behind the Closing Table - Patriot Act Borrower Documentation",
+          "url": "https://www.thinkithub.com/#/online-courses/878f8f5c-c28c-4448-a1d1-1ce601cc1c89",
+          "uuid": "878f8f5c-c28c-4448-a1d1-1ce601cc1c89",
+          "description": "Understand Patriot Act compliance requirements for borrower identification. Learn what documentation is required, how to verify identities properly, maintain compliance, and avoid common mistakes in customer identification programs.",
+          "duration": "Variable",
+          "tags": ["Patriot Act", "Compliance", "ID Verification"],
+          "use_for": ["Patriot Act", "borrower ID", "compliance", "CIP requirements", "identification"]
+        },
+        {
+          "title": "Behind the Closing Table - Rescore vs Supplements",
+          "url": "https://www.thinkithub.com/#/online-courses/0a31a971-86d0-4c72-9f63-c4d04f3f9287",
+          "uuid": "0a31a971-86d0-4c72-9f63-c4d04f3f9287",
+          "description": "Learn when to use rapid rescores versus credit supplements. This training explains the differences between these credit improvement methods, timing considerations, cost factors, and which option delivers better results in various scenarios.",
+          "duration": "Variable",
+          "tags": ["Credit Rescores", "Credit Reports", "Credit Management"],
+          "use_for": ["credit rescores", "credit supplements", "improving credit scores", "rapid rescore"]
+        },
+        {
+          "title": "Behind the Closing Table - Section H Fees",
+          "url": "https://www.thinkithub.com/#/online-courses/a6abd4f0-a86b-4b58-9b16-7d53dfc0fc85",
+          "uuid": "a6abd4f0-a86b-4b58-9b16-7d53dfc0fc85",
+          "description": "Master the intricacies of Section H fees on the Closing Disclosure. Learn which fees belong in this section, how to disclose them correctly, tolerance requirements, and how to avoid costly disclosure errors that could delay closing.",
+          "duration": "Variable",
+          "tags": ["Closing Disclosure", "TRID", "Fees"],
+          "use_for": ["Closing Disclosure", "Section H", "fee disclosure", "CD preparation", "TRID"]
+        },
+        {
+          "title": "Behind the Closing Table - When to Use the Work Number",
+          "url": "https://www.thinkithub.com/#/online-courses/88d2e924-f8d2-4d68-92b2-1e4ee2ccbe69",
+          "uuid": "88d2e924-f8d2-4d68-92b2-1e4ee2ccbe69",
+          "description": "Understand when and how to use The Work Number for employment verification. Learn the benefits of automated verification, when traditional VOEs are still required, and best practices for obtaining quick and reliable employment confirmation.",
+          "duration": "5 minutes",
+          "tags": ["Employment Verification", "The Work Number", "VOE"],
+          "use_for": ["employment verification", "The Work Number", "VOE", "income verification"]
+        }
+      ]
+    },
+    {
+      "id": "customer-service",
+      "name": "Customer Service",
+      "course_count": 7,
+      "description": "Client interaction, customer satisfaction, service quality",
+      "keywords": ["customer", "client", "service", "communication", "empathy", "listening"],
+      "courses": [
+        {
+          "title": "7 Types of Customer Service",
+          "url": "https://www.thinkithub.com/#/online-courses/1f3acad9-bb5a-42d4-8bc0-77c91e0cdd26",
+          "uuid": "1f3acad9-bb5a-42d4-8bc0-77c91e0cdd26",
+          "description": "Explore seven distinct customer service approaches and when to use each. Learn about proactive service, reactive support, self-service options, and how to match your service style to customer needs for maximum satisfaction and loyalty.",
+          "duration": "20 minutes",
+          "tags": ["Customer Service", "Service Types", "Client Relations"],
+          "use_for": ["customer service styles", "service delivery", "client support"]
+        },
+        {
+          "title": "Active Listening with Empathy",
+          "url": "https://www.thinkithub.com/#/online-courses/0a98520c-7a3b-4407-8789-22281c672226",
+          "uuid": "0a98520c-7a3b-4407-8789-22281c672226",
+          "description": "Develop powerful listening skills that build trust and understanding. Learn active listening techniques, how to demonstrate empathy effectively, read non-verbal cues, and make customers feel truly heard and valued.",
+          "duration": "2 minutes",
+          "tags": ["Active Listening", "Empathy", "Communication"],
+          "use_for": ["listening skills", "empathy", "customer communication", "understanding clients"]
+        },
+        {
+          "title": "A Guide to Empathy at Work",
+          "url": "https://www.thinkithub.com/#/online-courses/5baedb7f-40ba-42a1-90a6-3ff8dffa9ea0",
+          "uuid": "5baedb7f-40ba-42a1-90a6-3ff8dffa9ea0",
+          "description": "Build stronger workplace relationships through empathy. This comprehensive course teaches the difference between empathy and sympathy, how to understand others' perspectives, respond compassionately, and create a more supportive work environment.",
+          "duration": "50 minutes",
+          "tags": ["Empathy", "Workplace Relations", "Emotional Intelligence"],
+          "use_for": ["workplace empathy", "emotional intelligence", "colleague relationships"]
+        }
+      ]
+    },
+    {
+      "id": "health-wellness",
+      "name": "Health and Wellness",
+      "course_count": 14,
+      "description": "Physical health, mental wellbeing, fitness, work-life balance",
+      "keywords": ["health", "wellness", "fitness", "exercise", "wellbeing", "heart", "stress"],
+      "courses": [
+        {
+          "title": "6 Reasons People Don't Exercise and How to Overcome Them",
+          "url": "https://www.thinkithub.com/#/online-courses/c5b303bc-a11b-4da4-8265-6e7d274b2b68",
+          "uuid": "c5b303bc-a11b-4da4-8265-6e7d274b2b68",
+          "description": "Break through common exercise barriers and build lasting fitness habits. Learn to overcome time constraints, lack of motivation, intimidation, fatigue, and other obstacles that prevent people from staying active and healthy.",
+          "duration": "20 minutes",
+          "tags": ["Exercise", "Fitness", "Health"],
+          "use_for": ["exercise motivation", "fitness barriers", "starting exercise"]
+        },
+        {
+          "title": "8 Signs Your Body Gives You A Month Before A Heart Attack",
+          "url": "https://www.thinkithub.com/#/online-courses/57f754bd-bf19-4a8d-99d9-4f9691777d25",
+          "uuid": "57f754bd-bf19-4a8d-99d9-4f9691777d25",
+          "description": "Recognize critical warning signs of heart problems before they become life-threatening. This essential training identifies eight subtle symptoms that may indicate heart issues, empowering you to seek medical attention early and potentially save your life.",
+          "duration": "10 minutes",
+          "tags": ["Heart Health", "Health Awareness", "Prevention"],
+          "use_for": ["heart health", "warning signs", "health awareness", "prevention"]
+        },
+        {
+          "title": "A Beginner's Guide to Exercise",
+          "url": "https://www.thinkithub.com/#/online-courses/d0118d06-81ed-464a-81c1-39afb8a210a9",
+          "uuid": "d0118d06-81ed-464a-81c1-39afb8a210a9",
+          "description": "Start your fitness journey with confidence using this comprehensive beginner's guide. Learn about different types of exercise, how to create a balanced routine, proper form basics, and how to progress safely as you build strength and endurance.",
+          "duration": "15 minutes",
+          "tags": ["Exercise", "Fitness", "Beginner"],
+          "use_for": ["starting exercise", "fitness basics", "workout routines", "beginner fitness"]
+        },
+        {
+          "title": "Applying the FITT Principle to Your Workouts",
+          "url": "https://www.thinkithub.com/#/online-courses/2af0abe9-9fe0-46f0-8c71-eae7a81a4f33",
+          "uuid": "2af0abe9-9fe0-46f0-8c71-eae7a81a4f33",
+          "description": "Optimize your exercise program using the FITT principle (Frequency, Intensity, Time, Type). Learn how to structure workouts effectively, progress safely, avoid plateaus, and achieve your fitness goals more efficiently.",
+          "duration": "20 minutes",
+          "tags": ["Workout Planning", "Exercise", "FITT Principle"],
+          "use_for": ["workout planning", "exercise programming", "fitness optimization"]
+        }
+      ]
+    },
+    {
+      "id": "systems-software",
+      "name": "Systems & Software",
+      "course_count": 17,
+      "description": "Internal tools, platforms, software training",
+      "keywords": ["system", "software", "tool", "platform", "ACES", "Azure", "portal", "application"],
+      "courses": [
+        {
+          "title": "ACES Portal User Training",
+          "url": "https://www.thinkithub.com/#/online-courses/0de4d2b7-6218-43f1-ab19-372c4fdda99e",
+          "uuid": "0de4d2b7-6218-43f1-ab19-372c4fdda99e",
+          "description": "Master the ACES Portal with comprehensive user training. Learn to navigate the interface, access key features, process loans efficiently, generate reports, and troubleshoot common issues to maximize your productivity with this essential tool.",
+          "duration": "36 minutes",
+          "tags": ["ACES Portal", "System Training", "Software"],
+          "use_for": ["ACES Portal", "system navigation", "portal issues", "ACES help"]
+        },
+        {
+          "title": "Azure SSO Tutorial",
+          "url": "https://www.thinkithub.com/#/online-courses/9a612aa5-a10a-4cb9-ad7a-bf87a84f1025",
+          "uuid": "9a612aa5-a10a-4cb9-ad7a-bf87a84f1025",
+          "description": "Learn to use Azure Single Sign-On for seamless authentication across applications. This tutorial covers SSO setup, accessing integrated applications, troubleshooting login issues, and managing your Azure identity for secure, convenient access.",
+          "duration": "Variable",
+          "tags": ["Azure", "SSO", "Authentication"],
+          "use_for": ["Azure SSO", "single sign-on", "authentication", "Azure login"]
+        }
+      ]
+    },
+    {
+      "id": "professional-development",
+      "name": "Professional Development",
+      "course_count": 15,
+      "description": "Career growth, skills development, learning",
+      "keywords": ["development", "career", "growth", "skills", "training", "learning"],
+      "courses": [
+        {
+          "title": "6 Tips for Successful Peer-to-Peer Training",
+          "url": "https://www.thinkithub.com/#/online-courses/ae6ba1dd-15af-42a0-b584-0a3f6ce9c134",
+          "uuid": "ae6ba1dd-15af-42a0-b584-0a3f6ce9c134",
+          "description": "Become an effective peer trainer with six proven techniques. Learn how to share knowledge clearly, engage learners, provide constructive feedback, adapt to different learning styles, and create training experiences that truly stick.",
+          "duration": "25 minutes",
+          "tags": ["Training", "Peer Learning", "Knowledge Sharing"],
+          "use_for": ["training others", "knowledge sharing", "peer education", "teaching colleagues"]
+        }
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "course_count": 14,
+      "description": "Advertising, campaigns, marketing compliance",
+      "keywords": ["marketing", "advertising", "campaign", "social media", "compliance", "TRID"],
+      "courses": [
+        {
+          "title": "Advertising: The Latest",
+          "url": "https://www.thinkithub.com/#/online-courses/983c34d0-26cd-4bea-8b70-cf2e331062b6",
+          "uuid": "983c34d0-26cd-4bea-8b70-cf2e331062b6",
+          "description": "Stay current with the latest trends and regulations in mortgage advertising. Learn about compliance requirements, TRID advertising rules, social media marketing guidelines, and how to create effective, compliant marketing campaigns.",
+          "duration": "25 minutes",
+          "tags": ["Marketing", "Advertising", "Compliance"],
+          "use_for": ["marketing compliance", "advertising rules", "TRID marketing", "compliant advertising"]
+        }
+      ]
+    },
+    {
+      "id": "instructor-led-training",
+      "name": "Instructor-Led Training (ILCs)",
+      "course_count": 10,
+      "description": "Live interactive training sessions with instructors",
+      "keywords": ["ILC", "live training", "webinar", "instructor", "session"],
+      "courses": [
+        {
+          "title": "Advanced Variable Income with Essent (Processing & UW) (ILC)",
+          "url": "https://www.thinkithub.com/#/online-courses/d8cd9048-fb66-4e4c-8e78-a2d0e905e2a8",
+          "uuid": "d8cd9048-fb66-4e4c-8e78-a2d0e905e2a8",
+          "description": "Deep dive into complex variable income calculations with Essent guidelines for processors and underwriters. This advanced instructor-led session covers overtime, bonus, commission income, and how to properly calculate and document variable income sources.",
+          "duration": "Live session",
+          "format": "Instructor-Led Course",
+          "tags": ["Variable Income", "Income Calculation", "Essent"],
+          "use_for": ["variable income", "complex income", "Essent guidelines", "income calculations"]
+        },
+        {
+          "title": "CMG Product Overview w/ Matt Hemphill (ILC)",
+          "url": "https://www.thinkithub.com/#/catalog/b89ca29e-2366-48e7-8aa9-08491f040bd6",
+          "uuid": null,
+          "description": "Comprehensive overview of CMG Financial's complete product suite presented by Matt Hemphill. Learn about conventional, government, and specialty loan programs, competitive advantages, and how to match the right products to borrower needs.",
+          "duration": "Live session",
+          "format": "Instructor-Led Course",
+          "rating": "5/5 (3 reviews)",
+          "tags": ["CMG Products", "Loan Programs", "Product Training"],
+          "use_for": ["CMG products", "loan programs", "product features", "product training"]
+        },
+        {
+          "title": "FHA Refinance Options (ILC)",
+          "url": "https://www.thinkithub.com/#/catalog/b89ca29e-2366-48e7-8aa9-08491f040bd6",
+          "uuid": null,
+          "description": "Master FHA refinance programs including rate/term refis and FHA Streamline refinances. This live training covers eligibility requirements, documentation needs, benefits to borrowers, and common mistakes to avoid when processing FHA refinances.",
+          "duration": "Live session",
+          "format": "Instructor-Led Course",
+          "tags": ["FHA", "Refinance", "Government Loans"],
+          "use_for": ["FHA refinancing", "streamline refinance", "FHA programs", "government refinance"]
+        },
+        {
+          "title": "Mastering Rescores: Policy, Procedure & CreditXpert Demo (ILC)",
+          "url": "https://www.thinkithub.com/#/catalog/b89ca29e-2366-48e7-8aa9-08491f040bd6",
+          "uuid": null,
+          "description": "Become proficient in the rescore process with hands-on CreditXpert training. Learn company policies, step-by-step procedures, when rescores are appropriate, and how to use CreditXpert tools to help borrowers improve credit scores quickly.",
+          "duration": "Live session",
+          "format": "Instructor-Led Course",
+          "tags": ["Credit Rescores", "CreditXpert", "Credit Improvement"],
+          "use_for": ["credit rescores", "CreditXpert", "score improvement", "credit repair"]
+        },
+        {
+          "title": "Monthly Surefire Training (ILC)",
+          "url": "https://www.thinkithub.com/#/catalog/b89ca29e-2366-48e7-8aa9-08491f040bd6",
+          "uuid": null,
+          "description": "Stay up-to-date with Surefire CRM platform features and best practices. These monthly sessions cover new functionality, tips and tricks, campaign optimization, and how to leverage Surefire to generate more business and improve client communication.",
+          "duration": "Live session (monthly)",
+          "format": "Instructor-Led Course",
+          "tags": ["Surefire", "CRM", "Marketing Automation"],
+          "use_for": ["Surefire CRM", "marketing automation", "CRM training", "Surefire help"]
+        }
+      ]
+    }
+  ],
+  "routing_rules": [
+    {
+      "keywords": ["password", "mfa", "login", "authentication", "account locked"],
+      "category_id": "information-security",
+      "recommended_courses": ["36e6676c-4dea-49f9-9a88-ed95624ca6f9"],
+      "priority": "high"
+    },
+    {
+      "keywords": ["phishing", "suspicious email", "scam", "fraud email"],
+      "category_id": "information-security",
+      "recommended_courses": [],
+      "search_term": "phishing",
+      "priority": "high"
+    },
+    {
+      "keywords": ["time management", "productivity", "overwhelmed", "too much work"],
+      "category_id": "time-management",
+      "recommended_courses": ["a1365f93-0960-4554-8d4f-13a5abdb357a", "8ba24f12-02e7-4082-8dbb-f47af9032c6e"],
+      "priority": "medium"
+    },
+    {
+      "keywords": ["new manager", "first time manager", "manager training"],
+      "category_id": "leadership-management",
+      "recommended_courses": ["2aecbb44-2ee6-4ec0-8aca-cd9ae7eba538"],
+      "priority": "high"
+    },
+    {
+      "keywords": ["remote work", "virtual team", "work from home"],
+      "category_id": "leadership-management",
+      "recommended_courses": ["1cdc06e3-e071-4e74-92d3-b60feceb1628"],
+      "priority": "medium"
+    },
+    {
+      "keywords": ["self-employed", "1099", "tax returns", "business income"],
+      "category_id": "mortgage-fundamentals",
+      "recommended_courses": ["25a5e01e-8f29-4145-8e80-fd1752b60220"],
+      "priority": "high"
+    },
+    {
+      "keywords": ["DU findings", "LP", "AUS", "underwriting system", "approve eligible"],
+      "category_id": "mortgage-fundamentals",
+      "recommended_courses": ["70609d0f-bce6-4946-b8cb-e5104d9a29fe"],
+      "priority": "high"
+    },
+    {
+      "keywords": ["credit score", "rescore", "rapid rescore", "credit supplement"],
+      "category_id": "mortgage-fundamentals",
+      "recommended_courses": ["0a31a971-86d0-4c72-9f63-c4d04f3f9287"],
+      "priority": "high"
+    },
+    {
+      "keywords": ["ACES", "portal", "ACES portal"],
+      "category_id": "systems-software",
+      "recommended_courses": ["0de4d2b7-6218-43f1-ab19-372c4fdda99e"],
+      "priority": "high"
+    },
+    {
+      "keywords": ["Azure", "SSO", "single sign-on", "Azure login"],
+      "category_id": "systems-software",
+      "recommended_courses": ["9a612aa5-a10a-4cb9-ad7a-bf87a84f1025"],
+      "priority": "high"
+    },
+    {
+      "keywords": ["Surefire", "CRM", "marketing automation"],
+      "category_id": "instructor-led-training",
+      "recommended_courses": [],
+      "search_term": "Surefire",
+      "priority": "medium"
+    }
+  ],
+  "response_templates": {
+    "with_course": {
+      "subject": "Training Resource: {{course_title}}",
+      "body": "Hi {{user_name}},\n\nBased on your question about {{issue_topic}}, I recommend this training:\n\n📚 **{{course_title}}**\n🔗 {{course_url}}\n⏱️ Duration: {{duration}}\n\n📝 **What you'll learn:**\n{{description}}\n\nThis training will help you {{benefit}}.\n\nStill need assistance after completing the training? Just reply to this ticket.\n\nBest regards,\nSupport Team"
+    },
+    "multiple_courses": {
+      "subject": "Training Resources for {{issue_category}}",
+      "body": "Hi {{user_name}},\n\nI found several training resources that address your question about {{issue_topic}}:\n\n{{#courses}}\n📚 **{{title}}** ({{duration}})\n🔗 {{url}}\n{{description}}\n\n{{/courses}}\n\nI recommend starting with \"{{primary_course}}\" as it directly addresses your question.\n\nNeed more help? Reply to this ticket anytime.\n\nBest regards,\nSupport Team"
+    },
+    "ilc_recommendation": {
+      "subject": "Live Training Available: {{ilc_title}}",
+      "body": "Hi {{user_name}},\n\nFor your question about {{issue_topic}}, we offer live instructor-led training:\n\n📚 **{{ilc_title}}**\n🗓️ Check available sessions: {{ilc_url}}\n👨‍🏫 Interactive format with Q&A\n\n{{description}}\n\nThis live session allows you to ask questions specific to your situation.\n\nBest regards,\nSupport Team"
+    }
+  }
+}

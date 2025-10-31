@@ -204,6 +204,33 @@ app.post('/api/enhance-description', async (req: Request, res: Response) => {
   }
 });
 
+// Get training recommendations endpoint
+app.post('/api/recommend-training', async (req: Request, res: Response) => {
+  try {
+    const { userIssue } = req.body;
+
+    if (!userIssue || userIssue.trim().length === 0) {
+      return res.status(400).json({
+        error: 'User issue description is required and cannot be empty'
+      });
+    }
+
+    console.log('Generating training recommendations for issue...');
+    const recommendations = await openaiService.recommendTraining(userIssue);
+
+    res.json({
+      recommendations,
+      success: true
+    });
+  } catch (error: any) {
+    console.error('Error in /api/recommend-training:', error);
+    res.status(500).json({
+      error: 'Failed to generate training recommendations',
+      message: error.message
+    });
+  }
+});
+
 // Submit final form (this would typically save to a database or forward to the actual Microsoft Form)
 app.post('/api/submit', async (req: Request, res: Response) => {
   try {
