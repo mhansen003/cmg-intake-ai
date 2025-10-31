@@ -79,7 +79,7 @@ export class AzureDevOpsService {
       const description = this.buildDescription(formData);
 
       // Build the JSON Patch document for creating the work item
-      const patchDocument = [
+      const patchDocument: any[] = [
         {
           op: 'add',
           path: '/fields/System.Title',
