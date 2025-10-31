@@ -9,10 +9,16 @@
     "build:server": "cd server && npm run build",
     "build:client": "cd client && npm run build"
   },
-  "keywords": ["cmg", "change-management", "ai", "openai"],
+  "keywords": [
+    "cmg",
+    "change-management",
+    "ai",
+    "openai"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.2",
     "axios": "^1.13.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -20,7 +26,8 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.10",
     "openai": "^6.7.0",
-    "pdf-parse": "^2.4.5"
+    "pdf-parse": "^2.4.5",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

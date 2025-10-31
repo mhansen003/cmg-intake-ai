@@ -1,7 +1,12 @@
 import axios from 'axios';
 import type { AnalysisResult, CMGFormData, FormOptions, SubmissionResult } from './types';
 
-const API_BASE_URL = 'https://intake.cmgfinancial.ai/api';
+// Use environment-aware API URL
+// In development: uses Vite proxy to localhost:3001
+// In production: uses production API URL
+const API_BASE_URL = import.meta.env.PROD
+  ? 'https://intake.cmgfinancial.ai/api'
+  : '/api'; // Vite will proxy this to localhost:3001
 
 const api = axios.create({
   baseURL: API_BASE_URL,
