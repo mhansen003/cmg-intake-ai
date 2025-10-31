@@ -500,6 +500,22 @@ function App() {
                 </div>
               </div>
             )}
+            <div className="submission-info" style={{ marginTop: '1.5rem', padding: '1rem', backgroundColor: '#fff3e0', borderLeft: '4px solid #ff9800', borderRadius: '4px' }}>
+              <strong style={{ color: '#e65100' }}>📊 Track All Change Requests</strong>
+              <div style={{ marginTop: '0.5rem' }}>
+                <p style={{ margin: '0.5rem 0', fontSize: '0.95rem', color: '#555' }}>
+                  View the status of all change management requests in our dashboard:
+                </p>
+                <a
+                  href="https://cmgfi.domo.com/page/1476743719"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#ff9800', textDecoration: 'underline', fontWeight: 600 }}
+                >
+                  Open Change Management Dashboard →
+                </a>
+              </div>
+            </div>
             <button className="btn-primary" onClick={handleReset}>
               Submit Another Request
             </button>

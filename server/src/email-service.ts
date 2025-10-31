@@ -208,6 +208,13 @@ export class EmailService {
       htmlParts.push('</div>');
     }
 
+    // Add Domo Dashboard link
+    htmlParts.push('<div style="background-color: #fff3e0; padding: 15px; border-left: 4px solid #ff9800; margin: 20px 0;">');
+    htmlParts.push(`<h3 style="color: #2b3e50; margin-top: 0;">📊 Track All Change Requests</h3>`);
+    htmlParts.push(`<p>View the status of all change management requests in our dashboard:</p>`);
+    htmlParts.push(`<p><a href="https://cmgfi.domo.com/page/1476743719" style="color: #ff9800; text-decoration: none; font-weight: 600;">Open Change Management Dashboard →</a></p>`);
+    htmlParts.push('</div>');
+
     htmlParts.push('<h3 style="color: #2b3e50;">Request Details:</h3>');
     htmlParts.push(`<p><strong>Title:</strong> ${this.escapeHtml(ticketTitle)}</p>`);
     htmlParts.push(`<div style="background-color: #f5f5f5; padding: 15px; border-left: 4px solid #9bc53d; margin: 10px 0;">`);
