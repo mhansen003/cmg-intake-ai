@@ -249,6 +249,9 @@ app.post('/api/submit', async (req: Request, res: Response) => {
 
     console.log('Form submission received:', formData);
     console.log('Attachments to include:', filePaths?.length || 0);
+    console.log('Send confirmation email?', formData.sendConfirmation, typeof formData.sendConfirmation);
+    console.log('Requestor email:', formData.requestorEmail);
+    console.log('Email service available?', !!emailService);
 
     // Try to create work item in Azure DevOps (if configured)
     let adoWorkItem = null;

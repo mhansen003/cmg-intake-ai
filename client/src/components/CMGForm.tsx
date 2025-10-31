@@ -18,7 +18,7 @@ const CMGForm: React.FC<CMGFormProps> = ({
 }) => {
   const handleInputChange = (
     field: keyof CMGFormData,
-    value: string | string[]
+    value: string | string[] | boolean
   ) => {
     onChange({ ...formData, [field]: value });
   };
@@ -128,7 +128,7 @@ const CMGForm: React.FC<CMGFormProps> = ({
             <input
               type="checkbox"
               checked={formData.sendConfirmation !== false} // Default to true
-              onChange={(e) => handleInputChange('sendConfirmation', e.target.checked as any)}
+              onChange={(e) => handleInputChange('sendConfirmation', e.target.checked)}
             />
             <span>Send me a confirmation email with ticket summary and link</span>
           </label>
