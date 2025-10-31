@@ -208,14 +208,30 @@ const CMGForm: React.FC<CMGFormProps> = ({
         </>
       )}
 
-      <div className="form-actions">
+      {/* Add padding at bottom to prevent content from being hidden behind floating button */}
+      <div style={{ height: '100px' }}></div>
+
+      {/* Floating submit button */}
+      <div className="floating-submit-container">
         <button
           type="button"
-          className="submit-btn"
+          className="submit-btn floating-submit-btn"
           onClick={onSubmit}
           disabled={!isFormValid() || isSubmitting}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Request'}
+          {isSubmitting ? (
+            <>
+              <span className="spinner-small"></span>
+              Submitting...
+            </>
+          ) : (
+            <>
+              <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              Submit Request
+            </>
+          )}
         </button>
       </div>
     </div>

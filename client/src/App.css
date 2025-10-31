@@ -792,6 +792,68 @@ body {
   background: #cbd5e0;
 }
 
+/* Floating Submit Button Container */
+.floating-submit-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 70%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.floating-submit-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  min-width: 240px;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(155, 197, 61, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.floating-submit-btn:hover:not(:disabled) {
+  box-shadow: 0 12px 24px rgba(155, 197, 61, 0.4);
+  transform: translateY(-3px);
+}
+
+.floating-submit-btn .btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 8px 16px rgba(155, 197, 61, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 20px rgba(155, 197, 61, 0.5);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .floating-submit-container {
+    padding: 1rem;
+  }
+
+  .floating-submit-btn {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+}
+
 .btn-secondary {
   background: #e2e8f0;
   color: #2d3748;
