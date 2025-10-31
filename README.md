@@ -4,6 +4,7 @@ An AI-powered Change Management Request submission system that automatically ext
 
 ## 🚀 Features
 
+### Web Interface
 - **Drag & Drop File Upload**: Support for PDFs, images (JPG, PNG, GIF, WebP), and text documents
 - **AI-Powered Extraction**: Uses OpenAI GPT-4o to intelligently read and extract form data
 - **Image Analysis**: OCR and image understanding using GPT-4 Vision API
@@ -12,6 +13,13 @@ An AI-powered Change Management Request submission system that automatically ext
 - **Clarification Flow**: Asks targeted questions when information is missing or ambiguous
 - **Confidence Scoring**: Shows AI confidence level for extracted data
 - **Modern UI**: Beautiful, responsive interface with real-time feedback
+
+### Voice Agent Integration (NEW!)
+- **MCP Server**: Model Context Protocol server for AI agent integration
+- **Retell AI Compatible**: Voice agents can create tickets via natural conversation
+- **Azure DevOps Integration**: Automatically creates work items in ADO
+- **Dual Interface**: Works via both web form and voice calls
+- **Vercel Ready**: Deploy as serverless function or persistent server
 
 ## 📋 Form Fields
 
@@ -31,6 +39,8 @@ The system automatically extracts:
 - **OpenAI API**: GPT-4o for text and vision analysis
 - **Multer**: File upload handling
 - **pdf-parse**: PDF text extraction
+- **MCP SDK**: Model Context Protocol for AI agent integration
+- **Azure DevOps API**: Automatic work item creation
 
 ### Frontend
 - **React** + **TypeScript**: Component-based UI
@@ -221,12 +231,77 @@ Edit `client/src/App.css` to customize the UI appearance
 - Make sure backend is running on port 3001
 - Check that frontend is making requests to `http://localhost:3001`
 
+## 🎙️ Voice Agent Integration (MCP Server)
+
+This project now includes an **MCP (Model Context Protocol) server** that allows AI voice agents like Retell AI to create Azure DevOps tickets through natural conversation!
+
+### Quick Start
+
+**For Vercel Deployment** (Recommended):
+```bash
+# Deploy to Vercel
+vercel --prod
+
+# Your MCP endpoint will be:
+# https://your-app.vercel.app/api/mcp
+```
+
+See [WHICH_MCP_VERSION.md](./WHICH_MCP_VERSION.md) for choosing between HTTP and STDIO versions.
+
+### Documentation
+
+- **[QUICK_START_MCP.md](./QUICK_START_MCP.md)** - Get started in 3 steps
+- **[VERCEL_MCP_DEPLOYMENT.md](./VERCEL_MCP_DEPLOYMENT.md)** - Deploy to Vercel (detailed)
+- **[MCP_SERVER_SETUP.md](./MCP_SERVER_SETUP.md)** - Full reference guide
+- **[MCP_ARCHITECTURE.md](./MCP_ARCHITECTURE.md)** - Technical deep-dive
+- **[ADO_INTEGRATION_SETUP.md](./ADO_INTEGRATION_SETUP.md)** - Azure DevOps setup
+- **[WHICH_MCP_VERSION.md](./WHICH_MCP_VERSION.md)** - Choose the right version
+
+### How It Works
+
+```
+User Voice Call → Retell AI → MCP Server → Azure DevOps API → Work Item Created
+```
+
+1. User speaks to Retell AI: _"I need to report a bug..."_
+2. Retell AI collects: description, name, email
+3. Calls MCP tool: `create_ado_ticket`
+4. MCP server creates ADO work item
+5. Returns work item ID to user
+
+### Configure Retell AI
+
+In your Retell AI dashboard:
+- **MCP URL**: `https://your-app.vercel.app/api/mcp`
+- **Timeout**: 10000 ms
+
+See [VERCEL_MCP_DEPLOYMENT.md](./VERCEL_MCP_DEPLOYMENT.md) for detailed steps.
+
+## 🔗 Azure DevOps Integration
+
+Forms submitted through either the web interface or voice agent automatically create work items in Azure DevOps.
+
+### Setup
+
+1. Create an Azure DevOps Personal Access Token (PAT)
+2. Add to `server/.env`:
+   ```env
+   ADO_ORGANIZATION=cmgfidev
+   ADO_PROJECT=EX Intake and Change Management
+   ADO_PAT=your_personal_access_token
+   ADO_AREA_PATH=EX Intake and Change Management
+   ADO_ITERATION_PATH=EX Intake and Change Management
+   ```
+
+See [ADO_INTEGRATION_SETUP.md](./ADO_INTEGRATION_SETUP.md) for detailed instructions.
+
 ## 📝 Future Enhancements
 
+- [x] Azure DevOps integration
+- [x] Voice agent integration (MCP server)
 - [ ] Direct integration with Microsoft Forms API
 - [ ] Database storage for submissions
 - [ ] Email notifications
-- [ ] Ticket tracking system integration
 - [ ] Support for additional file formats (Excel, PowerPoint)
 - [ ] User authentication and authorization
 - [ ] Submission history and analytics

@@ -459,14 +459,15 @@ app.post('/api/ado/search', async (req: Request, res: Response) => {
       });
     }
 
-    const { searchText, workItemType, state, maxResults } = req.body;
+    const { searchText, workItemType, state, project, maxResults } = req.body;
 
-    console.log('Searching ADO work items:', { searchText, workItemType, state, maxResults });
+    console.log('Searching ADO work items:', { searchText, workItemType, state, project, maxResults });
 
     const workItems = await adoService.searchWorkItems({
       searchText,
       workItemType: workItemType || 'User Story',
       state,
+      project,  // Can be 'All Projects' or specific project name
       maxResults: maxResults || 50
     });
 

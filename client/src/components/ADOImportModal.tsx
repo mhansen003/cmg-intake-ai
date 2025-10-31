@@ -12,6 +12,7 @@ export default function ADOImportModal({ isOpen, onClose, onImport }: ADOImportM
   const [searchText, setSearchText] = useState('');
   const [workItemType, setWorkItemType] = useState('User Story');
   const [state, setState] = useState('');
+  const [project, setProject] = useState('All Projects');
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState<ADOWorkItem[]>([]);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
@@ -22,6 +23,7 @@ export default function ADOImportModal({ isOpen, onClose, onImport }: ADOImportM
     if (isOpen) {
       setSearchText('');
       setState('');
+      setProject('All Projects');
       setSearchResults([]);
       setSelectedIds(new Set());
       setError(null);
@@ -41,6 +43,7 @@ export default function ADOImportModal({ isOpen, onClose, onImport }: ADOImportM
         searchText: query.trim() || undefined,
         workItemType,
         state: state || undefined,
+        project,
         maxResults: 50
       });
 
@@ -135,6 +138,26 @@ export default function ADOImportModal({ isOpen, onClose, onImport }: ADOImportM
 
             <div className="ado-filters">
               <div className="ado-filter-group">
+                <label htmlFor="project">Project</label>
+                <select
+                  id="project"
+                  value={project}
+                  onChange={(e) => setProject(e.target.value)}
+                  className="ado-filter-select"
+                >
+                  <option value="All Projects">All Projects</option>
+                  <option value="EX Intake and Change Management">EX Intake and Change Management</option>
+                  <option value="AIO Portal">AIO Portal</option>
+                  <option value="Build and Lock Portal">Build and Lock Portal</option>
+                  <option value="Clear">Clear</option>
+                  <option value="HomeFundIt">HomeFundIt</option>
+                  <option value="List and Lock">List and Lock</option>
+                  <option value="Marketing Hub">Marketing Hub</option>
+                  <option value="SmartApp">SmartApp</option>
+                </select>
+              </div>
+
+              <div className="ado-filter-group">
                 <label htmlFor="workItemType">Work Item Type</label>
                 <select
                   id="workItemType"
@@ -215,6 +238,11 @@ export default function ADOImportModal({ isOpen, onClose, onImport }: ADOImportM
                     <div className="ado-work-item-content">
                       <div className="ado-work-item-header">
                         <span className="ado-work-item-id">#{workItem.id}</span>
+                        {workItem.fields['System.TeamProject'] && (
+                          <span className="ado-work-item-project">
+                            {workItem.fields['System.TeamProject']}
+                          </span>
+                        )}
                         <span className={`ado-work-item-state state-${workItem.fields['System.State'].toLowerCase().replace(/\s+/g, '-')}`}>
                           {workItem.fields['System.State']}
                         </span>

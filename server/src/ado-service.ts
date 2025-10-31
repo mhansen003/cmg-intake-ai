@@ -300,21 +300,27 @@ export class AzureDevOpsService {
 
   /**
    * Search for work items using WIQL (Work Item Query Language)
+   * Can search across all projects or a specific project
    */
   async searchWorkItems(searchParams: {
     searchText?: string;
     workItemType?: string;
     state?: string;
+    project?: string; // Optional: search specific project, or omit for all projects
     maxResults?: number;
   }): Promise<ADOWorkItem[]> {
     try {
-      const { searchText, workItemType = 'User Story', state, maxResults = 50 } = searchParams;
+      const { searchText, workItemType = 'User Story', state, project, maxResults = 50 } = searchParams;
 
       // Build WIQL query
       const conditions: string[] = [
-        `[System.TeamProject] = '${this.config.project}'`,
         `[System.WorkItemType] = '${workItemType}'`
       ];
+
+      // Add project filter only if specified (otherwise search all projects)
+      if (project && project !== 'All Projects') {
+        conditions.push(`[System.TeamProject] = '${project.replace(/'/g, "''")}'`);
+      }
 
       if (searchText && searchText.trim().length > 0) {
         conditions.push(`[System.Title] CONTAINS '${searchText.replace(/'/g, "''")}'`);
@@ -333,13 +339,19 @@ export class AzureDevOpsService {
 
       console.log('Executing WIQL query:', wiql);
 
+      // For organization-wide queries, use the organization-level endpoint
+      const queryUrl = project && project !== 'All Projects'
+        ? '/_apis/wit/wiql?api-version=7.1'  // Project-scoped
+        : `https://dev.azure.com/${this.config.organization}/_apis/wit/wiql?api-version=7.1`; // Org-wide
+
       // Execute WIQL query to get work item IDs
-      const queryResponse = await this.client.post(
-        '/_apis/wit/wiql?api-version=7.1',
+      const queryResponse = await axios.post(
+        queryUrl,
         { query: wiql },
         {
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Basic ${Buffer.from(`:${this.config.personalAccessToken}`).toString('base64')}`
           }
         }
       );
@@ -357,8 +369,8 @@ export class AzureDevOpsService {
 
       console.log(`Found ${workItemRefs.length} work items, fetching details for ${workItemIds.length}...`);
 
-      // Fetch full work item details in batch
-      const workItems = await this.getWorkItemsByIds(workItemIds);
+      // Fetch full work item details in batch (organization-wide)
+      const workItems = await this.getWorkItemsByIds(workItemIds, true);
 
       console.log(`✅ Retrieved ${workItems.length} work items`);
       return workItems;
@@ -374,8 +386,10 @@ export class AzureDevOpsService {
 
   /**
    * Get multiple work items by their IDs
+   * @param ids - Array of work item IDs
+   * @param useOrgLevel - If true, uses organization-level endpoint (for cross-project queries)
    */
-  async getWorkItemsByIds(ids: number[]): Promise<ADOWorkItem[]> {
+  async getWorkItemsByIds(ids: number[], useOrgLevel: boolean = false): Promise<ADOWorkItem[]> {
     try {
       if (ids.length === 0) {
         return [];
@@ -389,6 +403,7 @@ export class AzureDevOpsService {
         'System.Description',
         'System.State',
         'System.WorkItemType',
+        'System.TeamProject',  // Include project name
         'System.CreatedDate',
         'System.ChangedDate',
         'System.Tags',
@@ -396,8 +411,18 @@ export class AzureDevOpsService {
         'System.IterationPath'
       ].join(',');
 
-      const response = await this.client.get(
-        `/_apis/wit/workitems?ids=${idsParam}&fields=${fieldsParam}&api-version=7.1`
+      // Use organization-level endpoint for cross-project queries
+      const baseUrl = useOrgLevel
+        ? `https://dev.azure.com/${this.config.organization}`
+        : this.baseUrl;
+
+      const response = await axios.get(
+        `${baseUrl}/_apis/wit/workitems?ids=${idsParam}&fields=${fieldsParam}&api-version=7.1`,
+        {
+          headers: {
+            'Authorization': `Basic ${Buffer.from(`:${this.config.personalAccessToken}`).toString('base64')}`
+          }
+        }
       );
 
       return response.data.value || [];

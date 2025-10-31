@@ -117,6 +117,7 @@ export interface ADOWorkItem {
     'System.Description'?: string;
     'System.State': string;
     'System.WorkItemType': string;
+    'System.TeamProject'?: string;  // Project name
     'System.CreatedDate'?: string;
     'System.ChangedDate'?: string;
     'System.Tags'?: string;
@@ -130,6 +131,7 @@ export interface SearchADOParams {
   searchText?: string;
   workItemType?: string;
   state?: string;
+  project?: string;  // 'All Projects' or specific project name
   maxResults?: number;
 }
 

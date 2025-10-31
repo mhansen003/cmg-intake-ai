@@ -11,9 +11,17 @@
     {
       "src": "api/index.ts",
       "use": "@vercel/node"
+    },
+    {
+      "src": "api/mcp.ts",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/mcp",
+      "dest": "/api/mcp.ts"
+    },
     {
       "src": "/api/(.*)",
       "dest": "/api/index.ts"
