@@ -7,11 +7,24 @@ interface HelpGuideProps {
 
 const HelpGuide: React.FC<HelpGuideProps> = ({ onWatchVideo, onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
 
   const handleToggle = () => {
     const newState = !isExpanded;
     setIsExpanded(newState);
     onToggle(newState);
+  };
+
+  const handlePlayVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsVideoPlaying(true);
+    }
+  };
+
+  const handleVideoPause = () => {
+    setIsVideoPlaying(false);
   };
 
   return (
@@ -74,13 +87,24 @@ const HelpGuide: React.FC<HelpGuideProps> = ({ onWatchVideo, onToggle }) => {
             <p>Check the pre-filled information, make any edits, and submit your request.</p>
           </div>
 
-          <button className="help-video-btn" onClick={onWatchVideo}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Watch Intro Video
-          </button>
+          <div className="help-video-container">
+            <video
+              ref={videoRef}
+              className="help-embedded-video"
+              onPause={handleVideoPause}
+              onPlay={() => setIsVideoPlaying(true)}
+              controls
+            >
+              <source src="/demo-video.mp4" type="video/mp4" />
+            </video>
+            {!isVideoPlaying && (
+              <button className="video-play-overlay" onClick={handlePlayVideo}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            )}
+          </div>
 
           <div className="help-tips">
             <h4>💡 Pro Tips</h4>

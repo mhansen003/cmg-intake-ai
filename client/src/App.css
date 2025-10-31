@@ -72,7 +72,7 @@ body {
 }
 
 .header-title {
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 1.5rem;
   margin: 0;
   font-weight: 600;
@@ -1592,6 +1592,55 @@ body {
 
 .help-tips li {
   margin-bottom: 0.5rem;
+}
+
+/* Help Video Embed */
+.help-video-container {
+  position: relative;
+  width: 100%;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.help-embedded-video {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+
+.video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(155, 197, 61, 0.95);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.video-play-overlay:hover {
+  background: rgba(155, 197, 61, 1);
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.video-play-overlay svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+  margin-left: 4px;
 }
 
 /* Header Video Button */

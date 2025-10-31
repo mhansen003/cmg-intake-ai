@@ -29,6 +29,7 @@ function App() {
   const [isEnhancing, setIsEnhancing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
+  const [adoWorkItem, setAdoWorkItem] = useState<{ id: number; url: string } | null>(null);
   const [showSplash, setShowSplash] = useState(false);
   const [isHelpExpanded, setIsHelpExpanded] = useState(true);
 
@@ -143,6 +144,7 @@ function App() {
     try {
       const result = await submitForm(formData as CMGFormData);
       setSubmissionId(result.submissionId || null);
+      setAdoWorkItem(result.adoWorkItem || null);
       setStep('success');
     } catch (error: any) {
       console.error('Error submitting form:', error);
@@ -161,6 +163,7 @@ function App() {
     setClarificationQuestions([]);
     setError(null);
     setSubmissionId(null);
+    setAdoWorkItem(null);
   };
 
   return (
@@ -176,13 +179,6 @@ function App() {
             <h1 className="header-title">Change Management Intake</h1>
           </div>
           <div className="header-right">
-            <button className="btn-header-video" onClick={() => setShowSplash(true)}>
-              <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Watch Intro
-            </button>
             <button className="btn-header" onClick={handleReset}>
               <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -356,6 +352,23 @@ function App() {
             {submissionId && (
               <div className="submission-info">
                 <strong>Submission ID:</strong> {submissionId}
+              </div>
+            )}
+            {adoWorkItem && (
+              <div className="submission-info" style={{ marginTop: '1rem' }}>
+                <strong>✅ Azure DevOps Ticket Created:</strong>
+                <div style={{ marginTop: '0.5rem' }}>
+                  <strong>Work Item #{adoWorkItem.id}</strong>
+                  <br />
+                  <a
+                    href={`https://dev.azure.com/cmgfidev/EX%20Intake%20and%20Change%20Management/_workitems/edit/${adoWorkItem.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: '#4CAF50', textDecoration: 'underline' }}
+                  >
+                    View in Azure DevOps →
+                  </a>
+                </div>
               </div>
             )}
             <button className="btn-primary" onClick={handleReset}>

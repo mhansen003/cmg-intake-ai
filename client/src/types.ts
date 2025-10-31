@@ -32,4 +32,9 @@ export interface SubmissionResult {
   message: string;
   submissionId?: string;
   data?: CMGFormData;
+  adoWorkItem?: {
+    id: number;
+    url: string;
+  };
+  adoError?: string;
 }
