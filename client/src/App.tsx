@@ -170,6 +170,12 @@ function App() {
     setAdoWorkItem(null);
   };
 
+  const handleGoBackToUpload = () => {
+    // Go back to upload step without clearing user data
+    setStep('upload');
+    setError(null);
+  };
+
   return (
     <div className="app">
       <header className="app-header">
@@ -313,7 +319,7 @@ function App() {
             requestText={textInput}
             attachmentPaths={analysisResult.filePaths}
             onContinueToForm={handleContinueToForm}
-            onGoBack={handleReset}
+            onGoBack={handleGoBackToUpload}
           />
         )}
 
@@ -322,7 +328,7 @@ function App() {
             reason={analysisResult.requestTypeReason}
             userRequest={textInput}
             onContinueToForm={handleContinueToForm}
-            onGoBack={handleReset}
+            onGoBack={handleGoBackToUpload}
           />
         )}
 

@@ -41,7 +41,8 @@ const TrainingRedirect: React.FC<TrainingRedirectProps> = ({
     const fetchRecommendations = async () => {
       try {
         setLoading(true);
-        const response = await axios.post('http://localhost:3001/api/recommend-training', {
+        // Use relative URL to work in both dev and production
+        const response = await axios.post('/api/recommend-training', {
           userIssue: userRequest
         });
 
