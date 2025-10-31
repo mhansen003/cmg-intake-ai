@@ -34,6 +34,15 @@ function App() {
   const [isHelpExpanded, setIsHelpExpanded] = useState(true);
 
   useEffect(() => {
+    // Toggle body class based on help panel state
+    if (isHelpExpanded) {
+      document.body.classList.remove('help-collapsed');
+    } else {
+      document.body.classList.add('help-collapsed');
+    }
+  }, [isHelpExpanded]);
+
+  useEffect(() => {
     // Check if this is first visit
     const hasSeenSplash = localStorage.getItem('cmg-intake-hide-splash');
     if (!hasSeenSplash) {

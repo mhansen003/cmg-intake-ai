@@ -32,7 +32,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onClose }) => {
         <div className="splash-video">
           <video
             controls
-            autoPlay
             playsInline
             className="demo-video"
           >
