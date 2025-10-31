@@ -1,0 +1,29 @@
+CMG CHANGE REQUEST - URGENT
+
+Title: SmartApp Document Upload Enhancement
+
+Description:
+We need to update the SmartApp platform to support bulk document uploads for loan processing.
+Currently, loan officers can only upload one document at a time, which is causing significant
+delays in the processing workflow.
+
+This enhancement will integrate with the Document Vendor system and add automated document
+classification using OCR technology. The feature needs to support PDF, JPEG, and PNG formats.
+
+The change will impact the Processing and Underwriting teams, as they will be the primary users
+of this new functionality. We also need to update the Automation platform to trigger automatic
+document categorization workflows.
+
+This affects the Retail and Wholesale channels primarily, though the JV channel may also benefit
+from these improvements.
+
+Additional Requirements:
+- Support for batch uploads (up to 50 documents)
+- Real-time progress indicators
+- Integration with existing Clear Docs system
+- Notification system for failed uploads
+- Audit trail for compliance tracking
+
+Expected Completion: Q1 2025
+Priority: High
+Requested by: Processing Department Lead
