@@ -100,13 +100,21 @@ function App() {
         setStep('redirect-training');
       } else {
         // For change management requests, generate AI-powered clarification questions
+        setStep('processing'); // Show loading while generating questions
         try {
           const questions = await generateWizardQuestions(
             result.extractedData.title || '',
             result.extractedData.description || ''
           );
-          setWizardQuestions(questions);
-          setStep('wizard');
+          console.log('Received questions:', questions);
+
+          if (questions && questions.length > 0) {
+            setWizardQuestions(questions);
+            setStep('wizard');
+          } else {
+            console.warn('No questions returned, skipping wizard');
+            setStep('form');
+          }
         } catch (error) {
           console.error('Error generating wizard questions:', error);
           // Fallback: skip wizard and go to form
@@ -124,13 +132,21 @@ function App() {
     // User overrides AI classification and wants to proceed to CM form
     // Show wizard first for change management requests
     if (formData.title || formData.description) {
+      setStep('processing'); // Show loading
       try {
         const questions = await generateWizardQuestions(
           formData.title || '',
           formData.description || ''
         );
-        setWizardQuestions(questions);
-        setStep('wizard');
+        console.log('Received questions:', questions);
+
+        if (questions && questions.length > 0) {
+          setWizardQuestions(questions);
+          setStep('wizard');
+        } else {
+          console.warn('No questions returned, skipping wizard');
+          setStep('form');
+        }
       } catch (error) {
         console.error('Error generating wizard questions:', error);
         // Fallback: go directly to form
@@ -364,8 +380,8 @@ function App() {
         {step === 'processing' && (
           <div className="processing-section">
             <div className="spinner"></div>
-            <h2>Analyzing Your Request...</h2>
-            <p>Our AI is reading and extracting information from your content.</p>
+            <h2>{analysisResult ? 'Preparing Clarification Questions...' : 'Analyzing Your Request...'}</h2>
+            <p>{analysisResult ? 'Generating targeted questions to complete your request.' : 'Our AI is reading and extracting information from your content.'}</p>
           </div>
         )}
 

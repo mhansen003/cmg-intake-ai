@@ -379,13 +379,14 @@ ${description}`;
    * Generate 1-3 relevant clarification questions based on the request
    */
   async generateClarificationQuestions(title: string, description: string): Promise<Array<{ question: string; placeholder: string; key: string }>> {
-    const guidelinesPath = path.join(__dirname, '..', '..', '..', 'Mortgage_Change_Management_AI_Guidelines.txt');
+    const guidelinesPath = path.join(__dirname, '..', '..', 'Mortgage_Change_Management_AI_Guidelines.txt');
     let guidelinesContent = '';
 
     try {
       guidelinesContent = fs.readFileSync(guidelinesPath, 'utf-8');
+      console.log('✅ Loaded guidelines file successfully');
     } catch (error) {
-      console.warn('Could not load guidelines file, using default behavior');
+      console.warn('⚠️  Could not load guidelines file:', error);
     }
 
     const systemPrompt = `You are an expert mortgage change management analyst. Based on the user's request, generate 1-3 highly relevant clarification questions that will help gather the most critical missing information needed to create a complete Azure DevOps ticket.
@@ -400,21 +401,24 @@ Your task:
 5. Each question should be directly relevant to the specific request (NOT generic)
 6. Questions should help identify: affected systems, stakeholders, timeline, requirements, dependencies, risk level
 
-Return a JSON array of 1-3 question objects:
-[
-  {
-    "question": "Specific question text ending with ?",
-    "placeholder": "Example answer to guide the user",
-    "key": "snake_case_identifier"
-  }
-]
+Return a JSON object with a "questions" array containing 1-3 question objects:
+{
+  "questions": [
+    {
+      "question": "Specific question text ending with ?",
+      "placeholder": "Example answer to guide the user",
+      "key": "snake_case_identifier"
+    }
+  ]
+}
 
 IMPORTANT:
 - Questions must be specific to THIS request, not generic
 - Focus on the most critical missing information
 - Use mortgage industry terminology where appropriate
 - Keep questions clear and concise
-- Provide helpful placeholder examples`;
+- Provide helpful placeholder examples
+- Always return at least 1 question`;
 
     const userPrompt = `Request Title: ${title}
 
@@ -423,6 +427,8 @@ Request Description: ${description}
 Generate 1-3 most relevant clarification questions for this specific change management request.`;
 
     try {
+      console.log('Generating clarification questions for:', title);
+
       const response = await this.openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
@@ -436,20 +442,29 @@ Generate 1-3 most relevant clarification questions for this specific change mana
 
       const content = response.choices[0]?.message?.content;
       if (!content) {
+        console.error('❌ No content in OpenAI response');
         throw new Error('No response from OpenAI');
       }
 
+      console.log('OpenAI response received:', content.substring(0, 200) + '...');
       const parsed = JSON.parse(content);
 
       // Handle both array response and object with "questions" key
       const questions = Array.isArray(parsed) ? parsed : (parsed.questions || []);
 
+      if (!questions || questions.length === 0) {
+        console.warn('⚠️  OpenAI returned empty questions array, using fallback');
+        throw new Error('Empty questions array');
+      }
+
       // Ensure we have 1-3 questions
-      return questions.slice(0, 3);
+      const finalQuestions = questions.slice(0, 3);
+      console.log(`✅ Generated ${finalQuestions.length} clarification questions`);
+      return finalQuestions;
     } catch (error) {
-      console.error('Error generating clarification questions:', error);
+      console.error('❌ Error generating clarification questions:', error);
       // Return default fallback questions
-      return [
+      const fallbackQuestions = [
         {
           question: 'What specific systems or processes are affected by this change?',
           placeholder: 'e.g., Encompass LOS, underwriting workflow, payment processing...',
@@ -459,8 +474,15 @@ Generate 1-3 most relevant clarification questions for this specific change mana
           question: 'What is the desired timeline or deadline for this change?',
           placeholder: 'e.g., End of Q1 2024, before regulatory deadline, ASAP...',
           key: 'timeline'
+        },
+        {
+          question: 'Who are the key stakeholders that need to be involved or informed?',
+          placeholder: 'e.g., Underwriting team, IT department, compliance officer...',
+          key: 'stakeholders'
         }
       ];
+      console.log('Using fallback questions');
+      return fallbackQuestions;
     }
   }
 
