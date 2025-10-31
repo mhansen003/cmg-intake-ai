@@ -171,7 +171,7 @@ function App() {
   };
 
   return (
-    <div className={`app ${!isHelpExpanded ? 'help-collapsed' : ''}`}>
+    <div className={`app ${isHelpExpanded ? 'help-expanded' : 'help-collapsed'}`}>
       <header className="app-header">
         <div className="header-container">
           <div className="header-left">
@@ -383,9 +383,51 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>
-          Powered by OpenAI GPT-4 • Built for CMG Change Management
-        </p>
+        <div className="footer-content">
+          <div className="footer-section">
+            <div className="footer-logo">
+              <span className="logo-cmg">CMG</span>
+              <span className="logo-financial">FINANCIAL</span>
+            </div>
+            <p style={{ fontSize: '0.85rem', lineHeight: '1.6', marginTop: '0.5rem' }}>
+              Change Management Intake
+              <br />
+              Powered by AI
+            </p>
+          </div>
+
+          <div className="footer-section">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="https://www.cmgfi.com" target="_blank" rel="noopener noreferrer">CMG Financial</a></li>
+              <li><a href="https://www.cmgfi.com/about" target="_blank" rel="noopener noreferrer">About Us</a></li>
+              <li><a href="https://www.cmgfi.com/careers" target="_blank" rel="noopener noreferrer">Careers</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); handleReset(); }}>Create New Request</a></li>
+              <li><a href="https://www.cmgfi.com/contact" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h4>Technology</h4>
+            <ul>
+              <li><a href="https://openai.com" target="_blank" rel="noopener noreferrer">Powered by OpenAI GPT-4</a></li>
+              <li><a href="https://azure.microsoft.com/en-us/products/devops" target="_blank" rel="noopener noreferrer">Azure DevOps Integration</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} CMG Financial. All rights reserved. | NMLS# 1820</p>
+          <p style={{ marginTop: '0.5rem' }}>
+            AI-powered Change Management Intake System
+          </p>
+        </div>
       </footer>
 
       {/* Help Guide Sidebar */}
