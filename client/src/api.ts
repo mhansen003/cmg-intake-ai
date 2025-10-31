@@ -91,3 +91,18 @@ export const sendSupportEmail = async (params: SendSupportEmailParams): Promise<
   const response = await api.post('/send-support-email', params);
   return response.data;
 };
+
+export const uploadAdditionalFiles = async (files: File[]): Promise<string[]> => {
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append('files', file);
+  });
+
+  const response = await api.post('/upload-additional-files', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data.filePaths;
+};

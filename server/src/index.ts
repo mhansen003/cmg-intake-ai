@@ -120,6 +120,36 @@ app.get('/api/form-options', (req: Request, res: Response) => {
   res.json(FORM_OPTIONS);
 });
 
+// Upload additional files endpoint (for last-minute attachments)
+app.post('/api/upload-additional-files', upload.array('files', 10), async (req: Request, res: Response) => {
+  try {
+    const files = req.files as Express.Multer.File[];
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({
+        error: 'No files uploaded'
+      });
+    }
+
+    console.log('Additional files uploaded:', files.length);
+
+    // Return file paths for later use in ADO submission
+    const filePaths = files.map(f => f.path);
+
+    res.json({
+      success: true,
+      filePaths,
+      count: files.length
+    });
+  } catch (error: any) {
+    console.error('Error in /api/upload-additional-files:', error);
+    res.status(500).json({
+      error: 'Failed to upload additional files',
+      message: error.message
+    });
+  }
+});
+
 // Analyze content endpoint
 app.post('/api/analyze', upload.array('files', 10), async (req: Request, res: Response) => {
   try {

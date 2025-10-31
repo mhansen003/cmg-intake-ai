@@ -12,6 +12,7 @@ import {
   submitForm,
   enhanceDescription,
   generateWizardQuestions,
+  uploadAdditionalFiles,
 } from './api';
 import type { CMGFormData, FormOptions, AnalysisResult } from './types';
 import { formatWizardAnswers } from './utils/wizardQuestions';
@@ -35,6 +36,7 @@ function App() {
   const [adoWorkItem, setAdoWorkItem] = useState<{ id: number; url: string } | null>(null);
   const [isHelpExpanded, setIsHelpExpanded] = useState(true);
   const [wizardQuestions, setWizardQuestions] = useState<WizardQuestion[]>([]);
+  const [additionalFiles, setAdditionalFiles] = useState<File[]>([]); // Last-minute attachments
 
   useEffect(() => {
     // Toggle body class based on help panel state
@@ -212,9 +214,23 @@ function App() {
     setError(null);
 
     try {
+      // Upload additional files if any
+      let additionalFilePaths: string[] = [];
+      if (additionalFiles.length > 0) {
+        console.log('Uploading additional files:', additionalFiles.length);
+        additionalFilePaths = await uploadAdditionalFiles(additionalFiles);
+        console.log('Additional files uploaded:', additionalFilePaths);
+      }
+
+      // Combine original file paths with additional file paths
+      const allFilePaths = [
+        ...(analysisResult?.filePaths || []),
+        ...additionalFilePaths
+      ];
+
       const result = await submitForm(
         formData as CMGFormData,
-        analysisResult?.filePaths
+        allFilePaths
       );
       setSubmissionId(result.submissionId || null);
       setAdoWorkItem(result.adoWorkItem || null);
@@ -237,6 +253,7 @@ function App() {
     setError(null);
     setSubmissionId(null);
     setAdoWorkItem(null);
+    setAdditionalFiles([]); // Clear additional files
   };
 
   const handleGoBackToUpload = () => {
@@ -441,6 +458,8 @@ function App() {
               onChange={setFormData}
               onSubmit={handleFormSubmit}
               isSubmitting={isSubmitting}
+              additionalFiles={additionalFiles}
+              onAdditionalFilesChange={setAdditionalFiles}
             />
 
             <div className="form-footer">

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { CMGFormData, FormOptions } from '../types';
+import FileUpload from './FileUpload';
 
 interface CMGFormProps {
   formData: Partial<CMGFormData>;
@@ -7,6 +8,8 @@ interface CMGFormProps {
   onChange: (data: Partial<CMGFormData>) => void;
   onSubmit: () => void;
   isSubmitting: boolean;
+  additionalFiles: File[];
+  onAdditionalFilesChange: (files: File[]) => void;
 }
 
 const CMGForm: React.FC<CMGFormProps> = ({
@@ -15,6 +18,8 @@ const CMGForm: React.FC<CMGFormProps> = ({
   onChange,
   onSubmit,
   isSubmitting,
+  additionalFiles,
+  onAdditionalFilesChange,
 }) => {
   const handleInputChange = (
     field: keyof CMGFormData,
@@ -217,6 +222,21 @@ const CMGForm: React.FC<CMGFormProps> = ({
           </div>
         </>
       )}
+
+      {/* Additional Attachments Section */}
+      <div className="form-section" style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '2px solid #e0e0e0' }}>
+        <label className="form-label">
+          9. Additional Attachments (Optional)
+        </label>
+        <p className="form-help-text" style={{ marginBottom: '1rem' }}>
+          Add any last-minute documents or screenshots that will help clarify your request.
+          These will be attached to your Azure DevOps ticket.
+        </p>
+        <FileUpload
+          files={additionalFiles}
+          onFilesSelected={onAdditionalFilesChange}
+        />
+      </div>
 
       {/* Add padding at bottom to prevent content from being hidden behind floating button */}
       <div style={{ height: '100px' }}></div>
