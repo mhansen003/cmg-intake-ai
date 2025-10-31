@@ -5,7 +5,7 @@ import { CMGFormData, FORM_OPTIONS, AnalysisResult } from './types';
 import { identifyScenarioType, getFollowUpQuestions, getDepartmentSuggestions, getRiskLevel } from './mortgage-guidelines';
 
 // PDF parser - using require due to module type issues
-const pdf = require('pdf-parse');
+const pdf = require('pdf-parse') as (dataBuffer: Buffer) => Promise<{ text: string }>;
 
 export class OpenAIService {
   private openai: OpenAI;

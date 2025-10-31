@@ -175,8 +175,11 @@ export function getDepartmentSuggestions(scenarioTypes: string[]): string[] {
 export function getRiskLevel(scenarioTypes: string[]): string {
   for (const type of scenarioTypes) {
     const config = DECISION_TREES[type as keyof typeof DECISION_TREES];
-    if (config && 'riskLevel' in config && config.riskLevel === 'HIGH') {
-      return 'HIGH';
+    if (config && 'riskLevel' in config) {
+      const configWithRisk = config as { riskLevel?: string };
+      if (configWithRisk.riskLevel === 'HIGH') {
+        return 'HIGH';
+      }
     }
   }
   return 'MEDIUM';
