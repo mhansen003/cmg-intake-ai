@@ -81,6 +81,18 @@ app.get('/api/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', message: 'CMG Intake API is running' });
 });
 
+// Debug endpoint to check environment variables
+app.get('/api/debug', (req: Request, res: Response) => {
+  res.json({
+    openaiKeySet: !!process.env.OPENAI_API_KEY,
+    openaiKeyLength: process.env.OPENAI_API_KEY?.length || 0,
+    openaiKeyPrefix: process.env.OPENAI_API_KEY?.substring(0, 10) || 'NOT SET',
+    adoConfigured: !!process.env.ADO_ORGANIZATION && !!process.env.ADO_PROJECT && !!process.env.ADO_PAT,
+    nodeEnv: process.env.NODE_ENV,
+    port: process.env.PORT
+  });
+});
+
 // Get form options
 app.get('/api/form-options', (req: Request, res: Response) => {
   res.json(FORM_OPTIONS);
