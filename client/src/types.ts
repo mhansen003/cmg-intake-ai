@@ -4,6 +4,7 @@ export interface CMGFormData {
   businessStakeholder: string;
   requestorName: string;
   requestorEmail: string;
+  sendConfirmation?: boolean; // Send confirmation email to requestor
   softwarePlatforms: string[];
   impactedAreas: string[];
   channels: string[];

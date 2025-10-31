@@ -282,10 +282,22 @@ app.post('/api/submit', async (req: Request, res: Response) => {
       }
     }
 
-    // In a real application, you might also:
-    // 1. Save to a database
-    // 2. Forward to Microsoft Forms API
-    // 3. Send notifications
+    // Send confirmation email if requested
+    if (formData.sendConfirmation && formData.requestorEmail && emailService) {
+      try {
+        console.log('Sending confirmation email to:', formData.requestorEmail);
+        await emailService.sendConfirmationEmail(
+          formData.requestorEmail,
+          formData.requestorName || 'User',
+          formData.title,
+          formData.description,
+          adoWorkItem ? { id: adoWorkItem.id, url: adoWorkItem.url } : undefined
+        );
+      } catch (error: any) {
+        console.error('⚠️  Failed to send confirmation email:', error.message);
+        // Don't fail the whole submission if confirmation fails
+      }
+    }
 
     res.json({
       success: true,

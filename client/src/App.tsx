@@ -86,7 +86,7 @@ function App() {
     try {
       const result = await analyzeContent(textInput, files);
       setAnalysisResult(result);
-      setFormData(result.extractedData);
+      setFormData({ ...result.extractedData, sendConfirmation: true }); // Default to sending confirmation
 
       // Check request type and route appropriately
       if (result.requestType === 'support' && result.requestTypeConfidence > 0.7) {

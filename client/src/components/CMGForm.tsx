@@ -123,6 +123,16 @@ const CMGForm: React.FC<CMGFormProps> = ({
           onChange={(e) => handleInputChange('requestorEmail', e.target.value)}
           required
         />
+        <div className="checkbox-inline" style={{ marginTop: '0.75rem' }}>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={formData.sendConfirmation !== false} // Default to true
+              onChange={(e) => handleInputChange('sendConfirmation', e.target.checked as any)}
+            />
+            <span>Send me a confirmation email with ticket summary and link</span>
+          </label>
+        </div>
       </div>
 
       <div className="form-section">
