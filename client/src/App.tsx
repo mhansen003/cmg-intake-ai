@@ -151,7 +151,10 @@ function App() {
     setError(null);
 
     try {
-      const result = await submitForm(formData as CMGFormData);
+      const result = await submitForm(
+        formData as CMGFormData,
+        analysisResult?.filePaths
+      );
       setSubmissionId(result.submissionId || null);
       setAdoWorkItem(result.adoWorkItem || null);
       setStep('success');
@@ -234,7 +237,7 @@ function App() {
                 rows={6}
               />
               <button
-                className="enhance-btn"
+                className={`enhance-btn ${isEnhancing ? 'loading' : ''}`}
                 onClick={handleEnhanceDescription}
                 disabled={!textInput || textInput.trim().length === 0 || isEnhancing}
                 title="Use AI to improve and expand your description"

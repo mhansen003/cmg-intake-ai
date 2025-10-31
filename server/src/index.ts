@@ -105,18 +105,13 @@ app.post('/api/analyze', upload.array('files', 10), async (req: Request, res: Re
     // Analyze content using OpenAI
     const result = await openaiService.analyzeContent(textInput || '', files || []);
 
-    // Clean up uploaded files
-    if (files && files.length > 0) {
-      files.forEach(file => {
-        try {
-          fs.unlinkSync(file.path);
-        } catch (error) {
-          console.error('Error deleting file:', error);
-        }
-      });
-    }
+    // Store file paths for later use (don't delete yet)
+    const filePaths = files && files.length > 0 ? files.map(f => f.path) : [];
 
-    res.json(result);
+    res.json({
+      ...result,
+      filePaths // Include file paths so they can be sent to ADO later
+    });
   } catch (error: any) {
     console.error('Error in /api/analyze:', error);
     res.status(500).json({
@@ -182,7 +177,7 @@ app.post('/api/enhance-description', async (req: Request, res: Response) => {
 // Submit final form (this would typically save to a database or forward to the actual Microsoft Form)
 app.post('/api/submit', async (req: Request, res: Response) => {
   try {
-    const formData = req.body;
+    const { filePaths, ...formData } = req.body;
 
     // Validate required fields
     if (!formData.title || !formData.description) {
@@ -192,6 +187,7 @@ app.post('/api/submit', async (req: Request, res: Response) => {
     }
 
     console.log('Form submission received:', formData);
+    console.log('Attachments to include:', filePaths?.length || 0);
 
     // Try to create work item in Azure DevOps (if configured)
     let adoWorkItem = null;
@@ -200,9 +196,23 @@ app.post('/api/submit', async (req: Request, res: Response) => {
     if (adoService) {
       try {
         console.log('Creating work item in Azure DevOps...');
-        adoWorkItem = await adoService.createWorkItem(formData);
+        adoWorkItem = await adoService.createWorkItem(formData, filePaths);
         console.log('ADO Work Item Response:', JSON.stringify(adoWorkItem, null, 2));
         console.log(`✅ ADO Work Item created: ${adoWorkItem?.id || 'NO ID'}`);
+
+        // Clean up uploaded files after successful ADO submission
+        if (filePaths && filePaths.length > 0) {
+          filePaths.forEach((filePath: string) => {
+            try {
+              if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+                console.log(`🗑️  Cleaned up file: ${filePath}`);
+              }
+            } catch (error: any) {
+              console.error(`⚠️  Failed to delete file ${filePath}:`, error.message);
+            }
+          });
+        }
       } catch (error: any) {
         // Log the error but don't fail the submission
         console.error('⚠️  Failed to create ADO work item:', error.message);

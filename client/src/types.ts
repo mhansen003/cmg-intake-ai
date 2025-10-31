@@ -25,6 +25,7 @@ export interface AnalysisResult {
   requestType: RequestType;
   requestTypeConfidence: number;
   requestTypeReason: string;
+  filePaths?: string[];
 }
 
 export interface SubmissionResult {

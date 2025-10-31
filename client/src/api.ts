@@ -47,8 +47,14 @@ export const getClarificationQuestions = async (
   return response.data.questions;
 };
 
-export const submitForm = async (formData: CMGFormData): Promise<SubmissionResult> => {
-  const response = await api.post('/submit', formData);
+export const submitForm = async (
+  formData: CMGFormData,
+  filePaths?: string[]
+): Promise<SubmissionResult> => {
+  const response = await api.post('/submit', {
+    ...formData,
+    filePaths
+  });
   return response.data;
 };
 

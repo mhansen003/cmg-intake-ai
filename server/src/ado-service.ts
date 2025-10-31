@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { CMGFormData } from './types';
+import fs from 'fs';
+import path from 'path';
 
 export interface ADOConfig {
   organization: string;
@@ -40,9 +42,38 @@ export class AzureDevOpsService {
   }
 
   /**
+   * Upload an attachment to Azure DevOps
+   */
+  private async uploadAttachment(filePath: string): Promise<string> {
+    try {
+      const fileName = path.basename(filePath);
+      const fileContent = fs.readFileSync(filePath);
+
+      console.log(`Uploading attachment: ${fileName}`);
+
+      const response = await axios.post(
+        `https://dev.azure.com/${this.config.organization}/_apis/wit/attachments?fileName=${encodeURIComponent(fileName)}&api-version=7.1`,
+        fileContent,
+        {
+          headers: {
+            'Content-Type': 'application/octet-stream',
+            'Authorization': `Basic ${Buffer.from(`:${this.config.personalAccessToken}`).toString('base64')}`
+          }
+        }
+      );
+
+      console.log(`✅ Attachment uploaded: ${fileName}`);
+      return response.data.url;
+    } catch (error: any) {
+      console.error(`❌ Error uploading attachment ${filePath}:`, error.message);
+      throw error;
+    }
+  }
+
+  /**
    * Create a new work item (User Story) in Azure DevOps
    */
-  async createWorkItem(formData: CMGFormData): Promise<ADOWorkItem> {
+  async createWorkItem(formData: CMGFormData, attachmentPaths?: string[]): Promise<ADOWorkItem> {
     try {
       // Build the description with formatted data
       const description = this.buildDescription(formData);
@@ -82,6 +113,32 @@ export class AzureDevOpsService {
           path: '/fields/System.IterationPath',
           value: this.config.iterationPath
         });
+      }
+
+      // Upload attachments and add as relations
+      if (attachmentPaths && attachmentPaths.length > 0) {
+        console.log(`Uploading ${attachmentPaths.length} attachment(s)...`);
+
+        for (const filePath of attachmentPaths) {
+          try {
+            const attachmentUrl = await this.uploadAttachment(filePath);
+
+            // Add attachment as a relation to the work item
+            patchDocument.push({
+              op: 'add',
+              path: '/relations/-',
+              value: {
+                rel: 'AttachedFile',
+                url: attachmentUrl,
+                attributes: {
+                  comment: `Uploaded from CMG Intake: ${path.basename(filePath)}`
+                }
+              }
+            });
+          } catch (error) {
+            console.error(`Failed to upload attachment ${filePath}, continuing...`);
+          }
+        }
       }
 
       console.log('Creating ADO work item...');
