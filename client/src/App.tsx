@@ -6,6 +6,7 @@ import SupportRedirect from './components/SupportRedirect';
 import TrainingRedirect from './components/TrainingRedirect';
 import HelpGuide from './components/HelpGuide';
 import EnhancementWizard from './components/EnhancementWizard';
+import ADOImportModal from './components/ADOImportModal';
 import {
   getFormOptions,
   analyzeContent,
@@ -13,6 +14,7 @@ import {
   enhanceDescription,
   generateWizardQuestions,
   uploadAdditionalFiles,
+  type ADOWorkItem,
 } from './api';
 import type { CMGFormData, FormOptions, AnalysisResult } from './types';
 import { formatWizardAnswers } from './utils/wizardQuestions';
@@ -37,6 +39,7 @@ function App() {
   const [isHelpExpanded, setIsHelpExpanded] = useState(true);
   const [wizardQuestions, setWizardQuestions] = useState<WizardQuestion[]>([]);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]); // Last-minute attachments
+  const [showADOImportModal, setShowADOImportModal] = useState(false);
 
   useEffect(() => {
     // Toggle body class based on help panel state
@@ -262,6 +265,47 @@ function App() {
     setError(null);
   };
 
+  /**
+   * Handle importing ADO work items
+   * Converts ADO work item data to intake form format
+   */
+  const handleADOImport = (workItems: ADOWorkItem[]) => {
+    if (workItems.length === 0) return;
+
+    // If multiple work items selected, combine their information
+    if (workItems.length === 1) {
+      const wi = workItems[0];
+      const description = wi.fields['System.Description'] || '';
+
+      // Strip HTML tags from ADO description (ADO uses HTML format)
+      const strippedDescription = description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+
+      setTextInput(`Imported from ADO #${wi.id}\n\nTitle: ${wi.fields['System.Title']}\n\nDescription:\n${strippedDescription}`);
+      setFormData({
+        title: wi.fields['System.Title'],
+        description: strippedDescription,
+      });
+    } else {
+      // Multiple work items - create a combined description
+      const combinedText = workItems.map(wi => {
+        const description = wi.fields['System.Description'] || '';
+        const strippedDescription = description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+        return `ADO #${wi.id}: ${wi.fields['System.Title']}\n${strippedDescription}`;
+      }).join('\n\n---\n\n');
+
+      setTextInput(`Imported ${workItems.length} work items from ADO:\n\n${combinedText}`);
+      setFormData({
+        title: `Combined Import: ${workItems.length} ADO Work Items`,
+        description: combinedText,
+      });
+    }
+
+    // Automatically move to analysis step
+    setTimeout(() => {
+      handleAnalyze();
+    }, 500);
+  };
+
   return (
     <div className="app">
       <header className="app-header">
@@ -368,6 +412,25 @@ function App() {
 
             <FileUpload files={files} onFilesSelected={setFiles} />
 
+            <div className="divider">
+              <span>OR</span>
+            </div>
+
+            <div className="ado-import-section">
+              <button
+                className="ado-import-trigger-btn"
+                onClick={() => setShowADOImportModal(true)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                </svg>
+                Import from Azure DevOps
+              </button>
+              <p className="ado-import-hint">
+                Search and import existing work items from ADO
+              </p>
+            </div>
+
             <div className="action-container">
               <button
                 className="analyze-btn"
@@ -393,6 +456,13 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* ADO Import Modal */}
+        <ADOImportModal
+          isOpen={showADOImportModal}
+          onClose={() => setShowADOImportModal(false)}
+          onImport={handleADOImport}
+        />
 
         {step === 'processing' && (
           <div className="processing-section">

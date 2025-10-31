@@ -378,7 +378,7 @@ ${description}`;
   /**
    * Generate 1-3 relevant clarification questions based on the request
    */
-  async generateClarificationQuestions(title: string, description: string): Promise<Array<{ question: string; placeholder: string; key: string }>> {
+  async generateWizardQuestions(title: string, description: string): Promise<Array<{ question: string; placeholder: string; key: string }>> {
     const guidelinesPath = path.join(__dirname, '..', '..', 'Mortgage_Change_Management_AI_Guidelines.txt');
     let guidelinesContent = '';
 

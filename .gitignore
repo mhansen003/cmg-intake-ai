@@ -44,3 +44,4 @@ coverage/
 *.pid.lock
 
 .vercel
+add-vercel-env.sh

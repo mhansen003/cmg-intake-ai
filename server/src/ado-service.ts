@@ -297,4 +297,138 @@ export class AzureDevOpsService {
       return false;
     }
   }
+
+  /**
+   * Search for work items using WIQL (Work Item Query Language)
+   */
+  async searchWorkItems(searchParams: {
+    searchText?: string;
+    workItemType?: string;
+    state?: string;
+    maxResults?: number;
+  }): Promise<ADOWorkItem[]> {
+    try {
+      const { searchText, workItemType = 'User Story', state, maxResults = 50 } = searchParams;
+
+      // Build WIQL query
+      const conditions: string[] = [
+        `[System.TeamProject] = '${this.config.project}'`,
+        `[System.WorkItemType] = '${workItemType}'`
+      ];
+
+      if (searchText && searchText.trim().length > 0) {
+        conditions.push(`[System.Title] CONTAINS '${searchText.replace(/'/g, "''")}'`);
+      }
+
+      if (state) {
+        conditions.push(`[System.State] = '${state}'`);
+      }
+
+      const wiql = `
+        SELECT [System.Id]
+        FROM WorkItems
+        WHERE ${conditions.join(' AND ')}
+        ORDER BY [System.ChangedDate] DESC
+      `;
+
+      console.log('Executing WIQL query:', wiql);
+
+      // Execute WIQL query to get work item IDs
+      const queryResponse = await this.client.post(
+        '/_apis/wit/wiql?api-version=7.1',
+        { query: wiql },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      const workItemRefs = queryResponse.data.workItems || [];
+
+      if (workItemRefs.length === 0) {
+        console.log('No work items found matching the search criteria');
+        return [];
+      }
+
+      // Limit results
+      const limitedRefs = workItemRefs.slice(0, maxResults);
+      const workItemIds = limitedRefs.map((ref: any) => ref.id);
+
+      console.log(`Found ${workItemRefs.length} work items, fetching details for ${workItemIds.length}...`);
+
+      // Fetch full work item details in batch
+      const workItems = await this.getWorkItemsByIds(workItemIds);
+
+      console.log(`✅ Retrieved ${workItems.length} work items`);
+      return workItems;
+    } catch (error: any) {
+      console.error('❌ Error searching work items:', error.message);
+      if (error.response) {
+        console.error('Response status:', error.response.status);
+        console.error('Response data:', JSON.stringify(error.response.data, null, 2));
+      }
+      throw new Error(`Failed to search work items: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get multiple work items by their IDs
+   */
+  async getWorkItemsByIds(ids: number[]): Promise<ADOWorkItem[]> {
+    try {
+      if (ids.length === 0) {
+        return [];
+      }
+
+      // ADO API supports batch retrieval with comma-separated IDs
+      const idsParam = ids.join(',');
+      const fieldsParam = [
+        'System.Id',
+        'System.Title',
+        'System.Description',
+        'System.State',
+        'System.WorkItemType',
+        'System.CreatedDate',
+        'System.ChangedDate',
+        'System.Tags',
+        'System.AreaPath',
+        'System.IterationPath'
+      ].join(',');
+
+      const response = await this.client.get(
+        `/_apis/wit/workitems?ids=${idsParam}&fields=${fieldsParam}&api-version=7.1`
+      );
+
+      return response.data.value || [];
+    } catch (error: any) {
+      console.error('❌ Error fetching work items by IDs:', error.message);
+      if (error.response) {
+        console.error('Response status:', error.response.status);
+        console.error('Response data:', JSON.stringify(error.response.data, null, 2));
+      }
+      throw new Error(`Failed to fetch work items: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get a single work item by ID with full details
+   */
+  async getWorkItemById(id: number): Promise<ADOWorkItem> {
+    try {
+      const response = await this.client.get(
+        `/_apis/wit/workitems/${id}?$expand=all&api-version=7.1`
+      );
+
+      console.log(`✅ Retrieved work item ${id}`);
+      return response.data;
+    } catch (error: any) {
+      console.error(`❌ Error fetching work item ${id}:`, error.message);
+      if (error.response) {
+        console.error('Response status:', error.response.status);
+        console.error('Response data:', JSON.stringify(error.response.data, null, 2));
+      }
+      throw new Error(`Failed to fetch work item ${id}: ${error.message}`);
+    }
+  }
 }

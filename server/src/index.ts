@@ -449,6 +449,77 @@ app.post('/api/send-support-email', async (req: Request, res: Response) => {
   }
 });
 
+// POST /api/ado/search - Search ADO work items
+app.post('/api/ado/search', async (req: Request, res: Response) => {
+  try {
+    if (!adoService) {
+      return res.status(503).json({
+        error: 'Azure DevOps not configured',
+        message: 'ADO integration is not enabled. Please configure ADO environment variables.'
+      });
+    }
+
+    const { searchText, workItemType, state, maxResults } = req.body;
+
+    console.log('Searching ADO work items:', { searchText, workItemType, state, maxResults });
+
+    const workItems = await adoService.searchWorkItems({
+      searchText,
+      workItemType: workItemType || 'User Story',
+      state,
+      maxResults: maxResults || 50
+    });
+
+    res.json({
+      success: true,
+      workItems,
+      count: workItems.length
+    });
+  } catch (error: any) {
+    console.error('Error in /api/ado/search:', error);
+    res.status(500).json({
+      error: 'Failed to search ADO work items',
+      message: error.message
+    });
+  }
+});
+
+// GET /api/ado/workitem/:id - Get a single work item by ID
+app.get('/api/ado/workitem/:id', async (req: Request, res: Response) => {
+  try {
+    if (!adoService) {
+      return res.status(503).json({
+        error: 'Azure DevOps not configured',
+        message: 'ADO integration is not enabled. Please configure ADO environment variables.'
+      });
+    }
+
+    const workItemId = parseInt(req.params.id);
+
+    if (isNaN(workItemId)) {
+      return res.status(400).json({
+        error: 'Invalid work item ID',
+        message: 'Work item ID must be a number'
+      });
+    }
+
+    console.log('Fetching ADO work item:', workItemId);
+
+    const workItem = await adoService.getWorkItemById(workItemId);
+
+    res.json({
+      success: true,
+      workItem
+    });
+  } catch (error: any) {
+    console.error(`Error in /api/ado/workitem/${req.params.id}:`, error);
+    res.status(500).json({
+      error: 'Failed to fetch ADO work item',
+      message: error.message
+    });
+  }
+});
+
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: any) => {
   console.error('Unhandled error:', err);
@@ -476,3 +547,4 @@ if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
 // Export the Express app for Vercel
 export default app;
 
+ 
