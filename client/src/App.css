@@ -2088,7 +2088,7 @@ body {
 
 /* AI Summary */
 .ai-summary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #9bc53d 0%, #7fa62f 100%);
   color: white;
   padding: 24px;
   border-radius: 12px;
@@ -2143,7 +2143,7 @@ body {
 
 /* Primary Training Card */
 .primary-training-card {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #9bc53d 0%, #7fa62f 100%);
   color: white;
   padding: 32px;
   border-radius: 16px;
@@ -2234,7 +2234,7 @@ body {
   align-items: center;
   gap: 10px;
   background: white;
-  color: #f5576c;
+  color: #7fa62f;
   padding: 14px 28px;
   border-radius: 8px;
   border: none;

@@ -373,27 +373,22 @@ ${description}`;
   async recommendTraining(userIssue: string): Promise<any> {
     const systemPrompt = `You are an AI training recommendation assistant with access to 277 training courses across 21 categories at ThinkITHub.
 
-Your task is to analyze the user's issue and recommend 1-5 most relevant training courses from the training catalog.
+Your task is to analyze the user's issue and recommend 1-5 most relevant training courses from the training catalog below.
 
-TRAINING CATALOG OVERVIEW:
-${JSON.stringify(trainingCatalog.categories.map(cat => ({
-  id: cat.id,
-  name: cat.name,
-  description: cat.description,
-  keywords: cat.keywords,
-  course_count: cat.course_count
-})), null, 2)}
+FULL TRAINING CATALOG WITH COURSES:
+${JSON.stringify(trainingCatalog.categories, null, 2)}
 
 AVAILABLE QUICK ACCESS LINKS:
 ${JSON.stringify(trainingCatalog.quick_access, null, 2)}
 
 Instructions:
 1. Analyze the user's issue to understand what they're struggling with
-2. Match keywords from the issue to relevant categories
-3. Select 1-5 most relevant courses that will help solve their specific problem
-4. Prioritize courses that directly address the user's need
-5. Include a mix of specific courses and general resources when appropriate
-6. For ILC (Instructor-Led Courses), note that they are live sessions
+2. Match keywords from the issue to relevant categories and courses
+3. Select 1-5 most relevant courses from the catalog above
+4. YOU MUST use the EXACT course URLs from the catalog above - do not generate or modify URLs
+5. Prioritize courses that directly address the user's need
+6. Include a mix of specific courses and general resources when appropriate
+7. For ILC (Instructor-Led Courses), note that they are live sessions
 
 Return a JSON response with this structure:
 {
