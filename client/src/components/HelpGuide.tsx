@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
 interface HelpGuideProps {
-  onWatchVideo: () => void;
   onToggle: (expanded: boolean) => void;
 }
 
-const HelpGuide: React.FC<HelpGuideProps> = ({ onWatchVideo, onToggle }) => {
+const HelpGuide: React.FC<HelpGuideProps> = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
