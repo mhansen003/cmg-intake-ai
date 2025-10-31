@@ -4,8 +4,7 @@ import path from 'path';
 import { CMGFormData, FORM_OPTIONS, AnalysisResult } from './types';
 import { identifyScenarioType, getFollowUpQuestions, getDepartmentSuggestions, getRiskLevel } from './mortgage-guidelines';
 
-// PDF parser - using require due to module type issues
-const pdf = require('pdf-parse') as (dataBuffer: Buffer) => Promise<{ text: string }>;
+// PDF parser will be loaded lazily only when needed to avoid serverless environment issues
 
 export class OpenAIService {
   private openai: OpenAI;
@@ -16,9 +15,12 @@ export class OpenAIService {
 
   /**
    * Extract text from PDF file
+   * Lazy-loads pdf-parse to avoid serverless environment issues
    */
   private async extractTextFromPDF(filePath: string): Promise<string> {
     try {
+      // Lazy load pdf-parse only when needed
+      const pdf = require('pdf-parse');
       const dataBuffer = fs.readFileSync(filePath);
       const pdfData = await pdf(dataBuffer);
       return pdfData.text;
