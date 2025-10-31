@@ -15,11 +15,48 @@ export class OpenAIService {
 
   /**
    * Extract text from PDF file
-   * Lazy-loads pdf-parse to avoid serverless environment issues
+   * Uses OpenAI Vision API in serverless environments where pdf-parse doesn't work
    */
   private async extractTextFromPDF(filePath: string): Promise<string> {
+    // Check if we're in a serverless environment (Vercel)
+    const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+
+    if (isServerless) {
+      // In serverless environments, use OpenAI Vision API instead of pdf-parse
+      console.log('Using OpenAI Vision API for PDF extraction (serverless environment)');
+
+      try {
+        const response = await this.openai.chat.completions.create({
+          model: 'gpt-4o',
+          messages: [
+            {
+              role: 'user',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Please extract all the text content from this PDF document. Provide a complete transcription of all visible text.'
+                },
+                {
+                  type: 'image_url',
+                  image_url: {
+                    url: `data:application/pdf;base64,${fs.readFileSync(filePath).toString('base64')}`
+                  }
+                }
+              ]
+            }
+          ],
+          max_tokens: 4096
+        });
+
+        return response.choices[0]?.message?.content || '';
+      } catch (error) {
+        console.error('Error extracting text from PDF with Vision API:', error);
+        throw new Error('Failed to extract text from PDF. Please try uploading the PDF as images or text instead.');
+      }
+    }
+
+    // Local development: use pdf-parse
     try {
-      // Lazy load pdf-parse only when needed
       const pdf = require('pdf-parse');
       const dataBuffer = fs.readFileSync(filePath);
       const pdfData = await pdf(dataBuffer);
