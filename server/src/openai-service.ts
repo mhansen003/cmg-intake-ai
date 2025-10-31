@@ -201,28 +201,36 @@ Based on the detected scenario type(s), you should generate intelligent follow-u
 ${guidelineQuestions.length > 0 ? guidelineQuestions.map((q, i) => `${i + 1}. ${q}`).join('\n') : 'Standard clarification questions'}
 
 IMPORTANT - REQUEST TYPE CLASSIFICATION:
-Before filling out the form, first classify this request into ONE of these categories:
+Before filling out the form, first classify this request into ONE of these categories.
 
-1. "change" - This is a legitimate Change Management request:
+**TRAINING PRIORITY**: If the user's request could potentially be addressed through training or education, strongly prefer "training" classification. We want to empower users with knowledge rather than just fixing immediate issues.
+
+1. "training" - This is a Training request (PRIORITIZE THIS WHEN APPLICABLE):
+   - User asking how to use a feature, process, or system
+   - Questions about workflows, procedures, or business processes
+   - "How do I do X?" or "I don't know how to..." questions
+   - User needs help understanding a concept (e.g., leaseholds, appraisals, underwriting)
+   - Requests about specific loan types, products, or operations
+   - "Where can I learn about..." questions
+   - User mentions not knowing how to perform a task
+   - Questions that could be answered with proper training
+   - Certification or training program inquiries
+   - Even if they also need immediate help, training may prevent future issues
+
+2. "support" - This is an Application Support issue (only if NOT trainable):
+   - System is completely down or broken
+   - User CANNOT access a system due to technical error
+   - Password resets, permission issues (technical access problems)
+   - Specific error messages or system failures
+   - Time-sensitive production issues that need immediate fixing
+   - Clear technical bugs that training won't solve
+
+3. "change" - This is a legitimate Change Management request (only for system changes):
    - Software/system changes (new features, enhancements, configurations)
-   - Bug fixes or defect corrections
+   - Bug fixes or defect corrections requiring code changes
    - Process changes that require IT/system modifications
    - Compliance or regulatory changes requiring system updates
-
-2. "support" - This is an Application Support issue:
-   - User can't access a system or feature
-   - System is down or experiencing errors
-   - User needs help with a specific transaction or task
-   - Password resets, permission issues, access problems
-   - "How do I do X?" questions about using existing features
-   - Troubleshooting existing functionality
-
-3. "training" - This is a Training request:
-   - User asking how to use a feature properly
-   - Requests for training materials or guides
-   - Questions about workflows or processes
-   - "Where can I learn about..." questions
-   - Certification or training program inquiries
+   - Request to build something new or modify existing systems
 
 Return your response as a JSON object with this exact structure:
 {
@@ -382,13 +390,18 @@ AVAILABLE QUICK ACCESS LINKS:
 ${JSON.stringify(trainingCatalog.quick_access, null, 2)}
 
 Instructions:
-1. Analyze the user's issue to understand what they're struggling with
-2. Match keywords from the issue to relevant categories and courses
-3. Select 1-5 most relevant courses from the catalog above
-4. YOU MUST use the EXACT course URLs from the catalog above - do not generate or modify URLs
-5. Prioritize courses that directly address the user's need
-6. Include a mix of specific courses and general resources when appropriate
-7. For ILC (Instructor-Led Courses), note that they are live sessions
+1. THOROUGHLY analyze the user's issue to understand what they're struggling with
+2. Search the ENTIRE catalog comprehensively - look at course titles, descriptions, and keywords
+3. Consider synonyms and related terms (e.g., "leaseholds" → look for "Leasehold", "lease", "property types", "Fannie Mae products")
+4. Match keywords from the issue to relevant categories and courses - be generous in matching
+5. Select 3-5 most relevant courses from the catalog above (prefer MORE courses rather than fewer)
+6. YOU MUST use the EXACT course URLs from the catalog above - do not generate or modify URLs
+7. Prioritize courses that directly address the user's need, but also include related/foundational courses
+8. Include a mix of specific courses and general resources when appropriate
+9. For ILC (Instructor-Led Courses), note that they are live sessions
+10. If you find ANY potentially relevant course, include it - it's better to recommend more options than to miss something helpful
+
+IMPORTANT: Be comprehensive in your search. Even if the exact keyword doesn't match, look for related courses that might help.
 
 Return a JSON response with this structure:
 {

@@ -329,6 +329,7 @@ function App() {
           <TrainingRedirect
             reason={analysisResult.requestTypeReason}
             userRequest={textInput}
+            attachmentPaths={analysisResult.filePaths}
             onContinueToForm={handleContinueToForm}
             onGoBack={handleGoBackToUpload}
           />

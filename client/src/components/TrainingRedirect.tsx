@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { sendSupportEmail } from '../api';
 
 interface TrainingRedirectProps {
   reason: string;
   userRequest: string; // The original user's issue description
+  attachmentPaths?: string[]; // Uploaded file paths
   onContinueToForm: () => void;
   onGoBack: () => void;
 }
@@ -30,12 +32,21 @@ interface TrainingRecommendations {
 const TrainingRedirect: React.FC<TrainingRedirectProps> = ({
   reason,
   userRequest,
+  attachmentPaths,
   onContinueToForm,
   onGoBack
 }) => {
   const [loading, setLoading] = useState(true);
   const [recommendations, setRecommendations] = useState<TrainingRecommendations | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // App Support email state
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [fromEmail, setFromEmail] = useState('');
+  const [fromName, setFromName] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -63,6 +74,173 @@ const TrainingRedirect: React.FC<TrainingRedirectProps> = ({
   const handleOpenCourse = (url: string) => {
     window.open(url, '_blank');
   };
+
+  const handleOpenAppSupport = () => {
+    setShowEmailForm(true);
+  };
+
+  const handleSendSupportEmail = async () => {
+    if (!fromEmail || !fromName) {
+      setEmailError('Please fill in your name and email');
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(fromEmail)) {
+      setEmailError('Please enter a valid email address');
+      return;
+    }
+
+    setEmailError(null);
+    setIsSending(true);
+
+    try {
+      await sendSupportEmail({
+        fromEmail,
+        fromName,
+        subject: 'Application Support Request',
+        body: userRequest,
+        filePaths: attachmentPaths
+      });
+
+      setEmailSent(true);
+    } catch (error: any) {
+      console.error('Error sending support email:', error);
+      setEmailError(error.response?.data?.message || 'Failed to send email. Please try again.');
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  // Show email sent confirmation
+  if (emailSent) {
+    return (
+      <div className="redirect-overlay">
+        <div className="redirect-modal">
+          <div className="redirect-header success-header">
+            <div className="redirect-icon success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h2>App Support Ticket Created!</h2>
+            <p className="redirect-subtitle">Our support team will respond shortly</p>
+          </div>
+
+          <div className="redirect-content">
+            <div className="success-message">
+              <p>Your support request has been sent to <strong>appsupport@cmgfi.com</strong></p>
+              <p>You should receive a confirmation email at <strong>{fromEmail}</strong></p>
+              <p className="response-time">Average response time: 2 hours during business hours</p>
+            </div>
+
+            <div className="redirect-footer">
+              <button className="go-back-btn" onClick={onGoBack}>
+                <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Start New Request
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show email form if user clicked "Open App Support Ticket"
+  if (showEmailForm) {
+    return (
+      <div className="redirect-overlay">
+        <div className="redirect-modal email-modal">
+          <div className="redirect-header support-header">
+            <div className="redirect-icon support-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h2>📧 Create App Support Ticket</h2>
+            <p className="redirect-subtitle">We'll send your request to appsupport@cmgfi.com</p>
+          </div>
+
+          <div className="redirect-content">
+            {emailError && (
+              <div className="alert alert-error" style={{ marginBottom: '1rem' }}>
+                {emailError}
+              </div>
+            )}
+
+            <div className="email-form">
+              <div className="form-section">
+                <label className="form-label required">Your Name</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="John Doe"
+                  value={fromName}
+                  onChange={(e) => setFromName(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-section">
+                <label className="form-label required">Your Email</label>
+                <input
+                  type="email"
+                  className="form-input"
+                  placeholder="john.doe@cmgfi.com"
+                  value={fromEmail}
+                  onChange={(e) => setFromEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-section">
+                <label className="form-label">Issue Description</label>
+                <textarea
+                  className="form-textarea"
+                  value={userRequest}
+                  rows={6}
+                  readOnly
+                  style={{ background: '#f7fafc' }}
+                />
+                <p className="form-help-text">This is your original request that will be sent to support</p>
+              </div>
+            </div>
+
+            <div className="redirect-footer">
+              <button className="go-back-btn" onClick={() => setShowEmailForm(false)}>
+                <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Training
+              </button>
+              <button
+                className="send-email-btn"
+                onClick={handleSendSupportEmail}
+                disabled={isSending}
+              >
+                {isSending ? (
+                  <>
+                    <span className="spinner-small"></span>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Send Support Ticket
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="redirect-overlay">
@@ -205,20 +383,26 @@ const TrainingRedirect: React.FC<TrainingRedirectProps> = ({
 
           <div className="redirect-footer">
             <p className="footer-note">
-              <strong>Still need to submit a change request?</strong> You can continue to the Change Management form if needed.
+              <strong>Need immediate help or have additional options?</strong>
             </p>
             <div className="footer-buttons">
+              <button className="app-support-btn" onClick={handleOpenAppSupport}>
+                <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                Open App Support Ticket
+              </button>
               <button className="go-back-btn" onClick={onGoBack}>
                 <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Go Back & Edit Request
+                Go Back & Edit
               </button>
               <button className="continue-btn" onClick={onContinueToForm}>
                 <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-                Continue to CM Form Anyway
+                Continue to CM Form
               </button>
             </div>
           </div>

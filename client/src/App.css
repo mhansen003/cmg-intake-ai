@@ -1569,6 +1569,64 @@ body {
   height: 20px;
 }
 
+.app-support-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.app-support-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.app-support-btn .btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.send-email-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #9bc53d;
+  color: white;
+  border: none;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(155, 197, 61, 0.3);
+}
+
+.send-email-btn:hover:not(:disabled) {
+  background: #8ab62f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(155, 197, 61, 0.4);
+}
+
+.send-email-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.send-email-btn .btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .app-header {
