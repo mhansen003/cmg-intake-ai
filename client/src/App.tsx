@@ -229,9 +229,33 @@ function App() {
             </div>
 
             <div className="input-container">
-              <label htmlFor="textInput" className="input-label">
-                Describe Your Issue or Feature Request
-              </label>
+              <div className="input-header">
+                <label htmlFor="textInput" className="input-label">
+                  Describe Your Issue or Feature Request
+                </label>
+                <button
+                  className={`enhance-btn enhance-btn-compact ${isEnhancing ? 'loading' : ''}`}
+                  onClick={handleEnhanceDescription}
+                  disabled={!textInput || textInput.trim().length === 0 || isEnhancing}
+                  title="Use AI to improve and expand your description"
+                >
+                  <svg
+                    className="btn-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    />
+                  </svg>
+                  {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
+                </button>
+              </div>
               <textarea
                 id="textInput"
                 className="text-input"
@@ -240,28 +264,6 @@ function App() {
                 onChange={(e) => setTextInput(e.target.value)}
                 rows={6}
               />
-              <button
-                className={`enhance-btn ${isEnhancing ? 'loading' : ''}`}
-                onClick={handleEnhanceDescription}
-                disabled={!textInput || textInput.trim().length === 0 || isEnhancing}
-                title="Use AI to improve and expand your description"
-              >
-                <svg
-                  className="btn-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                  />
-                </svg>
-                {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
-              </button>
             </div>
 
             <div className="divider">

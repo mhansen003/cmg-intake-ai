@@ -320,6 +320,15 @@ body {
   box-shadow: 0 0 0 3px rgba(155, 197, 61, 0.1);
 }
 
+/* Input header with label and enhance button */
+.input-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
 .enhance-btn {
   display: flex;
   align-items: center;
@@ -336,6 +345,19 @@ body {
   margin-top: 0.75rem;
   position: relative;
   overflow: hidden;
+}
+
+/* Compact version for top-right positioning */
+.enhance-btn-compact {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+.enhance-btn-compact .btn-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .enhance-btn:hover:not(:disabled) {
