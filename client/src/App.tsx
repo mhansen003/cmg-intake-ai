@@ -284,7 +284,7 @@ function App() {
                     d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
-                Analyze with AI
+                Step 2: Analyze with AI
               </button>
             </div>
           </div>
