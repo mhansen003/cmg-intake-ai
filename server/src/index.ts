@@ -5,6 +5,7 @@ import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
 import { OpenAIService } from './openai-service';
+import { AzureDevOpsService } from './ado-service';
 import { FORM_OPTIONS } from './types';
 
 dotenv.config();
@@ -14,6 +15,21 @@ const PORT = process.env.PORT || 3001;
 
 // Initialize OpenAI service
 const openaiService = new OpenAIService(process.env.OPENAI_API_KEY || '');
+
+// Initialize Azure DevOps service (if configured)
+let adoService: AzureDevOpsService | null = null;
+if (process.env.ADO_ORGANIZATION && process.env.ADO_PROJECT && process.env.ADO_PAT) {
+  adoService = new AzureDevOpsService({
+    organization: process.env.ADO_ORGANIZATION,
+    project: process.env.ADO_PROJECT,
+    personalAccessToken: process.env.ADO_PAT,
+    areaPath: process.env.ADO_AREA_PATH,
+    iterationPath: process.env.ADO_ITERATION_PATH
+  });
+  console.log('✅ Azure DevOps integration enabled');
+} else {
+  console.log('ℹ️  Azure DevOps integration disabled (missing configuration)');
+}
 
 // Middleware
 app.use(cors());
@@ -177,17 +193,37 @@ app.post('/api/submit', async (req: Request, res: Response) => {
 
     console.log('Form submission received:', formData);
 
-    // In a real application, you would:
+    // Try to create work item in Azure DevOps (if configured)
+    let adoWorkItem = null;
+    let adoError = null;
+
+    if (adoService) {
+      try {
+        console.log('Creating work item in Azure DevOps...');
+        adoWorkItem = await adoService.createWorkItem(formData);
+        console.log(`✅ ADO Work Item created: ${adoWorkItem.id}`);
+      } catch (error: any) {
+        // Log the error but don't fail the submission
+        console.error('⚠️  Failed to create ADO work item:', error.message);
+        adoError = error.message;
+      }
+    }
+
+    // In a real application, you might also:
     // 1. Save to a database
     // 2. Forward to Microsoft Forms API
     // 3. Send notifications
-    // 4. Create tickets in tracking systems
 
     res.json({
       success: true,
       message: 'Form submitted successfully',
       submissionId: Date.now().toString(),
-      data: formData
+      data: formData,
+      adoWorkItem: adoWorkItem ? {
+        id: adoWorkItem.id,
+        url: adoWorkItem.url
+      } : null,
+      adoError: adoError
     });
   } catch (error: any) {
     console.error('Error in /api/submit:', error);
