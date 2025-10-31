@@ -310,6 +310,8 @@ function App() {
         {step === 'redirect-support' && analysisResult && (
           <SupportRedirect
             reason={analysisResult.requestTypeReason}
+            requestText={textInput}
+            attachmentPaths={analysisResult.filePaths}
             onContinueToForm={handleContinueToForm}
             onGoBack={handleReset}
           />

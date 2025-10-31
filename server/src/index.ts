@@ -6,6 +6,7 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 import { OpenAIService } from './openai-service';
 import { AzureDevOpsService } from './ado-service';
+import { EmailService } from './email-service';
 import { FORM_OPTIONS } from './types';
 
 dotenv.config();
@@ -29,6 +30,23 @@ if (process.env.ADO_ORGANIZATION && process.env.ADO_PROJECT && process.env.ADO_P
   console.log('✅ Azure DevOps integration enabled');
 } else {
   console.log('ℹ️  Azure DevOps integration disabled (missing configuration)');
+}
+
+// Initialize Email service (if configured)
+let emailService: EmailService | null = null;
+if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  emailService = new EmailService({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || '587'),
+    secure: process.env.SMTP_SECURE === 'true',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+  console.log('✅ Email service enabled');
+} else {
+  console.log('ℹ️  Email service disabled (missing SMTP configuration)');
 }
 
 // Middleware
@@ -258,6 +276,66 @@ app.post('/api/submit', async (req: Request, res: Response) => {
   }
 });
 
+// POST /api/send-support-email - Send support email
+app.post('/api/send-support-email', async (req: Request, res: Response) => {
+  try {
+    if (!emailService) {
+      return res.status(503).json({
+        error: 'Email service not configured',
+        message: 'SMTP settings are missing. Please configure email service.'
+      });
+    }
+
+    const { fromEmail, fromName, subject, body, filePaths } = req.body;
+
+    // Validate required fields
+    if (!fromEmail || !subject || !body) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        message: 'fromEmail, subject, and body are required'
+      });
+    }
+
+    console.log('Support email request received from:', fromEmail);
+    console.log('Subject:', subject);
+    console.log('Attachments:', filePaths?.length || 0);
+
+    // Send support email
+    await emailService.sendSupportEmail({
+      fromEmail,
+      fromName,
+      subject,
+      body,
+      attachmentPaths: filePaths
+    });
+
+    // Clean up uploaded files after successful email send
+    if (filePaths && filePaths.length > 0) {
+      filePaths.forEach((filePath: string) => {
+        try {
+          if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+            console.log(`🗑️  Cleaned up file: ${filePath}`);
+          }
+        } catch (cleanupError) {
+          console.error(`Failed to cleanup file ${filePath}:`, cleanupError);
+        }
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Support email sent successfully'
+    });
+  } catch (error: any) {
+    console.error('Error in /api/send-support-email:', error);
+    res.status(500).json({
+      error: 'Failed to send support email',
+      message: error.message
+    });
+  }
+});
+
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: any) => {
   console.error('Unhandled error:', err);
@@ -277,7 +355,8 @@ if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
     console.log(`   - POST /api/analyze - Analyze documents and extract form data`);
     console.log(`   - POST /api/clarify - Generate clarification questions`);
     console.log(`   - POST /api/enhance-description - Enhance description with AI`);
-    console.log(`   - POST /api/submit - Submit final form\n`);
+    console.log(`   - POST /api/submit - Submit final form`);
+    console.log(`   - POST /api/send-support-email - Send support email to appsupport@cmgfi.com\n`);
   });
 }
 

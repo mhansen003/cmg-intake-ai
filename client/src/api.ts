@@ -62,3 +62,16 @@ export const enhanceDescription = async (description: string): Promise<string> =
   const response = await api.post('/enhance-description', { description });
   return response.data.enhancedDescription;
 };
+
+export interface SendSupportEmailParams {
+  fromEmail: string;
+  fromName?: string;
+  subject: string;
+  body: string;
+  filePaths?: string[];
+}
+
+export const sendSupportEmail = async (params: SendSupportEmailParams): Promise<{ success: boolean; message: string }> => {
+  const response = await api.post('/send-support-email', params);
+  return response.data;
+};
