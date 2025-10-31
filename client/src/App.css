@@ -30,7 +30,7 @@ body {
 
 .app-header {
   background: #2b3e50;
-  padding: 2rem 2rem;
+  padding: 1.5rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 1001;
@@ -62,137 +62,78 @@ body {
 
 .logo-cmg {
   color: #9bc53d;
-  font-size: 2rem;
+  font-size: 1.75rem;
   letter-spacing: -0.5px;
 }
 
 .logo-financial {
   color: #95a5a6;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 
 .header-divider {
-  width: 2px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.2);
+  width: 1px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .header-title {
   color: #ffffff !important;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   margin: 0;
   font-weight: 600;
 }
 
 .header-right {
   display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-/* Phone CTA Banner */
-.phone-cta-banner {
-  background: #f8f9fa;
-  border-bottom: 1px solid #e1e4e8;
-  padding: 0.65rem 2rem;
-}
-
-.phone-cta-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
   gap: 0.75rem;
+  align-items: center;
 }
 
-.phone-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: #6b7280;
-  flex-shrink: 0;
-}
-
-.phone-cta-label {
-  color: #374151;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: -0.2px;
-}
-
-.phone-cta-number {
+/* Phone Section in Header */
+.header-phone-section {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
-  color: #9bc53d;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  border: 1.5px solid #9bc53d;
-  margin-left: 0.5rem;
+  padding: 0 0.75rem;
 }
 
-.phone-cta-number:hover {
-  background: #9bc53d;
-  color: white;
-}
-
-.phone-cta-number:active {
-  transform: scale(0.98);
-}
-
-.phone-cta-icon {
+.phone-icon-header {
   width: 1rem;
   height: 1rem;
+  color: #9bc53d;
   flex-shrink: 0;
 }
 
-/* Responsive phone banner */
-@media (max-width: 768px) {
-  .phone-cta-banner {
-    padding: 0.6rem 1.5rem;
-  }
+.phone-label-header {
+  color: #a8a8a8;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
 
-  .phone-cta-container {
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
+.phone-number-header {
+  color: #9bc53d;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
 
-  .phone-icon {
-    width: 1.1rem;
-    height: 1.1rem;
-  }
-
-  .phone-cta-label {
-    font-size: 0.8rem;
-  }
-
-  .phone-cta-number {
-    font-size: 0.875rem;
-    padding: 0.35rem 0.85rem;
-    margin-left: 0.25rem;
-  }
-
-  .phone-cta-icon {
-    width: 0.9rem;
-    height: 0.9rem;
-  }
+.phone-number-header:hover {
+  color: #b4d95e;
 }
 
 .btn-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   background: #9bc53d;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
@@ -209,12 +150,12 @@ body {
 .btn-header-secondary {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   background: transparent;
-  color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  color: #a8a8a8;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  padding: 0.55rem 1.1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
@@ -223,7 +164,13 @@ body {
 
 .btn-header-secondary:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 .app-header h1 {
