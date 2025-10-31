@@ -55,9 +55,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Configure multer for file uploads
+// Use /tmp directory in serverless environments (Vercel), local uploads directory otherwise
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../uploads');
+    // Detect serverless environment (Vercel or AWS Lambda)
+    const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+    const uploadDir = isServerless ? '/tmp' : path.join(__dirname, '../uploads');
+
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
