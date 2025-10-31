@@ -2,17 +2,24 @@ import React, { useState } from 'react';
 
 interface HelpGuideProps {
   onWatchVideo: () => void;
+  onToggle: (expanded: boolean) => void;
 }
 
-const HelpGuide: React.FC<HelpGuideProps> = ({ onWatchVideo }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const HelpGuide: React.FC<HelpGuideProps> = ({ onWatchVideo, onToggle }) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+
+  const handleToggle = () => {
+    const newState = !isExpanded;
+    setIsExpanded(newState);
+    onToggle(newState);
+  };
 
   return (
     <>
       <div className={`help-guide ${isExpanded ? 'expanded' : ''}`}>
         <button
           className="help-toggle"
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={handleToggle}
           aria-label={isExpanded ? 'Hide help' : 'Show help'}
         >
           {isExpanded ? (
@@ -34,7 +41,7 @@ const HelpGuide: React.FC<HelpGuideProps> = ({ onWatchVideo }) => {
         <div className="help-content">
           <button
             className="help-close"
-            onClick={() => setIsExpanded(false)}
+            onClick={handleToggle}
             aria-label="Close help"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

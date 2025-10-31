@@ -201,10 +201,12 @@ app.post('/api/submit', async (req: Request, res: Response) => {
       try {
         console.log('Creating work item in Azure DevOps...');
         adoWorkItem = await adoService.createWorkItem(formData);
-        console.log(`✅ ADO Work Item created: ${adoWorkItem.id}`);
+        console.log('ADO Work Item Response:', JSON.stringify(adoWorkItem, null, 2));
+        console.log(`✅ ADO Work Item created: ${adoWorkItem?.id || 'NO ID'}`);
       } catch (error: any) {
         // Log the error but don't fail the submission
         console.error('⚠️  Failed to create ADO work item:', error.message);
+        console.error('Error stack:', error.stack);
         adoError = error.message;
       }
     }

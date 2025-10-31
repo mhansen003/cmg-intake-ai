@@ -30,6 +30,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [showSplash, setShowSplash] = useState(false);
+  const [isHelpExpanded, setIsHelpExpanded] = useState(true);
 
   useEffect(() => {
     // Check if this is first visit
@@ -163,7 +164,7 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${!isHelpExpanded ? 'help-collapsed' : ''}`}>
       <header className="app-header">
         <div className="header-container">
           <div className="header-left">
@@ -371,7 +372,10 @@ function App() {
       </footer>
 
       {/* Help Guide Sidebar */}
-      <HelpGuide onWatchVideo={() => setShowSplash(true)} />
+      <HelpGuide
+        onWatchVideo={() => setShowSplash(true)}
+        onToggle={(expanded) => setIsHelpExpanded(expanded)}
+      />
 
       {/* Splash Screen */}
       {showSplash && <SplashScreen onClose={() => setShowSplash(false)} />}

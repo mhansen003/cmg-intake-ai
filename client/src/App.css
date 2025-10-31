@@ -17,6 +17,12 @@ body {
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #e8f5e9 0%, #f5f5f5 100%);
+  margin-left: 350px;
+  transition: margin-left 0.3s ease;
+}
+
+.app.help-collapsed {
+  margin-left: 0;
 }
 
 .app-header {
@@ -226,24 +232,26 @@ body {
 .enhance-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: transparent;
-  color: #9bc53d;
-  border: 2px solid #9bc53d;
-  padding: 0.65rem 1.25rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 6px;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #9bc53d 0%, #8ab62f 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(155, 197, 61, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .enhance-btn:hover:not(:disabled) {
-  background: #9bc53d;
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(155, 197, 61, 0.2);
+  background: linear-gradient(135deg, #8ab62f 0%, #7aa520 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(155, 197, 61, 0.5);
 }
 
 .enhance-btn:disabled {
