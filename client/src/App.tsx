@@ -5,6 +5,7 @@ import ClarificationModal from './components/ClarificationModal';
 import SupportRedirect from './components/SupportRedirect';
 import TrainingRedirect from './components/TrainingRedirect';
 import HelpGuide from './components/HelpGuide';
+import EnhancementWizard from './components/EnhancementWizard';
 import {
   getFormOptions,
   analyzeContent,
@@ -12,9 +13,10 @@ import {
   enhanceDescription,
 } from './api';
 import type { CMGFormData, FormOptions, AnalysisResult } from './types';
+import { determineWizardQuestions, formatWizardAnswers, type WizardQuestion } from './utils/wizardQuestions';
 import './App.css';
 
-type AppStep = 'upload' | 'processing' | 'clarification' | 'redirect-support' | 'redirect-training' | 'form' | 'success';
+type AppStep = 'upload' | 'processing' | 'clarification' | 'wizard' | 'redirect-support' | 'redirect-training' | 'form' | 'success';
 
 function App() {
   const [step, setStep] = useState<AppStep>('upload');
@@ -30,6 +32,7 @@ function App() {
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [adoWorkItem, setAdoWorkItem] = useState<{ id: number; url: string } | null>(null);
   const [isHelpExpanded, setIsHelpExpanded] = useState(true);
+  const [wizardQuestions, setWizardQuestions] = useState<WizardQuestion[]>([]);
 
   useEffect(() => {
     // Toggle body class based on help panel state
@@ -94,8 +97,13 @@ function App() {
       } else if (result.requestType === 'training' && result.requestTypeConfidence > 0.7) {
         setStep('redirect-training');
       } else {
-        // Skip clarification step - go straight to form for review
-        setStep('form');
+        // For change management requests, show enhancement wizard
+        const questions = determineWizardQuestions(
+          result.extractedData.title || '',
+          result.extractedData.description || ''
+        );
+        setWizardQuestions(questions);
+        setStep('wizard');
       }
     } catch (error: any) {
       console.error('Error analyzing content:', error);
@@ -106,7 +114,38 @@ function App() {
 
   const handleContinueToForm = () => {
     // User overrides AI classification and wants to proceed to CM form
-    // Skip clarification step - go straight to form for review
+    // Show wizard first for change management requests
+    if (formData.title || formData.description) {
+      const questions = determineWizardQuestions(
+        formData.title || '',
+        formData.description || ''
+      );
+      setWizardQuestions(questions);
+      setStep('wizard');
+    } else {
+      setStep('form');
+    }
+  };
+
+  const handleWizardComplete = (answers: Record<string, string>) => {
+    // Enhance description with wizard answers
+    const enhancedDescription = formatWizardAnswers(
+      formData.description || '',
+      answers
+    );
+
+    // Update form data with enhanced description
+    setFormData((prev) => ({
+      ...prev,
+      description: enhancedDescription,
+    }));
+
+    // Proceed to form
+    setStep('form');
+  };
+
+  const handleWizardSkip = () => {
+    // User skipped wizard, go directly to form
     setStep('form');
   };
 
@@ -342,6 +381,15 @@ function App() {
             attachmentPaths={analysisResult.filePaths}
             onContinueToForm={handleContinueToForm}
             onGoBack={handleGoBackToUpload}
+          />
+        )}
+
+        {step === 'wizard' && wizardQuestions.length > 0 && (
+          <EnhancementWizard
+            questions={wizardQuestions}
+            onComplete={handleWizardComplete}
+            onSkip={handleWizardSkip}
+            requestTitle={formData.title || 'Change Management Request'}
           />
         )}
 
