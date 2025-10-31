@@ -11,6 +11,7 @@ import {
   analyzeContent,
   submitForm,
   enhanceDescription,
+  generateWizardQuestions,
 } from './api';
 import type { CMGFormData, FormOptions, AnalysisResult } from './types';
 import { determineWizardQuestions, formatWizardAnswers, type WizardQuestion } from './utils/wizardQuestions';
@@ -97,13 +98,19 @@ function App() {
       } else if (result.requestType === 'training' && result.requestTypeConfidence > 0.7) {
         setStep('redirect-training');
       } else {
-        // For change management requests, show enhancement wizard
-        const questions = determineWizardQuestions(
-          result.extractedData.title || '',
-          result.extractedData.description || ''
-        );
-        setWizardQuestions(questions);
-        setStep('wizard');
+        // For change management requests, generate AI-powered clarification questions
+        try {
+          const questions = await generateWizardQuestions(
+            result.extractedData.title || '',
+            result.extractedData.description || ''
+          );
+          setWizardQuestions(questions);
+          setStep('wizard');
+        } catch (error) {
+          console.error('Error generating wizard questions:', error);
+          // Fallback: skip wizard and go to form
+          setStep('form');
+        }
       }
     } catch (error: any) {
       console.error('Error analyzing content:', error);
@@ -112,16 +119,22 @@ function App() {
     }
   };
 
-  const handleContinueToForm = () => {
+  const handleContinueToForm = async () => {
     // User overrides AI classification and wants to proceed to CM form
     // Show wizard first for change management requests
     if (formData.title || formData.description) {
-      const questions = determineWizardQuestions(
-        formData.title || '',
-        formData.description || ''
-      );
-      setWizardQuestions(questions);
-      setStep('wizard');
+      try {
+        const questions = await generateWizardQuestions(
+          formData.title || '',
+          formData.description || ''
+        );
+        setWizardQuestions(questions);
+        setStep('wizard');
+      } catch (error) {
+        console.error('Error generating wizard questions:', error);
+        // Fallback: go directly to form
+        setStep('form');
+      }
     } else {
       setStep('form');
     }

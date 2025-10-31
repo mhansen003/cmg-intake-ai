@@ -208,6 +208,33 @@ app.post('/api/enhance-description', async (req: Request, res: Response) => {
   }
 });
 
+// Generate clarification questions endpoint
+app.post('/api/generate-questions', async (req: Request, res: Response) => {
+  try {
+    const { title, description } = req.body;
+
+    if (!title && !description) {
+      return res.status(400).json({
+        error: 'At least title or description is required'
+      });
+    }
+
+    console.log('Generating clarification questions for request...');
+    const questions = await openaiService.generateClarificationQuestions(title || '', description || '');
+
+    res.json({
+      questions,
+      success: true
+    });
+  } catch (error: any) {
+    console.error('Error in /api/generate-questions:', error);
+    res.status(500).json({
+      error: 'Failed to generate questions',
+      message: error.message
+    });
+  }
+});
+
 // Get training recommendations endpoint
 app.post('/api/recommend-training', async (req: Request, res: Response) => {
   try {

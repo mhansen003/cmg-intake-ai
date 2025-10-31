@@ -1,0 +1,969 @@
+================================================================================
+MORTGAGE CHANGE MANAGEMENT INTAKE GUIDELINES
+AI Reference Document for Azure DevOps Ticket Creation
+================================================================================
+
+PURPOSE:
+This document provides comprehensive examples of mortgage change requests to help
+AI systems properly categorize, extract information, and create detailed ADO tickets
+with appropriate follow-up questions.
+
+================================================================================
+STANDARD ADO TICKET FIELDS TO POPULATE
+================================================================================
+
+REQUIRED FIELDS:
+- Title: Clear, concise description (60 chars max)
+- Description: Detailed explanation of the change request
+- Priority: Critical / High / Medium / Low
+- Owner: Individual or team responsible
+- Department: Business unit (Origination/Underwriting/Closing/Servicing/IT/Compliance)
+- Due Date: Target completion date
+- Impact Analysis: Systems, processes, people affected
+- Stakeholders: All parties involved or impacted
+- Dependencies: Prerequisites, related changes, system dependencies
+- Risk Level: High / Medium / Low (operational, compliance, financial risk)
+- Testing Requirements: UAT needs, validation steps, rollback plan
+
+================================================================================
+DEPARTMENT & ROLE REFERENCE
+================================================================================
+
+DEPARTMENTS:
+- Loan Origination: Application intake, processing, initial disclosures
+- Underwriting: Conditions, credit analysis, approval/denial
+- Closing: Clear to close, funding, post-closing, delivery
+- Servicing: Payment processing, escrow, customer service, loss mitigation
+- Secondary Markets: Investor delivery, QC, warehouse lending
+- Compliance: Regulatory, audit, policy enforcement
+- IT/Systems: LOS, integrations, data management
+- Operations: Cross-functional process and workflow management
+
+KEY ROLES:
+- Loan Officer/Originator: Customer-facing, application intake
+- Processor: Document collection, initial verification
+- Underwriter: Credit decision, conditions issuance
+- Closer: Document preparation, signing coordination
+- Funder: Final review, wire authorization
+- Post-Closer: Final file review, investor delivery
+- Servicer: Payment processing, escrow analysis
+- Compliance Officer: Regulatory oversight
+
+================================================================================
+EXAMPLE SCENARIOS (150 COMMON CHANGE REQUESTS)
+================================================================================
+
+------------------------------------------------------------------------------
+SECTION 1: LOAN ORIGINATION - SYSTEM/TECH CHANGES (20 Examples)
+------------------------------------------------------------------------------
+
+1. LOS System Upgrade Request
+Scenario: Need to upgrade Encompass/Calyx/BytePro to latest version
+Follow-up: Which LOS? Current version? Required features? Downtime window? Integration testing needed?
+Department: IT, Owner: IT Manager, Risk: High, Dependencies: All integrated systems
+
+2. New Third-Party Integration
+Scenario: Add new credit bureau, appraisal vendor, or verification service
+Follow-up: Vendor name? API documentation? Data mapping requirements? Compliance approval obtained?
+Department: IT, Owner: Integration Lead, Risk: Medium, Dependencies: Vendor contract, API keys
+
+3. Automated Underwriting System (AUS) Configuration
+Scenario: Update DU/LP/LPA settings or add new product codes
+Follow-up: Which AUS? Product type? Guideline changes? Testing with sample loans?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Investor approval
+
+4. Lead Management System Enhancement
+Scenario: Modify CRM lead routing, scoring, or assignment rules
+Follow-up: Current vs desired behavior? User roles affected? Lead sources impacted?
+Department: Origination, Owner: Sales Ops, Risk: Low, Dependencies: CRM vendor support
+
+5. Document Generation Template Update
+Scenario: Change disclosures, pre-quals, approval letters, denial letters
+Follow-up: Document type? Regulatory change or business preference? Compliance review needed?
+Department: Origination, Owner: Compliance, Risk: High, Dependencies: Legal review
+
+6. E-Signature Platform Configuration
+Scenario: Update DocuSign/Dotloop/Snapdocs settings or workflows
+Follow-up: Document types? Signer order? Authentication method? Mobile compatibility?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: Platform subscription
+
+7. Mobile App Functionality Request
+Scenario: Add features to borrower-facing mobile application
+Follow-up: iOS/Android/Both? Feature description? User authentication? Backend changes needed?
+Department: IT, Owner: Mobile Dev Lead, Risk: Medium, Dependencies: App store approval
+
+8. Pricing Engine Update
+Scenario: Modify rate sheet import, margin rules, or lock desk integration
+Follow-up: Rate source? Frequency of updates? Margin calculation changes? User notifications?
+Department: Origination, Owner: Pricing Manager, Risk: High, Dependencies: Secondary Markets
+
+9. Data Field Addition to LOS
+Scenario: Add custom fields for new data collection requirements
+Follow-up: Field name, type, validation rules? Where displayed? Required or optional? Reporting needs?
+Department: IT, Owner: LOS Administrator, Risk: Low, Dependencies: Database schema update
+
+10. Automated Email Notification Setup
+Scenario: Create/modify automated borrower or internal team notifications
+Follow-up: Trigger event? Recipients? Email content? Timing/frequency? Opt-out capability?
+Department: Operations, Owner: Process Manager, Risk: Low, Dependencies: Email server config
+
+11. Portal Access for Brokers/Correspondents
+Scenario: Modify wholesale partner portal permissions or features
+Follow-up: Partner type? Access level? Features needed? Security requirements? Training materials?
+Department: Origination, Owner: Wholesale Manager, Risk: Medium, Dependencies: Partner agreement
+
+12. Loan Status Dashboard Update
+Scenario: Modify executive or operational dashboards
+Follow-up: Metrics to add/remove? Users who need access? Refresh frequency? Data source?
+Department: Operations, Owner: Analytics Lead, Risk: Low, Dependencies: BI tool access
+
+13. Task Management Automation
+Scenario: Automate task creation/assignment based on loan milestones
+Follow-up: Milestone triggers? Task description? Assigned role? Due date logic? Escalation rules?
+Department: Operations, Owner: Workflow Manager, Risk: Low, Dependencies: LOS workflow engine
+
+14. Income Calculation Tool Integration
+Scenario: Add automated income calculation or validation tool
+Follow-up: Tool vendor? Income types covered? Integration method? Override capability? Audit trail?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Vendor contract
+
+15. Flood Determination Service Change
+Scenario: Switch flood cert provider or update integration
+Follow-up: New vendor? Auto-order trigger? Data mapping? Historical data migration? Cost impact?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: Vendor setup
+
+16. Credit Report Provider Addition
+Scenario: Add new credit bureau or change credit ordering logic
+Follow-up: Bureau name? Tri-merge or single? Auto-order rules? Rescoring capability? Cost per pull?
+Department: Origination, Owner: Compliance, Risk: High, Dependencies: Bureau agreement
+
+17. Appraisal Management Integration
+Scenario: Integrate or update appraisal ordering system
+Follow-up: AMC name? Order types? Status updates? Report delivery? Fee collection method?
+Department: Origination, Owner: Appraisal Manager, Risk: Medium, Dependencies: AMC contract
+
+18. SSO Implementation Request
+Scenario: Implement single sign-on for internal systems
+Follow-up: Systems to include? Authentication provider (Azure AD/Okta)? User groups? MFA required?
+Department: IT, Owner: Security Lead, Risk: High, Dependencies: Identity provider setup
+
+19. Loan Comparison Tool Enhancement
+Scenario: Update borrower-facing loan comparison features
+Follow-up: Comparison criteria? Number of scenarios? Save/share functionality? Mobile responsive?
+Department: Origination, Owner: Digital Experience, Risk: Low, Dependencies: Rate engine access
+
+20. Data Import/Export Automation
+Scenario: Automate data transfer between systems (LOS to servicing, investor reporting)
+Follow-up: Source and target systems? Data fields? Frequency? Error handling? Reconciliation process?
+Department: IT, Owner: Integration Lead, Risk: Medium, Dependencies: Both system access
+
+------------------------------------------------------------------------------
+SECTION 2: LOAN ORIGINATION - POLICY/PROCESS CHANGES (15 Examples)
+------------------------------------------------------------------------------
+
+21. Loan Officer Compensation Plan Change
+Scenario: Modify commission structure or bonus calculations
+Follow-up: Effective date? LO levels affected? Calculation method? System changes needed? Communication plan?
+Department: Origination, Owner: Sales Manager, Risk: Medium, Dependencies: HR approval
+
+22. Minimum Credit Score Requirement Update
+Scenario: Change credit score minimums for loan products
+Follow-up: Product types? New minimums? Exception process? Existing pipeline impact? Investor approval?
+Department: Underwriting, Owner: Chief Underwriter, Risk: High, Dependencies: Investor guidelines
+
+23. Income Documentation Standards Change
+Scenario: Modify acceptable income documentation (paystubs, tax returns, bank statements)
+Follow-up: Doc types affected? New requirements? Validation process? Training needed? System updates?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Compliance approval
+
+24. Pre-Approval Process Enhancement
+Scenario: Change pre-approval criteria or documentation requirements
+Follow-up: Current vs new process? Credit pull timing? Document requirements? Expiration policy?
+Department: Origination, Owner: Sales Operations, Risk: Medium, Dependencies: Marketing materials
+
+25. Lock Desk Procedures Update
+Scenario: Modify rate lock policies, extensions, or renegotiation rules
+Follow-up: Lock periods? Extension fees? Renegotiation criteria? System configuration? Investor impact?
+Department: Origination, Owner: Lock Desk Manager, Risk: High, Dependencies: Secondary Markets
+
+26. Application Intake Checklist Revision
+Scenario: Update initial document checklist or borrower interview requirements
+Follow-up: Document types? Required vs optional? Borrower communication? Processor training?
+Department: Origination, Owner: Operations Manager, Risk: Low, Dependencies: Compliance review
+
+27. Lead Response Time Standards
+Scenario: Change SLA for responding to new leads or inquiries
+Follow-up: New timeframe? Channels affected (phone/email/web)? Escalation process? Monitoring method?
+Department: Origination, Owner: Sales Manager, Risk: Low, Dependencies: CRM configuration
+
+28. Marketing Source Tracking Requirements
+Scenario: Enhance tracking of lead sources and marketing attribution
+Follow-up: New sources? Data fields needed? ROI reporting? Compliance with marketing regulations?
+Department: Origination, Owner: Marketing Manager, Risk: Low, Dependencies: CRM setup
+
+29. Borrower Communication Cadence
+Scenario: Standardize frequency and timing of borrower updates
+Follow-up: Communication channels? Milestone triggers? Templates needed? Opt-out options?
+Department: Origination, Owner: Customer Experience, Risk: Low, Dependencies: Email platform
+
+30. Product Eligibility Matrix Update
+Scenario: Change which products are available based on property/borrower characteristics
+Follow-up: Products affected? Eligibility criteria? System logic? Training materials? Rate sheet impact?
+Department: Origination, Owner: Product Manager, Risk: High, Dependencies: Investor approval
+
+31. Referral Partner Commission Structure
+Scenario: Modify real estate agent or referral partner compensation
+Follow-up: Partner types? New structure? Tracking method? Payment timing? RESPA compliance?
+Department: Origination, Owner: Partner Relations, Risk: High, Dependencies: Legal review
+
+32. Application Fee Collection Policy
+Scenario: Change when/how application fees are collected or refunded
+Follow-up: Fee amount? Collection timing? Refund scenarios? Payment methods? State variations?
+Department: Origination, Owner: Operations Manager, Risk: Medium, Dependencies: Compliance
+
+33. Co-Borrower/Co-Signer Policy Update
+Scenario: Modify rules for adding co-borrowers or non-occupant co-borrowers
+Follow-up: Relationship requirements? Income consideration? Credit evaluation? Occupancy impact?
+Department: Underwriting, Owner: Chief Underwriter, Risk: Medium, Dependencies: Investor guidelines
+
+34. Construction Loan Draw Process
+Scenario: Change inspection, approval, or disbursement procedures for construction loans
+Follow-up: Draw schedule? Inspection requirements? Approval authority? Fund disbursement timing?
+Department: Closing, Owner: Construction Loan Manager, Risk: High, Dependencies: Builder contracts
+
+35. Renovation Loan Procedures
+Scenario: Update 203k, HomeStyle, or CHOICERenovation loan processes
+Follow-up: Loan type? Contractor requirements? Draw process? Inspection protocol? Budget approvals?
+Department: Origination, Owner: Renovation Specialist, Risk: High, Dependencies: FHA/Investor rules
+
+------------------------------------------------------------------------------
+SECTION 3: UNDERWRITING - CONDITIONS & STIPULATIONS (25 Examples)
+------------------------------------------------------------------------------
+
+36. New Underwriting Condition Category
+Scenario: Add new standardized condition type (income verification, asset documentation, etc.)
+Follow-up: Condition description? Applicable loan types? Required documentation? Responsible party? System dropdown update?
+Department: Underwriting, Owner: UW Manager, Risk: Medium, Dependencies: LOS configuration
+
+37. Automated Condition Clearing Logic
+Scenario: Implement auto-clearing when specific documents received
+Follow-up: Condition types? Document types? Validation rules? Override capability? Audit trail?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Document recognition system
+
+38. Gift Fund Documentation Requirements
+Scenario: Change requirements for documenting gift funds from family
+Follow-up: Gift letter format? Donor verification? Sourcing requirements? Transfer confirmation? Amount thresholds?
+Department: Underwriting, Owner: Chief Underwriter, Risk: High, Dependencies: Investor guidelines
+
+39. Employment Verification Standards
+Scenario: Update VOE requirements, verbal VOE policy, or employment gaps
+Follow-up: Verification method? Timing before closing? Gap explanation requirements? Self-employment docs?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Compliance
+
+40. Bank Statement Asset Review Policy
+Scenario: Change requirements for reviewing asset documentation
+Follow-up: Statement age? Account types? Sourcing large deposits? Business accounts? Retirement accounts?
+Department: Underwriting, Owner: Chief Underwriter, Risk: High, Dependencies: Investor guidelines
+
+41. Credit Supplement Condition Standards
+Scenario: Standardize when/why credit supplements are required
+Follow-up: Trigger events? Timeframe from initial credit? Re-underwriting required? Fee responsibility?
+Department: Underwriting, Owner: UW Manager, Risk: Medium, Dependencies: Credit bureau setup
+
+42. Property Condition Requirements
+Scenario: Define standards for property condition issues found in appraisal
+Follow-up: Health/safety issues? Cosmetic vs structural? Repair escrow? Re-inspection needed?
+Department: Underwriting, Owner: Chief Underwriter, Risk: High, Dependencies: Appraisal review
+
+43. Title Clearance Condition Types
+Scenario: Standardize title-related conditions (liens, judgments, easements)
+Follow-up: Clearance requirements? Acceptable title exceptions? Responsible party? Documentation needed?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Title company standards
+
+44. Insurance Documentation Standards
+Scenario: Update homeowners/flood insurance requirements and verification
+Follow-up: Coverage amounts? Named insured? Mortgagee clause? Effective date? Binder vs policy?
+Department: Underwriting, Owner: Closing Manager, Risk: High, Dependencies: Investor requirements
+
+45. Tax Return Analysis Requirements
+Scenario: Change requirements for reviewing business or personal tax returns
+Follow-up: Years required? Schedules needed? Accountant letter? Business structure? Income calculation?
+Department: Underwriting, Owner: Chief Underwriter, Risk: High, Dependencies: Income guidelines
+
+46. Rental Income Documentation Policy
+Scenario: Update requirements for documenting rental income from properties
+Follow-up: Lease agreement? Property management? Tax return verification? Vacancy factor? Expense calculation?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Investor guidelines
+
+47. Child Support/Alimony Income Verification
+Scenario: Define standards for documenting support income
+Follow-up: Continuance period? Payment history? Court order? Deposit verification? Decline usage option?
+Department: Underwriting, Owner: Chief Underwriter, Risk: Medium, Dependencies: Income guidelines
+
+48. Commission/Bonus Income Calculation
+Scenario: Standardize how variable income is calculated and documented
+Follow-up: Years required? Averaging method? Declining income? Employer letter? Tax return verification?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Investor guidelines
+
+49. Prior to Document (PTD) Condition Process
+Scenario: Modify workflow for conditions required before document generation
+Follow-up: Condition types? Sign-off authority? Notification process? Document generation delay?
+Department: Underwriting, Owner: UW Manager, Risk: Medium, Dependencies: LOS workflow
+
+50. Prior to Funding (PTF) Condition Process
+Scenario: Update process for final conditions before wire release
+Follow-up: Condition types? Verification method? Funding desk review? Escalation process? Time sensitivity?
+Department: Closing, Owner: Funding Manager, Risk: High, Dependencies: Final review checklist
+
+51. Appraisal Review Condition Standards
+Scenario: Define when appraisal reviews, recertifications, or new appraisals required
+Follow-up: Trigger events? Age of appraisal? Value changes? Property changes? Appraiser rotation?
+Department: Underwriting, Owner: Appraisal Manager, Risk: High, Dependencies: Appraisal policy
+
+52. Debt Payoff Verification Requirements
+Scenario: Standardize documentation for paying off debts to qualify
+Follow-up: Payoff letter requirements? Timing? Verification method? Subordination agreements? Closing disclosure impact?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Credit policy
+
+53. Explanation Letter Standards
+Scenario: Define acceptable explanation letters for credit, income, assets
+Follow-up: Letter format? Supporting documentation? Credibility assessment? Retention requirements?
+Department: Underwriting, Owner: Chief Underwriter, Risk: Medium, Dependencies: File documentation
+
+54. Mortgage Payment History Verification
+Scenario: Update requirements for verifying current mortgage payment history
+Follow-up: Months required? 12-month vs 24-month? Lates acceptable? Forbearance impact? Verification method?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Investor guidelines
+
+55. Co-Borrower Credit Evaluation
+Scenario: Clarify when co-borrower credit pulls and evaluations required
+Follow-up: Income consideration? Occupancy status? Debt inclusion? Qualifying ratios? Credit score usage?
+Department: Underwriting, Owner: Chief Underwriter, Risk: Medium, Dependencies: AUS findings
+
+56. Property Survey Requirements
+Scenario: Define when surveys required vs acceptable alternatives
+Follow-up: Property type? Lender coverage? Encroachment issues? Survey age? Waiver options?
+Department: Underwriting, Owner: UW Manager, Risk: Medium, Dependencies: Title policy
+
+57. HOA Documentation Requirements
+Scenario: Update requirements for condo/PUD HOA documentation packages
+Follow-up: Required documents? Warrantability review? Budget analysis? Reserve requirements? Insurance verification?
+Department: Underwriting, Owner: Chief Underwriter, Risk: High, Dependencies: Investor condo guidelines
+
+58. Verification of Deposit (VOD) Standards
+Scenario: Standardize when verbal vs written VODs acceptable
+Follow-up: Account types? Verification method? Age of verification? Large deposit explanation? Business accounts?
+Department: Underwriting, Owner: UW Manager, Risk: Medium, Dependencies: Asset guidelines
+
+59. Divorce Decree Documentation Policy
+Scenario: Define requirements for documenting divorce obligations and income
+Follow-up: Decree provisions? Obligation payment history? Continuance period? Property settlement impact?
+Department: Underwriting, Owner: Chief Underwriter, Risk: High, Dependencies: Debt/income guidelines
+
+60. Self-Employment Income Documentation
+Scenario: Update requirements for business owners and self-employed borrowers
+Follow-up: Business structure? Years in business? Tax returns required? P&L statement? CPA letter? Declining income?
+Department: Underwriting, Owner: UW Manager, Risk: High, Dependencies: Income calculation worksheet
+
+------------------------------------------------------------------------------
+SECTION 4: UNDERWRITING - COMPLIANCE & REGULATORY (15 Examples)
+------------------------------------------------------------------------------
+
+61. TRID Timing Calculation Update
+Scenario: Modify how closing disclosure timing and waiting periods calculated
+Follow-up: Changed circumstance triggers? Business day calculation? Tolerance violations? System automation?
+Department: Compliance, Owner: Compliance Manager, Risk: High, Dependencies: LOS calculation logic
+
+62. HMDA Data Collection Enhancement
+Scenario: Update demographic data collection or reporting requirements
+Follow-up: New data fields? Collection timing? Borrower notification? Reporting system update? Training needs?
+Department: Compliance, Owner: HMDA Analyst, Risk: High, Dependencies: Regulatory change
+
+63. Fair Lending Policy Update
+Scenario: Modify underwriting or pricing policies to address fair lending concerns
+Follow-up: Policy area? Disparate impact analysis? Exception tracking? Training requirements? Monitoring plan?
+Department: Compliance, Owner: Fair Lending Officer, Risk: High, Dependencies: Legal review
+
+64. QM/ATR Rule Compliance Change
+Scenario: Update qualified mortgage or ability-to-repay verification processes
+Follow-up: Loan products affected? Documentation requirements? Rate spread calculation? System updates?
+Department: Compliance, Owner: Compliance Manager, Risk: High, Dependencies: Regulatory guidance
+
+65. ECOA Adverse Action Notice Process
+Scenario: Modify denial or counteroffer notice generation and delivery
+Follow-up: Notice triggers? Reason codes? Delivery method? Timing requirements? Credit score disclosure?
+Department: Compliance, Owner: Compliance Officer, Risk: High, Dependencies: Document generation system
+
+66. FCRA Compliant Credit Disclosure
+Scenario: Update credit score disclosure on denials or adverse action
+Follow-up: Score model? Key factors? Notice format? Delivery timing? Dispute process information?
+Department: Compliance, Owner: Compliance Manager, Risk: High, Dependencies: Credit report format
+
+67. RESPA Affiliated Business Disclosure
+Scenario: Add or update disclosures for affiliated service providers
+Follow-up: Affiliate relationship? Services provided? Disclosure timing? Borrower choice language? State requirements?
+Department: Compliance, Owner: Compliance Officer, Risk: High, Dependencies: Affiliate agreement
+
+68. State Licensing Requirement Tracking
+Scenario: Implement tracking of state-specific licensing for LOs and company
+Follow-up: States covered? License types? Expiration tracking? Renewal notifications? System integration?
+Department: Compliance, Owner: Licensing Manager, Risk: High, Dependencies: NMLS integration
+
+69. Anti-Money Laundering (AML) Policy Update
+Scenario: Enhance AML procedures, large cash transaction reporting, or suspicious activity monitoring
+Follow-up: Transaction thresholds? Documentation requirements? Reporting process? Staff training? SAR filing?
+Department: Compliance, Owner: AML Officer, Risk: High, Dependencies: BSA compliance program
+
+70. Privacy Notice Delivery Requirements
+Scenario: Update GLBA privacy notice delivery or opt-out process
+Follow-up: Delivery method? Timing? Opt-out options? Electronic delivery consent? Annual notice process?
+Department: Compliance, Owner: Privacy Officer, Risk: High, Dependencies: Privacy policy
+
+71. Marketing Compliance Standards
+Scenario: Implement controls for marketing materials, rate advertisements, social media
+Follow-up: Review/approval process? Trigger terms? Disclosures required? State-specific rules? Archive retention?
+Department: Compliance, Owner: Marketing Compliance, Risk: High, Dependencies: Marketing review system
+
+72. Appraisal Independence Requirements
+Scenario: Update controls to ensure appraiser independence and avoid coercion
+Follow-up: Ordering process? Appraiser communication restrictions? Review separation? AMC usage? Complaint process?
+Department: Compliance, Owner: Compliance Manager, Risk: High, Dependencies: Appraisal policy
+
+73. Do Not Call (DNC) List Compliance
+Scenario: Implement or enhance TCPA compliance for telemarketing calls
+Follow-up: DNC scrubbing frequency? Consent documentation? Call recording? Text message consent? Vendor integration?
+Department: Compliance, Owner: Compliance Officer, Risk: High, Dependencies: Telemarketing system
+
+74. Flood Insurance Compliance Process
+Scenario: Update flood determination, notification, or force-placement procedures
+Follow-up: Determination timing? Notice requirements? Lapse monitoring? Force-placement process? Escrow waiver rules?
+Department: Compliance, Owner: Flood Compliance, Risk: High, Dependencies: Flood vendor integration
+
+75. Military Lending Act (MLA) Compliance
+Scenario: Implement MLA disclosures and rate cap verification for covered borrowers
+Follow-up: Covered loan types? Military status verification? MAPR calculation? Disclosure delivery? Opt-out process?
+Department: Compliance, Owner: Compliance Manager, Risk: High, Dependencies: Military verification service
+
+------------------------------------------------------------------------------
+SECTION 5: CLOSING/FUNDING - PROCESS CHANGES (20 Examples)
+------------------------------------------------------------------------------
+
+76. Clear to Close (CTC) Criteria Update
+Scenario: Modify requirements for issuing clear to close status
+Follow-up: Condition clearance requirements? Sign-off authority? Notification process? Document preparation timing?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: Underwriting workflow
+
+77. Closing Document Package Standardization
+Scenario: Standardize which documents prepared for different loan types
+Follow-up: Loan products? State variations? Investor requirements? Document vendor? E-sign vs wet sign?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: Doc prep system
+
+78. Title Commitment Review Process
+Scenario: Modify how title commitments reviewed and exceptions cleared
+Follow-up: Review responsibility? Exception types? Clearance authority? Communication with title company? Timing requirements?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: Title company process
+
+79. Final Closing Disclosure Delivery Timing
+Scenario: Update process for delivering final CD and managing changes
+Follow-up: Delivery method? Borrower confirmation? Change tracking? Re-disclosure triggers? Closing delay process?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: TRID compliance
+
+80. Wet Sign vs E-Sign Determination
+Scenario: Define when electronic vs in-person signing used
+Follow-up: State restrictions? Borrower preference? Document types? Notary requirements? RON capability?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: E-sign platform
+
+81. Funding Desk Final Review Checklist
+Scenario: Update final review requirements before releasing funds
+Follow-up: Checklist items? Review authority? Exception process? Documentation requirements? Quality checks?
+Department: Closing, Owner: Funding Manager, Risk: High, Dependencies: QC standards
+
+82. Wire Transfer Authorization Process
+Scenario: Modify approval chain and procedures for funding wires
+Follow-up: Amount thresholds? Authorization levels? Verification calls? Wire recall process? Fraud prevention?
+Department: Closing, Owner: Funding Manager, Risk: High, Dependencies: Treasury procedures
+
+83. Post-Closing Document Collection
+Scenario: Define requirements for collecting post-closing documents (wet-signed notes, recorded deeds)
+Follow-up: Document types? Receipt timing? Tracking system? Escalation for missing docs? Investor delivery impact?
+Department: Closing, Owner: Post-Closing Manager, Risk: High, Dependencies: Closing agent coordination
+
+84. Closing Protection Letter (CPL) Requirements
+Scenario: Standardize when CPLs required from title companies
+Follow-up: Transaction types? Title company requirements? State variations? File documentation? Investor requirements?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: Title insurance policy
+
+85. Final Walk-Through Verification
+Scenario: Implement verification that property walk-through completed (purchase transactions)
+Follow-up: Timing requirements? Who performs? Issues found process? Escrow holdback? Cancellation risk?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: Purchase contract
+
+86. Closing Costs Tolerance Monitoring
+Scenario: Enhance monitoring of closing cost changes and TRID tolerances
+Follow-up: Tracked fees? Variance calculation? Re-disclosure triggers? Cure process? Reporting requirements?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: TRID compliance
+
+87. Borrower ID Verification at Closing
+Scenario: Update identity verification requirements for closing
+Follow-up: Acceptable IDs? Expiration handling? Photo/copy retention? Notary requirements? Electronic verification?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: Patriot Act compliance
+
+88. Power of Attorney Acceptance Standards
+Scenario: Define when POA accepted and required documentation
+Follow-up: POA format? Recording requirements? Notarization? Specific powers? Legal review process? State variations?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: Legal review
+
+89. Closing Disclosure Changes Worksheet
+Scenario: Implement tracking of all CD changes and reasons
+Follow-up: Change categories? Approval process? Root cause tracking? Tolerance impact? Performance metrics?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: TRID tracking system
+
+90. Payoff Statement Ordering and Verification
+Scenario: Standardize ordering and verifying mortgage/lien payoffs
+Follow-up: Ordering timing? Verification process? Per diem calculation? Good through date? Final payoff confirmation?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: Payoff vendor integration
+
+91. Escrow Account Setup and Funding
+Scenario: Modify escrow account setup, initial deposit calculation
+Follow-up: Items escrowed? Cushion calculation? Aggregate adjustment? Waiver criteria? Disclosure accuracy?
+Department: Closing, Owner: Closing Manager, Risk: Medium, Dependencies: Escrow calculation tool
+
+92. Construction-to-Permanent Conversion Process
+Scenario: Define procedures for converting construction loan to permanent financing
+Follow-up: Conversion triggers? Re-disclosure requirements? Appraisal update? Final inspection? Rate lock timing?
+Department: Closing, Owner: Construction Manager, Risk: High, Dependencies: Construction completion
+
+93. Subordination Agreement Processing
+Scenario: Process for obtaining subordination of existing liens
+Follow-up: Lien holder requirements? Approval timing? Fee responsibility? Recording process? Closing delay risk?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: Title company coordination
+
+94. Simultaneous Second Lien Closing
+Scenario: Coordinate simultaneous closing of first and second mortgages
+Follow-up: Lender coordination? Document signing order? Funding sequence? Title policy coverage? Disbursement timing?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: Second lien lender
+
+95. Early Payoff Within Closing Disclosure Period
+Scenario: Handle refinances where existing mortgage paid off before 3-day wait
+Follow-up: Payoff good through date extension? TRID violation risk? Interest savings? Lender communication?
+Department: Closing, Owner: Closing Manager, Risk: High, Dependencies: TRID compliance
+
+------------------------------------------------------------------------------
+SECTION 6: SERVICING/OPERATIONS (20 Examples)
+------------------------------------------------------------------------------
+
+96. Payment Processing System Change
+Scenario: Modify payment acceptance channels (ACH, credit card, phone, online portal)
+Follow-up: Payment types? Processing timeline? Fee structure? Receipt generation? Failed payment handling?
+Department: Servicing, Owner: Servicing Manager, Risk: High, Dependencies: Payment processor integration
+
+97. Escrow Analysis Frequency/Method
+Scenario: Change how often escrow accounts analyzed or calculation methodology
+Follow-up: Analysis frequency? Shortage/surplus handling? Notice timing? Cushion requirements? State variations?
+Department: Servicing, Owner: Escrow Manager, Risk: High, Dependencies: Escrow system configuration
+
+98. Payment Application Hierarchy
+Scenario: Modify order in which payments applied (principal, interest, escrow, fees)
+Follow-up: Payment types? Application order? Partial payment handling? Customer communication? Investor requirements?
+Department: Servicing, Owner: Servicing Manager, Risk: High, Dependencies: Servicing system setup
+
+99. Default/Delinquency Contact Procedures
+Scenario: Update timing and method of contacting delinquent borrowers
+Follow-up: Contact cadence? Communication channels? Required notices? Escalation process? Loss mitigation options?
+Department: Servicing, Owner: Default Manager, Risk: High, Dependencies: CFPB servicing rules
+
+100. Loss Mitigation Options and Procedures
+Scenario: Add or modify loan modification, forbearance, repayment plan options
+Follow-up: Eligibility criteria? Documentation requirements? Approval authority? Trial period? Reporting requirements?
+Department: Servicing, Owner: Loss Mitigation Manager, Risk: High, Dependencies: Investor guidelines
+
+101. Statement Generation and Delivery
+Scenario: Modify monthly statement content, format, or delivery method
+Follow-up: Statement format? Delivery method (mail/email/portal)? Included information? Opt-out options? Regulatory requirements?
+Department: Servicing, Owner: Servicing Manager, Risk: Medium, Dependencies: Statement vendor
+
+102. Insurance Tracking and Force Placement
+Scenario: Update homeowners insurance monitoring and force-place procedures
+Follow-up: Tracking frequency? Notice requirements? Force-place criteria? Cost recovery? Cancellation process?
+Department: Servicing, Owner: Insurance Tracking Manager, Risk: High, Dependencies: Tracking vendor
+
+103. Tax Service/Payment Procedures
+Scenario: Modify property tax monitoring, payment, or dispute processes
+Follow-up: Tax service provider? Payment timing? Duplicate payment handling? Appeal process? Escrow impact?
+Department: Servicing, Owner: Tax Manager, Risk: High, Dependencies: Tax service vendor
+
+104. Payoff Quote Generation Process
+Scenario: Update how payoff quotes calculated and delivered to borrowers
+Follow-up: Quote format? Delivery method? Good through date? Per diem calculation? Fee inclusion? Prepayment penalty?
+Department: Servicing, Owner: Servicing Manager, Risk: Medium, Dependencies: Servicing system
+
+105. Customer Service Call Center Scripts
+Scenario: Update call center scripts for common borrower inquiries
+Follow-up: Inquiry types? Script content? Escalation paths? Quality monitoring? Recording retention?
+Department: Servicing, Owner: Customer Service Manager, Risk: Low, Dependencies: Call center platform
+
+106. Online Portal Feature Enhancement
+Scenario: Add features to borrower self-service portal
+Follow-up: Features requested? User authentication? Mobile compatibility? Data security? User testing?
+Department: Servicing, Owner: Digital Experience, Risk: Medium, Dependencies: Portal development
+
+107. Escrow Waiver Request Process
+Scenario: Standardize procedures for evaluating escrow waiver requests
+Follow-up: Eligibility criteria? LTV requirements? Documentation needed? Fee impact? Investor approval?
+Department: Servicing, Owner: Escrow Manager, Risk: Medium, Dependencies: Investor guidelines
+
+108. Loan Assumption Request Procedures
+Scenario: Define process for evaluating and approving loan assumptions
+Follow-up: Assumption eligibility? Credit evaluation? Documentation requirements? Fee structure? Release of liability?
+Department: Servicing, Owner: Servicing Manager, Risk: High, Dependencies: Investor approval
+
+109. Rate Modification Request Process
+Scenario: Implement process for borrowers requesting rate modifications
+Follow-up: Eligibility criteria? Market rate comparison? Fee structure? Re-underwriting? Document execution?
+Department: Servicing, Owner: Servicing Manager, Risk: High, Dependencies: Investor guidelines
+
+110. Disaster/Forbearance Program Implementation
+Scenario: Implement emergency forbearance for natural disasters
+Follow-up: Affected areas? Forbearance period? Repayment options? Investor communication? Reporting requirements?
+Department: Servicing, Owner: Default Manager, Risk: High, Dependencies: FHFA/FHA guidance
+
+111. PMI Cancellation Request Procedures
+Scenario: Standardize process for borrowers requesting PMI cancellation
+Follow-up: LTV calculation method? Appraisal requirements? Payment history requirement? Notice generation? Investor approval?
+Department: Servicing, Owner: Servicing Manager, Risk: Medium, Dependencies: HPA requirements
+
+112. Loan Modification Documentation
+Scenario: Update required documents for completing loan modifications
+Follow-up: Modification type? Required borrower documents? Approval authority? Trial payment period? Recording requirements?
+Department: Servicing, Owner: Loss Mitigation Manager, Risk: High, Dependencies: Investor mod programs
+
+113. Bankruptcy Notification Handling
+Scenario: Define procedures when receiving bankruptcy notification
+Follow-up: Stay recognition? Payment handling? Proof of claim filing? Attorney communication? Collection restrictions?
+Department: Servicing, Owner: Bankruptcy Manager, Risk: High, Dependencies: Legal counsel
+
+114. Successor in Interest Procedures
+Scenario: Implement process for handling property transfers upon death/divorce
+Follow-up: Documentation requirements? Notification timing? Account access? Modification eligibility? Occupancy verification?
+Department: Servicing, Owner: Servicing Manager, Risk: High, Dependencies: CFPB servicing rules
+
+115. Annual Escrow Statement Accuracy
+Scenario: Enhance accuracy and timeliness of annual escrow statements
+Follow-up: Generation timing? Calculation verification? Shortage/surplus options? Borrower communication? Dispute resolution?
+Department: Servicing, Owner: Escrow Manager, Risk: High, Dependencies: RESPA compliance
+
+------------------------------------------------------------------------------
+SECTION 7: COMPLIANCE/AUDIT FINDINGS (15 Examples)
+------------------------------------------------------------------------------
+
+116. Internal Audit Finding Remediation
+Scenario: Address audit finding regarding missing documentation in loan files
+Follow-up: Finding description? Files affected? Remediation steps? Timeline? Re-audit process? Root cause analysis?
+Department: Compliance, Owner: Compliance Manager, Risk: High, Dependencies: Audit committee reporting
+
+117. Fair Lending Statistical Analysis Finding
+Scenario: Address disparate impact finding from fair lending analysis
+Follow-up: Policy area? Statistical analysis? Remediation plan? Compensation analysis? Policy changes? Monitoring plan?
+Department: Compliance, Owner: Fair Lending Officer, Risk: High, Dependencies: Legal review
+
+118. TRID Tolerance Violation Cure Process
+Scenario: Implement process for identifying and curing tolerance violations
+Follow-up: Violation types? Detection method? Cure timeline? Borrower notification? Tracking system? Reporting?
+Department: Compliance, Owner: Compliance Manager, Risk: High, Dependencies: Closing cost monitoring
+
+119. Appraisal Discrimination Review Finding
+Scenario: Address findings of potential bias in appraisal evaluations
+Follow-up: Properties reviewed? Bias indicators? Reconsideration process? Appraiser education? Policy changes?
+Department: Compliance, Owner: Fair Lending Officer, Risk: High, Dependencies: Appraisal review
+
+120. Marketing Materials Compliance Gap
+Scenario: Correct non-compliant marketing materials or advertisements
+Follow-up: Materials affected? Violations identified? Correction process? Review enhancement? Training needs?
+Department: Compliance, Owner: Marketing Compliance, Risk: High, Dependencies: Marketing review process
+
+121. Recordkeeping/Retention Deficiency
+Scenario: Address gaps in document retention or recordkeeping practices
+Follow-up: Document types? Retention periods? Storage system? Retrieval process? Exam preparedness?
+Department: Compliance, Owner: Compliance Manager, Risk: Medium, Dependencies: Document management system
+
+122. HMDA Data Quality Finding
+Scenario: Correct errors or gaps in HMDA data reporting
+Follow-up: Data fields affected? Error types? Correction process? Re-submission needed? Process improvements?
+Department: Compliance, Owner: HMDA Analyst, Risk: High, Dependencies: HMDA reporting system
+
+123. QC Sampling Methodology Update
+Scenario: Enhance quality control sampling to meet investor or regulatory standards
+Follow-up: Sample size? Selection method? Review timing? Defect categories? Reporting structure?
+Department: Compliance, Owner: QC Manager, Risk: High, Dependencies: QC system configuration
+
+124. Licensing Violation Remediation
+Scenario: Address instances of unlicensed activity or expired licenses
+Follow-up: Individuals affected? States involved? Loan actions taken? Remediation steps? Enhanced monitoring?
+Department: Compliance, Owner: Licensing Manager, Risk: High, Dependencies: State regulatory communication
+
+125. Red Flags Identity Theft Program Gap
+Scenario: Enhance identity theft prevention program based on exam findings
+Follow-up: Program gaps? Enhanced procedures? Staff training? Detection methods? Response procedures?
+Department: Compliance, Owner: Risk Manager, Risk: High, Dependencies: Identity theft policy
+
+126. Third-Party Vendor Management Deficiency
+Scenario: Strengthen vendor due diligence, oversight, or contract management
+Follow-up: Vendors affected? Due diligence requirements? Monitoring process? Contract terms? Exit strategy?
+Department: Compliance, Owner: Vendor Management, Risk: High, Dependencies: Vendor management policy
+
+127. Complaint Handling Process Improvement
+Scenario: Enhance borrower complaint intake, tracking, and resolution
+Follow-up: Complaint channels? Tracking system? Response timeline? Root cause analysis? Regulatory reporting?
+Department: Compliance, Owner: Customer Service Manager, Risk: High, Dependencies: CRM system
+
+128. Training Program Deficiency
+Scenario: Enhance training programs for compliance, fair lending, fraud prevention
+Follow-up: Training topics? Audience? Frequency? Testing/certification? Tracking completion? Content updates?
+Department: Compliance, Owner: Training Manager, Risk: Medium, Dependencies: LMS system
+
+129. Flood Insurance Determination Errors
+Scenario: Correct errors in flood zone determinations or insurance requirements
+Follow-up: Properties affected? Re-determination process? Notice requirements? Refund process? Vendor accountability?
+Department: Compliance, Owner: Flood Compliance, Risk: High, Dependencies: Flood determination vendor
+
+130. Closing Disclosure Math Error Pattern
+Scenario: Address systemic calculation errors in closing disclosures
+Follow-up: Calculation types? Root cause? System fix? File review? Borrower notification? Tolerance impact?
+Department: Compliance, Owner: Closing Manager, Risk: High, Dependencies: Doc prep system
+
+------------------------------------------------------------------------------
+SECTION 8: SYSTEM/DATA MANAGEMENT (20 Examples)
+------------------------------------------------------------------------------
+
+131. LOS to Servicing System Data Transfer
+Scenario: Fix or enhance data mapping between origination and servicing platforms
+Follow-up: Data fields? Mapping errors? Testing process? Historical data? Reconciliation requirements?
+Department: IT, Owner: Integration Lead, Risk: High, Dependencies: Both system access
+
+132. User Access Management Update
+Scenario: Modify user roles, permissions, or access provisioning process
+Follow-up: User roles? Permission changes? Approval process? Termination procedures? Audit logging?
+Department: IT, Owner: Security Manager, Risk: High, Dependencies: Identity management system
+
+133. Data Privacy/GDPR Compliance Enhancement
+Scenario: Implement data subject rights requests or enhanced privacy controls
+Follow-up: Request types? Data inventory? Fulfillment process? Retention schedules? Third-party data?
+Department: Compliance, Owner: Privacy Officer, Risk: High, Dependencies: Data governance
+
+134. Database Performance Optimization
+Scenario: Optimize database queries, indexing, or storage for performance
+Follow-up: Performance issues? Affected queries? Indexing strategy? Downtime required? Testing plan?
+Department: IT, Owner: Database Administrator, Risk: Medium, Dependencies: System maintenance window
+
+135. Disaster Recovery/Business Continuity Test
+Scenario: Update or test disaster recovery procedures for critical systems
+Follow-up: Systems in scope? Test scenario? Recovery time objective? Data loss tolerance? Stakeholder communication?
+Department: IT, Owner: Infrastructure Manager, Risk: High, Dependencies: DR site access
+
+136. Loan Pipeline Reporting Enhancement
+Scenario: Add or modify executive reporting on loan pipeline metrics
+Follow-up: Metrics needed? Data sources? Refresh frequency? User access? Mobile access? Export capability?
+Department: Operations, Owner: Analytics Lead, Risk: Low, Dependencies: BI tool
+
+137. Data Warehouse Implementation/Update
+Scenario: Build or enhance data warehouse for analytics and reporting
+Follow-up: Data sources? ETL process? Historical data? Access controls? Query performance? Cost impact?
+Department: IT, Owner: Data Architect, Risk: High, Dependencies: Infrastructure provisioning
+
+138. API Rate Limiting or Throttling
+Scenario: Implement or adjust API usage limits for integrations
+Follow-up: Affected APIs? Usage limits? Throttling strategy? Error handling? Partner communication?
+Department: IT, Owner: API Manager, Risk: Medium, Dependencies: API gateway configuration
+
+139. Audit Logging Enhancement
+Scenario: Expand audit logging for compliance or security monitoring
+Follow-up: Activities logged? Retention period? Access controls? Alerting rules? Storage capacity?
+Department: IT, Owner: Security Manager, Risk: High, Dependencies: SIEM integration
+
+140. System Upgrade Testing Plan
+Scenario: Develop testing plan for major system upgrade or replacement
+Follow-up: System scope? Test scenarios? User acceptance testing? Data migration? Rollback plan? Training?
+Department: IT, Owner: Project Manager, Risk: High, Dependencies: Vendor support
+
+141. Mobile Device Management (MDM) Policy
+Scenario: Implement or update MDM for company-issued devices
+Follow-up: Device types? Security controls? App restrictions? Remote wipe capability? BYOD policy?
+Department: IT, Owner: Security Manager, Risk: High, Dependencies: MDM platform
+
+142. Legacy System Decommissioning
+Scenario: Plan sunset of old system and data archival
+Follow-up: System being retired? Data migration? Archive strategy? User cutover? License termination?
+Department: IT, Owner: IT Manager, Risk: High, Dependencies: Replacement system ready
+
+143. Email Security Enhancement
+Scenario: Implement advanced email filtering, encryption, or DLP
+Follow-up: Security controls? Encryption requirements? DLP policies? User training? False positive handling?
+Department: IT, Owner: Security Manager, Risk: High, Dependencies: Email security platform
+
+144. Data Quality Monitoring System
+Scenario: Implement automated monitoring for data quality issues
+Follow-up: Data elements? Quality rules? Alert thresholds? Remediation workflow? Dashboard creation?
+Department: IT, Owner: Data Governance, Risk: Medium, Dependencies: Data quality tool
+
+145. Network Segmentation for PCI/PII
+Scenario: Enhance network security through segmentation of sensitive data
+Follow-up: Data types? Network zones? Access controls? Migration plan? Security testing?
+Department: IT, Owner: Network Security, Risk: High, Dependencies: Network infrastructure
+
+146. Penetration Testing Remediation
+Scenario: Address vulnerabilities found in security penetration test
+Follow-up: Vulnerability types? Severity levels? Remediation timeline? Re-test requirements? Compensating controls?
+Department: IT, Owner: Security Manager, Risk: High, Dependencies: InfoSec assessment
+
+147. Cloud Migration Planning
+Scenario: Plan migration of systems to cloud infrastructure
+Follow-up: Systems to migrate? Cloud provider? Migration strategy? Security controls? Cost analysis? Timeline?
+Department: IT, Owner: Cloud Architect, Risk: High, Dependencies: Executive approval
+
+148. Data Masking for Non-Production
+Scenario: Implement data masking/tokenization for test environments
+Follow-up: Data elements? Masking method? Environment scope? Refresh process? Testing impact?
+Department: IT, Owner: Security Manager, Risk: High, Dependencies: Masking tool
+
+149. Backup and Recovery Validation
+Scenario: Enhance backup procedures or test recovery processes
+Follow-up: Systems covered? Backup frequency? Retention period? Recovery testing? Off-site storage?
+Department: IT, Owner: Infrastructure Manager, Risk: High, Dependencies: Backup infrastructure
+
+150. Certificate Management Process
+Scenario: Implement tracking and renewal of SSL/TLS certificates
+Follow-up: Certificates in scope? Expiration monitoring? Renewal process? Automation capability? Alert notifications?
+Department: IT, Owner: Security Manager, Risk: High, Dependencies: Certificate authority
+
+================================================================================
+DECISION TREE FOR COMMON SCENARIOS
+================================================================================
+
+IF request mentions "condition" OR "stipulation" OR "documentation requirement"
+THEN:
+  - Department: Underwriting or Closing
+  - Key fields: Condition description, document type, responsible party, timing (PTD/PTF)
+  - Follow-up: What triggers this condition? Who provides the documentation? What validates clearance?
+
+IF request mentions "system" OR "integration" OR "LOS" OR "platform"
+THEN:
+  - Department: IT
+  - Key fields: Systems affected, integration points, testing requirements, downtime needs
+  - Follow-up: Which systems? Current vs desired behavior? Data mapping? User training needed?
+
+IF request mentions "compliance" OR "regulatory" OR "TRID" OR "RESPA" OR "HMDA"
+THEN:
+  - Department: Compliance
+  - Risk Level: HIGH
+  - Key fields: Regulation reference, affected processes, documentation requirements
+  - Follow-up: What regulation drives this? Effective date? Training needed? System changes?
+
+IF request mentions "rate" OR "pricing" OR "lock" OR "margin"
+THEN:
+  - Department: Origination / Secondary Markets
+  - Risk Level: HIGH
+  - Dependencies: Secondary Markets approval, pricing engine update
+  - Follow-up: Rate sheet impact? Margin calculation? Lock period? Investor approval?
+
+IF request mentions "investor" OR "guideline" OR "agency" OR "Fannie" OR "Freddie" OR "FHA" OR "VA"
+THEN:
+  - Department: Underwriting
+  - Risk Level: HIGH
+  - Dependencies: Investor guideline update, AUS configuration
+  - Follow-up: Which investor? Guideline reference? Product types? Effective date?
+
+IF request mentions "closing" OR "funding" OR "wire" OR "CTC" OR "clear to close"
+THEN:
+  - Department: Closing
+  - Risk Level: HIGH (if funding-related)
+  - Follow-up: Document requirements? Authorization levels? Timing requirements? Investor delivery impact?
+
+IF request mentions "escrow" OR "taxes" OR "insurance" OR "impound"
+THEN:
+  - Department: Servicing or Closing
+  - Follow-up: Escrow items? Calculation method? Payment timing? Notice requirements?
+
+IF request mentions "delinquency" OR "default" OR "modification" OR "forbearance"
+THEN:
+  - Department: Servicing / Loss Mitigation
+  - Risk Level: HIGH
+  - Follow-up: Eligibility criteria? Timeline? Investor approval? Regulatory requirements?
+
+IF request mentions "audit" OR "exam" OR "finding" OR "violation"
+THEN:
+  - Department: Compliance
+  - Risk Level: HIGH
+  - Follow-up: Finding description? Remediation timeline? Root cause? Regulatory reporting required?
+
+================================================================================
+COMMON RESPONSIBLE PARTIES BY FUNCTION
+================================================================================
+
+ORIGINATION:
+- Loan Officer: Customer-facing, disclosures, application
+- Processor: Document collection, initial verification, submission to UW
+- Sales Manager: LO supervision, compensation, performance
+- Pricing Manager: Rate sheets, margins, lock desk oversight
+
+UNDERWRITING:
+- Underwriter: Condition issuance, approval/denial decisions
+- UW Manager: Policy interpretation, escalations
+- Chief Underwriter: Policy creation, investor relationship
+
+CLOSING:
+- Closer: Document preparation, signing coordination
+- Funding Manager: Final review, wire authorization
+- Post-Closer: Final file audit, investor delivery preparation
+- Closing Manager: Process oversight, vendor management
+
+SERVICING:
+- Servicer: Payment processing, escrow analysis, customer inquiries
+- Default Manager: Delinquency management, loss mitigation
+- Servicing Manager: Process oversight, investor reporting
+
+COMPLIANCE:
+- Compliance Officer: Policy implementation, training, monitoring
+- Compliance Manager: Program oversight, exam management
+- Fair Lending Officer: Fair lending analysis and remediation
+
+IT:
+- LOS Administrator: System configuration, user management
+- Integration Lead: API development, system integrations
+- Security Manager: Access controls, security policies
+
+================================================================================
+TESTING REQUIREMENTS BY RISK LEVEL
+================================================================================
+
+HIGH RISK (Financial, Compliance, or Operational Impact):
+- UAT required with actual users
+- Parallel testing if replacing existing functionality
+- Compliance/Legal review
+- Rollback plan documented
+- Training materials developed
+- Communication plan to stakeholders
+
+MEDIUM RISK:
+- Functional testing in test environment
+- Sample transaction validation
+- Spot-check in production
+- User notification
+
+LOW RISK:
+- Developer testing
+- Single user validation
+- Monitor in production
+
+================================================================================
+END OF GUIDELINES
+================================================================================
+
+USAGE NOTE FOR AI SYSTEMS:
+This document should be used as a reference when processing change management
+intake requests. Match the incoming request to similar examples, identify the
+correct department and responsible parties, determine risk level, and generate
+appropriate follow-up questions to gather missing information before creating
+the ADO ticket.
+
+Always capture: Title, Description, Priority, Owner, Department, Due Date,
+Impact Analysis, Stakeholders, Dependencies, Risk Level, Testing Requirements

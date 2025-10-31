@@ -163,6 +163,7 @@
   resize: vertical;
   transition: all 0.2s ease;
   background: #f9fafb;
+  color: #1f2937;
 }
 
 .wizard-textarea:focus {
@@ -170,6 +171,7 @@
   border-color: #9bc53d;
   background: white;
   box-shadow: 0 0 0 3px rgba(155, 197, 61, 0.1);
+  color: #1f2937;
 }
 
 .wizard-textarea::placeholder {

@@ -376,6 +376,95 @@ ${description}`;
   }
 
   /**
+   * Generate 1-3 relevant clarification questions based on the request
+   */
+  async generateClarificationQuestions(title: string, description: string): Promise<Array<{ question: string; placeholder: string; key: string }>> {
+    const guidelinesPath = path.join(__dirname, '..', '..', '..', 'Mortgage_Change_Management_AI_Guidelines.txt');
+    let guidelinesContent = '';
+
+    try {
+      guidelinesContent = fs.readFileSync(guidelinesPath, 'utf-8');
+    } catch (error) {
+      console.warn('Could not load guidelines file, using default behavior');
+    }
+
+    const systemPrompt = `You are an expert mortgage change management analyst. Based on the user's request, generate 1-3 highly relevant clarification questions that will help gather the most critical missing information needed to create a complete Azure DevOps ticket.
+
+${guidelinesContent}
+
+Your task:
+1. Analyze the title and description of the change request
+2. Identify the category (system/IT, compliance, underwriting, pricing, closing, servicing, policy)
+3. Determine what critical information is missing
+4. Generate 1-3 specific, actionable questions that will help complete the ticket
+5. Each question should be directly relevant to the specific request (NOT generic)
+6. Questions should help identify: affected systems, stakeholders, timeline, requirements, dependencies, risk level
+
+Return a JSON array of 1-3 question objects:
+[
+  {
+    "question": "Specific question text ending with ?",
+    "placeholder": "Example answer to guide the user",
+    "key": "snake_case_identifier"
+  }
+]
+
+IMPORTANT:
+- Questions must be specific to THIS request, not generic
+- Focus on the most critical missing information
+- Use mortgage industry terminology where appropriate
+- Keep questions clear and concise
+- Provide helpful placeholder examples`;
+
+    const userPrompt = `Request Title: ${title}
+
+Request Description: ${description}
+
+Generate 1-3 most relevant clarification questions for this specific change management request.`;
+
+    try {
+      const response = await this.openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000,
+        response_format: { type: "json_object" }
+      });
+
+      const content = response.choices[0]?.message?.content;
+      if (!content) {
+        throw new Error('No response from OpenAI');
+      }
+
+      const parsed = JSON.parse(content);
+
+      // Handle both array response and object with "questions" key
+      const questions = Array.isArray(parsed) ? parsed : (parsed.questions || []);
+
+      // Ensure we have 1-3 questions
+      return questions.slice(0, 3);
+    } catch (error) {
+      console.error('Error generating clarification questions:', error);
+      // Return default fallback questions
+      return [
+        {
+          question: 'What specific systems or processes are affected by this change?',
+          placeholder: 'e.g., Encompass LOS, underwriting workflow, payment processing...',
+          key: 'affected_systems'
+        },
+        {
+          question: 'What is the desired timeline or deadline for this change?',
+          placeholder: 'e.g., End of Q1 2024, before regulatory deadline, ASAP...',
+          key: 'timeline'
+        }
+      ];
+    }
+  }
+
+  /**
    * Recommend training courses based on user's issue description
    */
   async recommendTraining(userIssue: string): Promise<any> {

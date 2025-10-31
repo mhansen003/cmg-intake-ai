@@ -68,6 +68,17 @@ export const enhanceDescription = async (description: string): Promise<string> =
   return response.data.enhancedDescription;
 };
 
+export interface WizardQuestion {
+  question: string;
+  placeholder: string;
+  key: string;
+}
+
+export const generateWizardQuestions = async (title: string, description: string): Promise<WizardQuestion[]> => {
+  const response = await api.post('/generate-questions', { title, description });
+  return response.data.questions;
+};
+
 export interface SendSupportEmailParams {
   fromEmail: string;
   fromName?: string;
