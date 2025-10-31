@@ -171,7 +171,7 @@ function App() {
   };
 
   return (
-    <div className={`app ${isHelpExpanded ? 'help-expanded' : 'help-collapsed'}`}>
+    <div className="app">
       <header className="app-header">
         <div className="header-container">
           <div className="header-left">
@@ -199,7 +199,13 @@ function App() {
         </div>
       </header>
 
-      <main className="app-main">
+      <div className="app-content-wrapper">
+        {/* Help Guide Sidebar */}
+        <HelpGuide
+          onToggle={(expanded) => setIsHelpExpanded(expanded)}
+        />
+
+        <main className="app-main">
         {error && (
           <div className="alert alert-error">
             <strong>Error:</strong> {error}
@@ -381,6 +387,7 @@ function App() {
           </div>
         )}
       </main>
+      </div>
 
       <footer className="app-footer">
         <div className="footer-content">
@@ -429,11 +436,6 @@ function App() {
           </p>
         </div>
       </footer>
-
-      {/* Help Guide Sidebar */}
-      <HelpGuide
-        onToggle={(expanded) => setIsHelpExpanded(expanded)}
-      />
     </div>
   );
 }
