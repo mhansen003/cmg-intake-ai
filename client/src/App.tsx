@@ -14,7 +14,8 @@ import {
   generateWizardQuestions,
 } from './api';
 import type { CMGFormData, FormOptions, AnalysisResult } from './types';
-import { determineWizardQuestions, formatWizardAnswers, type WizardQuestion } from './utils/wizardQuestions';
+import { formatWizardAnswers } from './utils/wizardQuestions';
+import type { WizardQuestion } from './api';
 import './App.css';
 
 type AppStep = 'upload' | 'processing' | 'clarification' | 'wizard' | 'redirect-support' | 'redirect-training' | 'form' | 'success';
