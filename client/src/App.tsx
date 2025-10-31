@@ -386,7 +386,6 @@ function App() {
 
       {/* Help Guide Sidebar */}
       <HelpGuide
-        onWatchVideo={() => setShowSplash(true)}
         onToggle={(expanded) => setIsHelpExpanded(expanded)}
       />
 
