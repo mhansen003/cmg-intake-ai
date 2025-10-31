@@ -68,24 +68,53 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected, files }) => {
 
       {files.length > 0 && (
         <div className="file-list">
-          <h3>Selected Files ({files.length})</h3>
-          {files.map((file, index) => (
-            <div key={index} className="file-item">
-              <div className="file-info">
-                <span className="file-name">{file.name}</span>
-                <span className="file-size">
-                  {(file.size / 1024).toFixed(2)} KB
-                </span>
-              </div>
-              <button
+          <h3 className="file-list-header">Selected Files ({files.length})</h3>
+          <div className="file-cards">
+            {files.map((file, index) => (
+              <div
+                key={index}
+                className="file-card"
                 onClick={() => removeFile(index)}
-                className="remove-btn"
-                type="button"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    removeFile(index);
+                  }
+                }}
               >
-                ✕
-              </button>
-            </div>
-          ))}
+                <div className="file-card-checkbox">
+                  <svg
+                    className="checkmark-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                  </svg>
+                </div>
+                <div className="file-card-content">
+                  <div className="file-card-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                    </svg>
+                  </div>
+                  <div className="file-card-info">
+                    <span className="file-card-name">{file.name}</span>
+                    <span className="file-card-size">
+                      {(file.size / 1024).toFixed(2)} KB
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="file-list-hint">Click on a card to deselect</p>
         </div>
       )}
     </div>
