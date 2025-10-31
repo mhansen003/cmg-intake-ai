@@ -11,5 +11,23 @@
   },
   "keywords": ["cmg", "change-management", "ai", "openai"],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.10",
+    "openai": "^6.7.0",
+    "pdf-parse": "^2.4.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.9.2",
+    "@types/nodemailer": "^7.0.3",
+    "typescript": "^5.9.3"
+  }
 }
