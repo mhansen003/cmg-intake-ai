@@ -4,7 +4,6 @@ import CMGForm from './components/CMGForm';
 import ClarificationModal from './components/ClarificationModal';
 import SupportRedirect from './components/SupportRedirect';
 import TrainingRedirect from './components/TrainingRedirect';
-import SplashScreen from './components/SplashScreen';
 import HelpGuide from './components/HelpGuide';
 import {
   getFormOptions,
@@ -30,7 +29,6 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [adoWorkItem, setAdoWorkItem] = useState<{ id: number; url: string } | null>(null);
-  const [showSplash, setShowSplash] = useState(false);
   const [isHelpExpanded, setIsHelpExpanded] = useState(true);
 
   useEffect(() => {
@@ -43,12 +41,6 @@ function App() {
   }, [isHelpExpanded]);
 
   useEffect(() => {
-    // Check if this is first visit
-    const hasSeenSplash = localStorage.getItem('cmg-intake-hide-splash');
-    if (!hasSeenSplash) {
-      setShowSplash(true);
-    }
-
     // Load form options on mount
     const loadFormOptions = async () => {
       try {
@@ -400,9 +392,6 @@ function App() {
       <HelpGuide
         onToggle={(expanded) => setIsHelpExpanded(expanded)}
       />
-
-      {/* Splash Screen */}
-      {showSplash && <SplashScreen onClose={() => setShowSplash(false)} />}
     </div>
   );
 }
