@@ -201,36 +201,65 @@ Based on the detected scenario type(s), you should generate intelligent follow-u
 ${guidelineQuestions.length > 0 ? guidelineQuestions.map((q, i) => `${i + 1}. ${q}`).join('\n') : 'Standard clarification questions'}
 
 IMPORTANT - REQUEST TYPE CLASSIFICATION:
-Before filling out the form, first classify this request into ONE of these categories.
+Before filling out the form, first classify this request into ONE of these categories using intelligent analysis of the user's intent.
 
-**TRAINING PRIORITY**: If the user's request could potentially be addressed through training or education, strongly prefer "training" classification. We want to empower users with knowledge rather than just fixing immediate issues.
+**CLASSIFICATION STRATEGY**:
+- First, identify if the request requires ADMINISTRATIVE ACTION (support) vs. KNOWLEDGE/LEARNING (training)
+- Pay close attention to "I need..." and "How do I..." patterns - they have different meanings
+- "I need access/password/permissions" = SUPPORT (requires admin action)
+- "How do I use/do/configure" = TRAINING (requires knowledge)
 
-1. "training" - This is a Training request (PRIORITIZE THIS WHEN APPLICABLE):
-   - User asking how to use a feature, process, or system
-   - Questions about workflows, procedures, or business processes
-   - "How do I do X?" or "I don't know how to..." questions
-   - User needs help understanding a concept (e.g., leaseholds, appraisals, underwriting)
-   - Requests about specific loan types, products, or operations
-   - "Where can I learn about..." questions
-   - User mentions not knowing how to perform a task
-   - Questions that could be answered with proper training
-   - Certification or training program inquiries
-   - Even if they also need immediate help, training may prevent future issues
-
-2. "support" - This is an Application Support issue (only if NOT trainable):
+1. "support" - Application Support issues requiring ADMINISTRATIVE or TECHNICAL ACTION:
+   ✅ SUPPORT INDICATORS (route to App Support):
+   - "I need to reset my password" → Admin must reset it
+   - "I need access to [system/feature]" → Admin must grant access
+   - "I need permission to [do something]" → Admin must grant permission
+   - "My account is locked" → Admin must unlock it
+   - "I can't log in" → Technical access issue
    - System is completely down or broken
-   - User CANNOT access a system due to technical error
-   - Password resets, permission issues (technical access problems)
-   - Specific error messages or system failures
-   - Time-sensitive production issues that need immediate fixing
-   - Clear technical bugs that training won't solve
+   - User is BLOCKED from working due to technical error
+   - Specific error messages preventing work
+   - Time-sensitive production issues needing immediate fixing
+   - Clear technical bugs that only IT can resolve
+   - Password resets, account unlocks, permission grants
+   - ANY request that requires someone with admin privileges to take action
 
-3. "change" - This is a legitimate Change Management request (only for system changes):
+   KEY RULE: If the user needs someone else to DO something for them (not teach them), it's SUPPORT
+
+2. "training" - Training requests for LEARNING how to use existing features:
+   ✅ TRAINING INDICATORS (route to Training):
+   - "How do I use [feature]?" → Needs to learn the feature
+   - "How do I process [something]?" → Needs workflow training
+   - "I don't know how to..." → Knowledge gap
+   - "What is a [concept]?" → Needs education
+   - "Where can I learn about..." → Explicitly asking for training
+   - Questions about workflows, procedures, or business processes
+   - Understanding concepts (e.g., leaseholds, appraisals, underwriting)
+   - Learning about loan types, products, or operations
+   - Certification or training program inquiries
+   - User already has access but doesn't know how to use it
+
+   KEY RULE: If training/education could solve the problem, it's TRAINING
+
+3. "change" - Change Management requests for SYSTEM MODIFICATIONS:
+   ✅ CHANGE INDICATORS (route to Change Management):
+   - "Can we add [new feature]?" → System enhancement
+   - "This feature should work differently" → Modification request
+   - "We need a new integration" → System change
    - Software/system changes (new features, enhancements, configurations)
    - Bug fixes or defect corrections requiring code changes
-   - Process changes that require IT/system modifications
+   - Process changes requiring IT/system modifications
    - Compliance or regulatory changes requiring system updates
-   - Request to build something new or modify existing systems
+   - Building something new or modifying existing systems
+
+   KEY RULE: If it requires changing/building software or system configuration, it's CHANGE
+
+**CRITICAL DECISION TREE FOR "I NEED..." STATEMENTS:**
+- "I need to reset my password" → SUPPORT (admin action required)
+- "I need access to [system]" → SUPPORT (permission grant required)
+- "I need to know how to..." → TRAINING (learning required)
+- "I need help understanding..." → TRAINING (education required)
+- "I need [system] to have [feature]" → CHANGE (system modification required)
 
 Return your response as a JSON object with this exact structure:
 {
